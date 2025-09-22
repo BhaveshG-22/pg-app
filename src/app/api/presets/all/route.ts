@@ -43,4 +43,4 @@ export async function GET() {
   }
 }
 
-export const revalidate = 300 // 5 minutes
+export const dynamic = 'force-dynamic' // Prevent static generation during build
