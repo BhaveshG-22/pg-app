@@ -1,0 +1,1024 @@
+{
+    "prompts": [
+        {
+            "id": 1,
+            "title": "Fashion Shoot Portrait",
+            "description": "Transform your photos into professional fashion editorial shots with cinematic lighting and clean backgrounds.",
+            "badge": "📸 AI Fashion Filter",
+            "badgeColor": "bg-purple-100 text-purple-800 border-purple-200",
+            "beforeImage": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=400&fit=crop&sat=2&hue=120",
+            "credits": 3,
+            "slug": "fashion-shoot-portrait",
+            "prompt": "He stands casually with hands in his pockets against a clean gradient background ((gradient)), looking straight at the camera. No text or logos in the background. Use shallow depth of field. Shot on a ((camera_model)) + ((lens)), ((lighting)), ((resolution)), cinematic editorial fashion shoot style.",
+            "variables": [
+                "gradient",
+                "camera_model",
+                "lens",
+                "lighting",
+                "resolution"
+            ],
+            "inputFields": [
+                { "label": "Background Gradient", "placeholder": "soft blue, warm gold, dramatic black" },
+                { "label": "Camera Model", "placeholder": "Canon EOS R5, Sony A7R IV, Nikon Z9" },
+                { "label": "Lens Type", "placeholder": "85mm f/1.4, 50mm f/1.2, 24-70mm f/2.8" },
+                { "label": "Lighting Style", "placeholder": "natural window light, studio strobes, golden hour" },
+                { "label": "Resolution", "placeholder": "8K, 4K, ultra high-res" }
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Embroidery Patch",
+            "description": "Transform logos and designs into realistic embroidered patches with raised stitching and authentic texture.",
+            "badge": "🧵 AI Embroidery Filter",
+            "badgeColor": "bg-orange-100 text-orange-800 border-orange-200",
+            "beforeImage": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=350&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=350&fit=crop&sat=2&hue=180",
+            "credits": 2,
+            "slug": "embroidery-patch",
+            "prompt": "Create a highly detailed embroidered patch of the ((uploaded_logo)). The patch should feature raised stitching and textured embroidery, giving it a realistic, 3D look. Maintain accurate colors and logo proportions. Present the patch isolated on a transparent PNG background, without any fabric or surface beneath it. Make it look like a professionally made logo patch ready for ((use_case)).",
+            "variables": [
+                "uploaded_logo",
+                "use_case"
+            ],
+            "inputFields": [
+                { "label": "Logo Design", "placeholder": "company logo, band name, custom artwork" },
+                { "label": "Use Case", "placeholder": "jacket patches, backpack decoration, uniform badges" }
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Red Gradient Fashion Portrait",
+            "description": "Create dramatic fashion magazine-style portraits with cinematic lighting and luxury aesthetics.",
+            "badge": "🌟 AI Portrait Filter",
+            "badgeColor": "bg-red-100 text-red-800 border-red-200",
+            "beforeImage": "https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=300&h=450&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=300&h=450&fit=crop&sat=2&hue=240",
+            "credits": 4,
+            "slug": "red-gradient-fashion-portrait",
+            "prompt": "A highly stylized portrait of ((subject)) with sharp features, flawless fair skin, wearing a ((outfit)), and standing against a ((background)), confidently. The lighting is dramatic and cinematic, emphasizing ((focus_area)) and giving a luxury fashion magazine vibe. Ultra-realistic, high-detail, editorial photography style. ((resolution)), symmetrical composition, minimal background elements. ((aspect_ratio))",
+            "variables": [
+                "subject",
+                "outfit",
+                "background",
+                "focus_area",
+                "resolution",
+                "aspect_ratio"
+            ],
+            "inputFields": [
+                { "label": "Subject Description", "placeholder": "young man, professional woman, model" },
+                { "label": "Outfit Style", "placeholder": "black suit, elegant dress, casual streetwear" },
+                { "label": "Background", "placeholder": "red gradient, urban setting, studio backdrop" },
+                { "label": "Focus Area", "placeholder": "eyes and expression, full body pose, upper torso" }
+            ]
+        },
+        {
+            "id": 4,
+            "title": "Fisheye Anime Selfie",
+            "description": "Create ultra-realistic fisheye selfies with anime characters in creative room settings.",
+            "badge": "🎌 AI Anime Filter",
+            "badgeColor": "bg-pink-100 text-pink-800 border-pink-200",
+            "beforeImage": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=300&h=400&fit=crop&sat=2&hue=300",
+            "credits": 5,
+            "slug": "fisheye-anime-selfie",
+            "prompt": "ULTRA-REALISTIC ((aspect_ratio)) FISHEYE SELFIE OF ME WITH ((characters)). WE'RE ALL MAKING ((expression)). SET IN A ((room_description)). ((camera_angle)). ((distortion)). ((lighting)), ((style)).",
+            "variables": [
+                "aspect_ratio",
+                "characters",
+                "expression",
+                "room_description",
+                "camera_angle",
+                "distortion",
+                "lighting",
+                "style"
+            ],
+            "inputFields": [
+                { "label": "Aspect Ratio", "placeholder": "9:16, 16:9, 1:1" },
+                { "label": "Anime Characters", "placeholder": "Naruto and Goku, Sailor Moon, Attack on Titan crew" },
+                { "label": "Expression", "placeholder": "silly faces, peace signs, laughing" },
+                { "label": "Room Setting", "placeholder": "bedroom, gaming room, anime poster wall" },
+                { "label": "Camera Angle", "placeholder": "high angle, low angle, center view" },
+                { "label": "Distortion Level", "placeholder": "extreme fisheye, moderate curve, subtle wide" },
+                { "label": "Lighting", "placeholder": "natural light, neon glow, soft ambient" },
+                { "label": "Style", "placeholder": "photorealistic anime, hybrid style, cartoon blend" }
+            ]
+        },
+        {
+            "id": 5,
+            "title": "BW Editorial Portrait",
+            "description": "Transform selfies into powerful black and white editorial portraits with dramatic studio lighting.",
+            "badge": "⚫ AI B&W Filter",
+            "badgeColor": "bg-gray-100 text-gray-800 border-gray-200",
+            "beforeImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop&sat=-100&con=30",
+            "credits": 4,
+            "slug": "bw-editorial-portrait",
+            "prompt": "Create a high-end black and white portrait using my ((input_image)). The face must remain exactly as in on my original selfie — no editing, no retouching, no smoothing. I'm wearing ((outfit)). Preserve every facial detail and texture for a raw, authentic look. The lighting should be dramatic and studio-quality, using ((lighting_style)) to sculpt the features. Use a ((background_style)). Frame the portrait vertically ((aspect_ratio)), centered composition, with ultra-realistic skin texture and depth. No digital makeup or alterations. The final result should look timeless, editorial, and emotionally powerful — suitable for a ((usage)).",
+            "variables": [
+                "input_image",
+                "outfit",
+                "lighting_style",
+                "background_style",
+                "aspect_ratio",
+                "usage"
+            ],
+            "inputFields": [
+                { "label": "Input Image", "placeholder": "upload your selfie" },
+                { "label": "Outfit", "placeholder": "black turtleneck, white shirt, leather jacket" },
+                { "label": "Lighting Style", "placeholder": "Rembrandt lighting, key light, dramatic shadows" },
+                { "label": "Background Style", "placeholder": "seamless white, dark gradient, textured wall" },
+                { "label": "Aspect Ratio", "placeholder": "3:4, 4:5, 2:3" },
+                { "label": "Usage", "placeholder": "magazine cover, portfolio, social media" }
+            ]
+        },
+        {
+            "id": 6,
+            "title": "Hyper-Detailed Graphic Poster",
+            "description": "Create striking graphic design posters with bold typography and detailed portrait work.",
+            "badge": "🎨 AI Graphic Filter",
+            "badgeColor": "bg-blue-100 text-blue-800 border-blue-200",
+            "beforeImage": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop&sat=2&hue=200",
+            "credits": 6,
+            "slug": "hyper-detailed-graphic-poster",
+            "prompt": "CREATE A HYPER-DETAILED GRAPHIC DESIGN FEATURING A STRIKING PORTRAIT OF A YOUNG MAN WITH THE SAME FACE AS ((reference_face)) WITH A CONFIDENT DEMEANOUR. HIS HEAD IS ADORNED WITH ((hair_detail)). THE PORTRAIT IS RENDERED IN ((style)), STANDING OUT AGAINST ((background)). EXPRESSION IS ((expression)). ((overlay_elements)). ((typography)). ((design_elements)). ((quote)). ((signature_style)). ((lighting)). ((camera_details)). ((output_quality)).",
+            "variables": [
+                "reference_face",
+                "hair_detail",
+                "style",
+                "background",
+                "expression",
+                "overlay_elements",
+                "typography",
+                "design_elements",
+                "quote",
+                "signature_style",
+                "lighting",
+                "camera_details",
+                "output_quality"
+            ],
+            "inputFields": [
+                { "label": "Reference Face", "placeholder": "upload reference image" },
+                { "label": "Hair Detail", "placeholder": "crown of thorns, geometric patterns, floral elements" },
+                { "label": "Art Style", "placeholder": "hyperrealistic, pop art, street art style" },
+                { "label": "Background", "placeholder": "abstract shapes, city skyline, geometric patterns" },
+                { "label": "Expression", "placeholder": "confident stare, contemplative, fierce determination" },
+                { "label": "Overlay Elements", "placeholder": "geometric shapes, light rays, texture overlays" },
+                { "label": "Typography", "placeholder": "bold sans-serif, grunge style, minimal text" },
+                { "label": "Design Elements", "placeholder": "borders, frames, decorative accents" },
+                { "label": "Quote Text", "placeholder": "inspirational quote, brand slogan, personal motto" },
+                { "label": "Signature Style", "placeholder": "urban, minimalist, maximalist" },
+                { "label": "Lighting", "placeholder": "dramatic studio, natural light, neon accents" },
+                { "label": "Camera Details", "placeholder": "50mm lens, wide angle, macro detail" }
+            ]
+        },
+        {
+            "id": 7,
+            "title": "Moody White Portrait on Stool",
+            "description": "Create minimalist portrait sessions with clean backgrounds and sophisticated lighting setups.",
+            "badge": "🪑 AI Studio Filter",
+            "badgeColor": "bg-indigo-100 text-indigo-800 border-indigo-200",
+            "beforeImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop&sat=-20&con=20",
+            "credits": 3,
+            "slug": "moody-white-portrait-stool",
+            "prompt": "Create an image of a white portrait of a confident looking man sitting on a ((seating)) against a ((background)). He is wearing ((outfit)) with ((accessories)). His posture is ((posture)). ((lighting_description)).",
+            "variables": [
+                "seating",
+                "background",
+                "outfit",
+                "accessories",
+                "posture",
+                "lighting_description"
+            ],
+            "inputFields": [
+                { "label": "Seating", "placeholder": "modern stool, vintage chair, bar stool" },
+                { "label": "Background", "placeholder": "seamless white, concrete wall, gradient backdrop" },
+                { "label": "Outfit", "placeholder": "casual shirt, formal blazer, minimalist tee" },
+                { "label": "Accessories", "placeholder": "watch and ring, glasses, chain necklace" },
+                { "label": "Posture", "placeholder": "relaxed confidence, leaning forward, arms crossed" },
+                { "label": "Lighting", "placeholder": "soft key light from left, dramatic shadows, even studio lighting" }
+            ]
+        },
+        {
+            "id": 8,
+            "title": "Cinematic Street Portrait",
+            "description": "Transform photos into moody black and white street photography with film-like qualities.",
+            "badge": "🎬 AI Cinema Filter",
+            "badgeColor": "bg-yellow-100 text-yellow-800 border-yellow-200",
+            "beforeImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop&sat=-100&con=40",
+            "credits": 4,
+            "slug": "cinematic-street-portrait",
+            "prompt": "Black and white cinematic street portrait of a young man with ((hair)), ((facial_features)), and ((accessories)). He wears ((outfit)). ((lighting)), ((background_effects)), confident expression, ((style_vibe)), ((aspect_ratio)), ((depth_of_field)), ((film_effect)).",
+            "variables": [
+                "hair",
+                "facial_features",
+                "accessories",
+                "outfit",
+                "lighting",
+                "background_effects",
+                "style_vibe",
+                "aspect_ratio",
+                "depth_of_field",
+                "film_effect"
+            ],
+            "inputFields": [
+                { "label": "Hair Style", "placeholder": "messy waves, slicked back, natural texture" },
+                { "label": "Facial Features", "placeholder": "strong jawline, beard, clean shaven" },
+                { "label": "Accessories", "placeholder": "round sunglasses, chain necklace, earrings" },
+                { "label": "Outfit", "placeholder": "leather jacket, denim shirt, black turtleneck" },
+                { "label": "Lighting", "placeholder": "harsh shadows, golden hour, street lamp glow" },
+                { "label": "Background Effects", "placeholder": "bokeh lights, urban blur, foggy atmosphere" },
+                { "label": "Style Vibe", "placeholder": "noir detective, modern rebel, vintage cool" },
+                { "label": "Aspect Ratio", "placeholder": "16:9, 3:2, square 1:1" }
+            ]
+        },
+        {
+            "id": 9,
+            "title": "3D Landmarks Map",
+            "description": "Create miniature 3D landscapes featuring famous landmarks on vintage map backgrounds.",
+            "badge": "🗺️ AI Map Filter",
+            "badgeColor": "bg-green-100 text-green-800 border-green-200",
+            "beforeImage": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=350&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=350&fit=crop&sat=1.5&hue=90",
+            "credits": 5,
+            "slug": "3d-landmarks-map",
+            "prompt": "A close-up photograph of a large map. All landmarks set on a vintage ((country_name)) map background. Write the country name with capital letters. A miniature 3D landscape is sculpted in ((material)), featuring most iconic and famous landmarks and architectural forms from ((country_name)). ((trees_effect)). Creating a surreal, cozy atmosphere.",
+            "variables": [
+                "country_name",
+                "material",
+                "trees_effect"
+            ],
+            "inputFields": [
+                { "label": "Country Name", "placeholder": "FRANCE, JAPAN, ITALY" },
+                { "label": "Material", "placeholder": "clay, paper craft, wood carving" },
+                { "label": "Trees Effect", "placeholder": "miniature forest, scattered greenery, topographic vegetation" }
+            ]
+        },
+        {
+            "id": 10,
+            "title": "Moody Golden Spotlight Portrait",
+            "description": "Create dramatic studio portraits with golden lighting and cinematic shadow work.",
+            "badge": "💡 AI Spotlight Filter",
+            "badgeColor": "bg-amber-100 text-amber-800 border-amber-200",
+            "beforeImage": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=400&fit=crop&sat=1.3&hue=45",
+            "credits": 4,
+            "slug": "moody-golden-spotlight-portrait",
+            "prompt": "Create a moody portrait with dramatic studio lighting. The subject should stand slightly off-center in front of a ((spotlight)). Use ((shadow_style)) and a cinematic feel. The subject must wear ((outfit)), have ((hairstyle)), and no glasses or facial hair. ((light_direction)). ((aspect_ratio)), ((camera_instructions)).",
+            "variables": [
+                "spotlight",
+                "shadow_style",
+                "outfit",
+                "hairstyle",
+                "light_direction",
+                "aspect_ratio",
+                "camera_instructions"
+            ],
+            "inputFields": [
+                { "label": "Spotlight Type", "placeholder": "warm golden beam, harsh white light, colored gel" },
+                { "label": "Shadow Style", "placeholder": "dramatic hard shadows, soft gradient shadows, venetian blind effect" },
+                { "label": "Outfit", "placeholder": "black suit, white shirt, casual tee" },
+                { "label": "Hairstyle", "placeholder": "slicked back, natural waves, textured short" },
+                { "label": "Light Direction", "placeholder": "from above left, side lighting, backlighting" },
+                { "label": "Aspect Ratio", "placeholder": "3:4 portrait, 16:9 cinematic, 1:1 square" }
+            ]
+        },
+        {
+            "id": 11,
+            "title": "Neon Water Portrait",
+            "description": "Create hyper-realistic portraits with neon lighting reflections and water effects.",
+            "badge": "💧 AI Neon Filter",
+            "badgeColor": "bg-cyan-100 text-cyan-800 border-cyan-200",
+            "beforeImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop&sat=2&hue=180",
+            "credits": 6,
+            "slug": "neon-water-portrait",
+            "prompt": "A hyper-realistic close-up portrait of ((subject)), with only the ((visible_face_side)) visible and partially submerged in ((element)). The scene is illuminated dramatically with ((lighting_colors)), casting colorful reflections on ((skin_condition)) and ((hair_condition)). ((water_effects)) cling to ((subject_face)), enhancing the cinematic mood. The ((skin_details)) and ((eye_expression)) are clearly visible.",
+            "variables": [
+                "subject",
+                "visible_face_side",
+                "element",
+                "lighting_colors",
+                "skin_condition",
+                "hair_condition",
+                "water_effects",
+                "subject_face",
+                "skin_details",
+                "eye_expression"
+            ],
+            "inputFields": [
+                { "label": "Subject", "placeholder": "young man, woman, model" },
+                { "label": "Visible Face Side", "placeholder": "left half, right profile, three-quarter view" },
+                { "label": "Element", "placeholder": "crystal clear water, colored liquid, oil" },
+                { "label": "Lighting Colors", "placeholder": "neon blue and pink, purple and gold, cyan and magenta" },
+                { "label": "Skin Condition", "placeholder": "wet glistening skin, dry contrasted areas, textured surface" },
+                { "label": "Hair Condition", "placeholder": "wet slicked hair, partially submerged, floating strands" },
+                { "label": "Water Effects", "placeholder": "droplets, ripples, surface tension" },
+                { "label": "Eye Expression", "placeholder": "intense gaze, contemplative look, mysterious stare" }
+            ]
+        },
+        {
+            "id": 12,
+            "title": "Surreal Roof with Moon",
+            "description": "Transform photos into surreal nighttime scenes with dramatic sky backdrops and urban settings.",
+            "badge": "🌙 AI Surreal Filter",
+            "badgeColor": "bg-purple-100 text-purple-800 border-purple-200",
+            "beforeImage": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop&sat=1.5&hue=270",
+            "credits": 5,
+            "slug": "surreal-roof-moon",
+            "prompt": "Create a surreal ultra-HD digital hyper-detailed image based on the photo I sent. It should depict ((subject_age)) sitting on ((setting)) at ((time_of_day)). He appears to be holding ((object)) with ((sky_details)) as the backdrop. In the background, there are ((city_description)). The atmosphere is ((mood_description)), with ((color_scheme)).",
+            "variables": [
+                "subject_age",
+                "setting",
+                "time_of_day",
+                "object",
+                "sky_details",
+                "city_description",
+                "mood_description",
+                "color_scheme"
+            ],
+            "inputFields": [
+                { "label": "Subject Age", "placeholder": "a young man, teenager, adult" },
+                { "label": "Setting", "placeholder": "rooftop edge, building ledge, balcony railing" },
+                { "label": "Time of Day", "placeholder": "midnight, twilight, dawn" },
+                { "label": "Object", "placeholder": "smartphone, book, coffee cup" },
+                { "label": "Sky Details", "placeholder": "giant moon, starry night, aurora colors" },
+                { "label": "City Description", "placeholder": "glowing skyscrapers, distant lights, urban sprawl" },
+                { "label": "Mood", "placeholder": "contemplative, mysterious, peaceful" },
+                { "label": "Color Scheme", "placeholder": "blue and purple tones, warm amber, cool cyan" }
+            ]
+        },
+        {
+            "id": 13,
+            "title": "Fisheye Intersection Portrait",
+            "description": "Create unique overhead fisheye shots with urban intersection backgrounds.",
+            "badge": "🛣️ AI Fisheye Filter",
+            "badgeColor": "bg-slate-100 text-slate-800 border-slate-200",
+            "beforeImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop&sat=1.2&hue=15",
+            "credits": 4,
+            "slug": "fisheye-intersection-portrait",
+            "prompt": "Ultra-realistic 9:16 vertical format fisheye overhead shot of ((subject)) (from the sent image) standing in the center of a ((location)).",
+            "variables": [
+                "subject",
+                "location"
+            ],
+            "inputFields": [
+                { "label": "Subject", "placeholder": "confident man, stylish person, model" },
+                { "label": "Location", "placeholder": "busy intersection, crosswalk, city square" }
+            ]
+        },
+        {
+            "id": 14,
+            "title": "Police Lights Hero Pose",
+            "description": "Create dramatic hero-style portraits with emergency vehicle lighting and confident poses.",
+            "badge": "🚨 AI Hero Filter",
+            "badgeColor": "bg-red-100 text-red-800 border-red-200",
+            "beforeImage": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=400&fit=crop&sat=1.8&hue=0",
+            "credits": 5,
+            "slug": "police-lights-hero-pose",
+            "prompt": "A confident man ((subject_reference)) in a ((outfit)), leaning on a ((vehicle)) with ((light_colors)) flashing. ((lighting_style)), ((expression)), hero-style pose, studio background with ((shadow_description)).",
+            "variables": [
+                "subject_reference",
+                "outfit",
+                "vehicle",
+                "light_colors",
+                "lighting_style",
+                "expression",
+                "shadow_description"
+            ],
+            "inputFields": [
+                { "label": "Subject Reference", "placeholder": "from uploaded image, strong jawline, athletic build" },
+                { "label": "Outfit", "placeholder": "leather jacket, police uniform, tactical gear" },
+                { "label": "Vehicle", "placeholder": "police car, motorcycle, SUV" },
+                { "label": "Light Colors", "placeholder": "red and blue, amber warning, white strobes" },
+                { "label": "Lighting Style", "placeholder": "dramatic backlighting, side key light, rim lighting" },
+                { "label": "Expression", "placeholder": "determined stare, confident smile, serious focus" },
+                { "label": "Shadow Description", "placeholder": "long dramatic shadows, soft diffused, harsh contrast" }
+            ]
+        },
+        {
+            "id": 15,
+            "title": "Stranger Things Poster",
+            "description": "Transform selfies into retro sci-fi movie posters with 80s aesthetic and supernatural elements.",
+            "badge": "👾 AI Sci-Fi Filter",
+            "badgeColor": "bg-red-100 text-red-800 border-red-200",
+            "beforeImage": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=300&h=400&fit=crop&sat=1.5&hue=350",
+            "credits": 7,
+            "slug": "stranger-things-poster",
+            "prompt": "Part 1 - Transform this selfie into a cinematic ((style)) poster with ((accuracy)). Place the person ((position)) looking slightly upwards with ((glow_effect)). Below them, create a ((scene_description)) with ((creatures)), ((surroundings)). Use ((ground_details)). Part 2 - ((apocalyptic_scene)) and an apocalyptic ((sky)). Don't change my face, keep it same. Add the text '((main_text))' in a ((font_style)) at the center, and the '((logo_text))' at the bottom, with ((season_number)) underneath. Stylized like ((poster_reference)).",
+            "variables": [
+                "style",
+                "accuracy",
+                "position",
+                "glow_effect",
+                "scene_description",
+                "creatures",
+                "surroundings",
+                "ground_details",
+                "apocalyptic_scene",
+                "sky",
+                "main_text",
+                "font_style",
+                "logo_text",
+                "season_number",
+                "poster_reference"
+            ],
+            "inputFields": [
+                { "label": "Style", "placeholder": "80s sci-fi, horror thriller, supernatural drama" },
+                { "label": "Accuracy", "placeholder": "exact face match, preserve features, no alterations" },
+                { "label": "Position", "placeholder": "center frame, slightly left, heroic stance" },
+                { "label": "Glow Effect", "placeholder": "supernatural aura, red glow, blue energy" },
+                { "label": "Scene Description", "placeholder": "upside down world, dark forest, abandoned town" },
+                { "label": "Creatures", "placeholder": "demogorgons, shadow monsters, mysterious figures" },
+                { "label": "Surroundings", "placeholder": "dead trees, fog, flickering lights" },
+                { "label": "Ground Details", "placeholder": "cracked earth, fallen leaves, mysterious portals" },
+                { "label": "Main Text", "placeholder": "STRANGER THINGS, DARK SECRETS, THE UPSIDE DOWN" },
+                { "label": "Font Style", "placeholder": "retro sci-fi, horror movie, 80s neon" },
+                { "label": "Logo Text", "placeholder": "Netflix Original, Studios Present, Coming Soon" },
+                { "label": "Season Number", "placeholder": "Season 5, Final Season, Chapter One" },
+                { "label": "Poster Reference", "placeholder": "Stranger Things official, 80s movie poster, retro horror" }
+            ]
+        },
+        {
+            "id": 16,
+            "title": "Hanuman Hug",
+            "description": "Create spiritual and mythological scenes with divine blessing interactions.",
+            "badge": "🙏 AI Spiritual Filter",
+            "badgeColor": "bg-orange-100 text-orange-800 border-orange-200",
+            "beforeImage": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=400&fit=crop&sat=1.3&hue=30",
+            "credits": 5,
+            "slug": "hanuman-hug",
+            "prompt": "Create a realistic image of characters of ((reference_image)) who is giving hug to ((mythical_figure)) and ((mythical_figure)) is also providing hug and blessing. The scene must be located in ((environment)). The image should look like ((style)).",
+            "variables": [
+                "reference_image",
+                "mythical_figure",
+                "environment",
+                "style"
+            ],
+            "inputFields": [
+                { "label": "Reference Image", "placeholder": "upload your photo" },
+                { "label": "Mythical Figure", "placeholder": "Hanuman, Lord Ganesha, Buddha" },
+                { "label": "Environment", "placeholder": "temple courtyard, mountain peak, sacred forest" },
+                { "label": "Style", "placeholder": "photorealistic art, divine painting, cinematic render" }
+            ]
+        },
+        {
+            "id": 17,
+            "title": "Nike BW Poster",
+            "description": "Create athletic brand-style black and white posters with motivational text and graphic elements.",
+            "badge": "⚡ AI Athletic Filter",
+            "badgeColor": "bg-gray-100 text-gray-800 border-gray-200",
+            "beforeImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop&sat=-100&con=40",
+            "credits": 4,
+            "slug": "nike-bw-poster",
+            "prompt": "Black & white portrait of ((subject)), wearing ((outfit)). Add ((graphic_element)) over one eye. Background: ((background_style)) with ((graphic_items)) like '((tagline))' text on the side. Bottom text: ((bottom_quote_1)) / ((bottom_quote_2)) / ((hashtag)) / ((footer_text)).",
+            "variables": [
+                "subject",
+                "outfit",
+                "graphic_element",
+                "background_style",
+                "graphic_items",
+                "tagline",
+                "bottom_quote_1",
+                "bottom_quote_2",
+                "hashtag",
+                "footer_text"
+            ],
+            "inputFields": [
+                { "label": "Subject", "placeholder": "athletic person, determined individual, sports model" },
+                { "label": "Outfit", "placeholder": "Nike sportswear, athletic gear, training clothes" },
+                { "label": "Graphic Element", "placeholder": "Nike swoosh, geometric shape, bold line" },
+                { "label": "Background Style", "placeholder": "clean minimal, urban texture, gradient fade" },
+                { "label": "Graphic Items", "placeholder": "motivational quotes, brand elements, typography" },
+                { "label": "Tagline", "placeholder": "JUST DO IT, FIND YOUR GREATNESS, NO EXCUSES" },
+                { "label": "Bottom Quote 1", "placeholder": "PUSH LIMITS, BREAK BARRIERS, NEVER SETTLE" },
+                { "label": "Bottom Quote 2", "placeholder": "TRAIN HARDER, DREAM BIGGER, ACHIEVE MORE" },
+                { "label": "Hashtag", "placeholder": "#JustDoIt, #NoLimits, #TrainHard" },
+                { "label": "Footer Text", "placeholder": "Nike.com, swoosh logo, brand signature" }
+            ]
+        },
+        {
+            "id": 18,
+            "title": "Funny Vespa Chase (Part 1)",
+            "description": "Create humorous action scenes with vintage scooters and playful chase dynamics.",
+            "badge": "🛵 AI Comedy Filter",
+            "badgeColor": "bg-yellow-100 text-yellow-800 border-yellow-200",
+            "beforeImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop&sat=1.5&hue=50",
+            "credits": 5,
+            "slug": "funny-vespa-chase-part1",
+            "prompt": "Create a humorous, cinematic image of ((subject)) riding a ((vehicle)) at high speed on ((terrain)) surrounded by ((background)). The person looks ((expression)), with ((motion_effects)), while being chased by ((chasing_elements)). One of the dogs is ((special_dog_action)).",
+            "variables": [
+                "subject",
+                "vehicle",
+                "terrain",
+                "background",
+                "expression",
+                "motion_effects",
+                "chasing_elements",
+                "special_dog_action"
+            ],
+            "inputFields": [
+                { "label": "Subject", "placeholder": "panicked rider, determined escapist, comedy character" },
+                { "label": "Vehicle", "placeholder": "vintage Vespa, colorful scooter, retro motorcycle" },
+                { "label": "Terrain", "placeholder": "cobblestone street, winding path, busy marketplace" },
+                { "label": "Background", "placeholder": "Italian village, urban setting, countryside" },
+                { "label": "Expression", "placeholder": "hilariously panicked, determined focus, comedic shock" },
+                { "label": "Motion Effects", "placeholder": "speed lines, dust clouds, blurred background" },
+                { "label": "Chasing Elements", "placeholder": "pack of dogs, angry vendors, comedic pursuers" },
+                { "label": "Special Dog Action", "placeholder": "jumping dramatically, barking mid-air, running sideways" }
+            ]
+        },
+        {
+            "id": 19,
+            "title": "Funny Vespa Chase (Part 2)",
+            "description": "Continue the comedy chase scene with enhanced atmospheric effects and face replacement.",
+            "badge": "🛵 AI Comedy Filter",
+            "badgeColor": "bg-yellow-100 text-yellow-800 border-yellow-200",
+            "beforeImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop&sat=1.5&hue=50",
+            "credits": 5,
+            "slug": "funny-vespa-chase-part2",
+            "prompt": "The scene is full of ((atmosphere_effects)). The ((vehicle)) is ((vehicle_pose)), and the person's clothes are ((clothing_motion)). Replace the original rider's face with ((uploaded_image)), keeping ((expression_type)). Ensure ((visual_match)). Image aspect: ((aspect_ratio)).",
+            "variables": [
+                "atmosphere_effects",
+                "vehicle",
+                "vehicle_pose",
+                "clothing_motion",
+                "uploaded_image",
+                "expression_type",
+                "visual_match",
+                "aspect_ratio"
+            ],
+            "inputFields": [
+                { "label": "Atmosphere Effects", "placeholder": "dust clouds, motion blur, comedic chaos" },
+                { "label": "Vehicle", "placeholder": "tilted Vespa, leaning scooter, wobbly bike" },
+                { "label": "Vehicle Pose", "placeholder": "mid-lean, airborne moment, dramatic angle" },
+                { "label": "Clothing Motion", "placeholder": "flapping dramatically, billowing in wind, comedic flutter" },
+                { "label": "Uploaded Image", "placeholder": "your face from uploaded photo" },
+                { "label": "Expression Type", "placeholder": "panicked comedy, determined focus, surprised shock" },
+                { "label": "Visual Match", "placeholder": "perfect face integration, natural lighting match, seamless blend" },
+                { "label": "Aspect Ratio", "placeholder": "16:9 cinematic, 4:3 classic, 9:16 vertical" }
+            ]
+        },
+        {
+            "id": 20,
+            "title": "Rain Window Reflection",
+            "description": "Create moody atmospheric portraits with rain effects and window reflections.",
+            "badge": "🌧️ AI Mood Filter",
+            "badgeColor": "bg-blue-100 text-blue-800 border-blue-200",
+            "beforeImage": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop&sat=0.7&hue=210",
+            "credits": 6,
+            "slug": "rain-window-reflection",
+            "prompt": "A highly realistic editorial portrait of ((subject)) standing behind ((object)) at ((time_of_day)). ((weather_effects)) create soft bokeh from ((light_sources)). Face is partially visible through the glass with ((expression)). He wears ((outfit)) and rests his forehead gently. The lighting is ((lighting_description)). The background glows with ((background_lighting)). Format: ((aspect_ratio)), mood: ((vibe)).",
+            "variables": [
+                "subject",
+                "object",
+                "time_of_day",
+                "weather_effects",
+                "light_sources",
+                "expression",
+                "outfit",
+                "lighting_description",
+                "background_lighting",
+                "aspect_ratio",
+                "vibe"
+            ],
+            "inputFields": [
+                { "label": "Subject", "placeholder": "contemplative person, pensive individual, thoughtful character" },
+                { "label": "Object", "placeholder": "rain-streaked window, glass door, car windshield" },
+                { "label": "Time of Day", "placeholder": "evening twilight, late night, early morning" },
+                { "label": "Weather Effects", "placeholder": "heavy raindrops, light drizzle, storm patterns" },
+                { "label": "Light Sources", "placeholder": "street lamps, neon signs, warm interior glow" },
+                { "label": "Expression", "placeholder": "melancholic thoughts, peaceful reflection, gentle sadness" },
+                { "label": "Outfit", "placeholder": "cozy sweater, leather jacket, casual shirt" },
+                { "label": "Lighting Description", "placeholder": "soft diffused, dramatic contrast, warm intimate" },
+                { "label": "Background Lighting", "placeholder": "city lights, warm windows, blurred bokeh" },
+                { "label": "Aspect Ratio", "placeholder": "3:4 portrait, 16:9 cinematic, 1:1 square" },
+                { "label": "Vibe", "placeholder": "melancholic beauty, peaceful solitude, romantic mood" }
+            ]
+        },
+        {
+            "id": 21,
+            "title": "Cyberpunk Walk",
+            "description": "Transform photos into futuristic cyberpunk scenes with neon lighting and urban dystopia.",
+            "badge": "🌃 AI Cyberpunk Filter",
+            "badgeColor": "bg-purple-100 text-purple-800 border-purple-200",
+            "beforeImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop&sat=2&hue=280",
+            "credits": 6,
+            "slug": "cyberpunk-walk",
+            "prompt": "Cinematic shot of ((subject)) walking against ((setting)). All others are blurred with ((motion_effects)). I'm in focus, ((age)). ((pose)) – serious looking at a far distance, ((weather)) and I am soaked. Wearing ((outfit)). ((style)), ((film_look)), ((lighting)), ratio: ((aspect_ratio)).",
+            "variables": [
+                "subject",
+                "setting",
+                "motion_effects",
+                "age",
+                "pose",
+                "weather",
+                "outfit",
+                "style",
+                "film_look",
+                "lighting",
+                "aspect_ratio"
+            ],
+            "inputFields": [
+                { "label": "Subject", "placeholder": "cyberpunk protagonist, future rebel, tech warrior" },
+                { "label": "Setting", "placeholder": "neon-lit city, dystopian street, futuristic alley" },
+                { "label": "Motion Effects", "placeholder": "speed blur, light trails, digital glitch" },
+                { "label": "Age", "placeholder": "young adult, mid-20s, experienced fighter" },
+                { "label": "Pose", "placeholder": "confident stride, determined walk, casual swagger" },
+                { "label": "Weather", "placeholder": "neon-lit rain, acid drizzle, electromagnetic storm" },
+                { "label": "Outfit", "placeholder": "cyberpunk jacket, tech gear, futuristic clothes" },
+                { "label": "Style", "placeholder": "blade runner aesthetic, cyberpunk 2077, neo-noir" },
+                { "label": "Film Look", "placeholder": "cinematic grade, neon tones, high contrast" },
+                { "label": "Lighting", "placeholder": "neon reflections, holographic glow, street lights" },
+                { "label": "Aspect Ratio", "placeholder": "21:9 ultrawide, 16:9 cinematic, 9:16 vertical" }
+            ]
+        },
+        {
+            "id": 22,
+            "title": "Action Figure Package",
+            "description": "Create toy packaging designs with your face as collectible action figures.",
+            "badge": "🎮 AI Toy Filter",
+            "badgeColor": "bg-pink-100 text-pink-800 border-pink-200",
+            "beforeImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=350&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=350&fit=crop&sat=1.8&hue=320",
+            "credits": 4,
+            "slug": "action-figure-package",
+            "prompt": "Draw a Barbie-style action figure of ((person)) inside a blister package. Add the toy name ((toy_name)) and the headline ((headline)). Include accessories like ((accessories)).",
+            "variables": [
+                "person",
+                "toy_name",
+                "headline",
+                "accessories"
+            ],
+            "inputFields": [
+                { "label": "Person", "placeholder": "yourself from uploaded photo" },
+                { "label": "Toy Name", "placeholder": "Super Hero Action Figure, Professional Model, Adventure Character" },
+                { "label": "Headline", "placeholder": "Collectible Edition, Limited Release, New Character" },
+                { "label": "Accessories", "placeholder": "sunglasses and phone, laptop and coffee, sports equipment" }
+            ]
+        },
+        {
+            "id": 23,
+            "title": "Anime Fisheye Selfie",
+            "description": "Create fun fisheye selfies with popular anime characters in realistic settings.",
+            "badge": "🎌 AI Anime Filter",
+            "badgeColor": "bg-pink-100 text-pink-800 border-pink-200",
+            "beforeImage": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=300&h=400&fit=crop&sat=2&hue=300",
+            "credits": 5,
+            "slug": "anime-fisheye-selfie",
+            "prompt": "Ultra-realistic 9:16 vertical format fisheye selfie of ((person)) with ((characters)). We're all making silly, exaggerated faces. Set in ((environment)). High camera angle. Extreme fisheye distortion. Realistic, cinematic lighting, anime characters integrated with stylized realism.",
+            "variables": [
+                "person",
+                "characters",
+                "environment"
+            ],
+            "inputFields": [
+                { "label": "Person", "placeholder": "yourself from uploaded photo" },
+                { "label": "Characters", "placeholder": "Naruto and Sasuke, Goku and Vegeta, Luffy and Zoro" },
+                { "label": "Environment", "placeholder": "bedroom with anime posters, gaming setup, cosplay convention" }
+            ]
+        },
+        {
+            "id": 24,
+            "title": "Mediocre iPhone Selfie",
+            "description": "Create intentionally average, casual smartphone selfies with authentic imperfections.",
+            "badge": "📱 AI Casual Filter",
+            "badgeColor": "bg-gray-100 text-gray-800 border-gray-200",
+            "beforeImage": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=400&fit=crop&sat=0.8&con=-10",
+            "credits": 2,
+            "slug": "mediocre-iphone-selfie",
+            "prompt": "Create an image of an extremely unremarkable iPhone selfie with no clear subject or framing, just a careless snapshot. The photo should have a touch of motion blur and be mildly overexposed from uneven sunlight. The angle is awkward, the composition nonexistent, and the overall effect is aggressively mediocre, like a photo taken by accident while pulling the phone out of a pocket. ((add_subject_or_situation))",
+            "variables": [
+                "add_subject_or_situation"
+            ],
+            "inputFields": [
+                { "label": "Subject or Situation", "placeholder": "person checking phone, accidental bathroom mirror, walking down street" }
+            ]
+        },
+        {
+            "id": 25,
+            "title": "3D Metal Sculpt Render",
+            "description": "Transform images into hyperrealistic polished metal sculptures with detailed textures.",
+            "badge": "🔗 AI Metal Filter",
+            "badgeColor": "bg-slate-100 text-slate-800 border-slate-200",
+            "beforeImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop&sat=0.5&con=50",
+            "credits": 6,
+            "slug": "3d-metal-sculpt-render",
+            "prompt": "Create a high-resolution 3D render of ((image_reference)), transformed into a solid, sculptural object made entirely of polished, hyperrealistic metal. The object must preserve the exact shape, proportions, and sharp edges of the original. Reflections should follow surface curvature. Incorporate micro-scratches, dents, warps, and compressed zones for realism. Final render must have frontal orientation, cinematic lighting, and show faint oxidized tones or tints.",
+            "variables": [
+                "image_reference"
+            ],
+            "inputFields": [
+                { "label": "Image Reference", "placeholder": "uploaded photo to transform into metal sculpture" }
+            ]
+        },
+        {
+            "id": 26,
+            "title": "Inflated Latex Render",
+            "description": "Convert images into glossy inflatable objects with hyperrealistic latex textures.",
+            "badge": "🎈 AI Inflatable Filter",
+            "badgeColor": "bg-red-100 text-red-800 border-red-200",
+            "beforeImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop&sat=2&hue=0",
+            "credits": 5,
+            "slug": "inflated-latex-render",
+            "prompt": "Create a high-resolution 3D render of ((image_name)), transformed into a fully inflatable object made of glossy, latex-like PVC or TPO — soft, air-filled, and hyperreflective. Volume must feel overstuffed. Use ((color)). Floating in mid-air on a neutral gray background. Use cinematic, multi-directional lighting. Ultra-high resolution (8K).",
+            "variables": [
+                "image_name",
+                "color"
+            ],
+            "inputFields": [
+                { "label": "Image Name", "placeholder": "uploaded photo for inflation effect" },
+                { "label": "Color", "placeholder": "bright red, metallic silver, rainbow gradient" }
+            ]
+        },
+        {
+            "id": 27,
+            "title": "Futuristic Anatomy",
+            "description": "Create sci-fi medical visualization with glowing anatomical highlights and digital effects.",
+            "badge": "🔬 AI Medical Filter",
+            "badgeColor": "bg-blue-100 text-blue-800 border-blue-200",
+            "beforeImage": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=400&fit=crop&sat=1.5&hue=200",
+            "credits": 4,
+            "slug": "futuristic-anatomy",
+            "prompt": "A digital illustration of a ((subject)) outlined with bright blue lines over a dark background, highlighting its form. A specific ((part)) glows red to indicate focus. Educational and visually striking, styled like advanced imaging.",
+            "variables": [
+                "subject",
+                "part"
+            ],
+            "inputFields": [
+                { "label": "Subject", "placeholder": "human figure, athletic body, portrait silhouette" },
+                { "label": "Part", "placeholder": "heart region, brain area, muscular system" }
+            ]
+        },
+        {
+            "id": 28,
+            "title": "Urban Street Portrait",
+            "description": "Create stylish urban street photography with cinematic depth and city atmosphere.",
+            "badge": "🏙️ AI Street Filter",
+            "badgeColor": "bg-yellow-100 text-yellow-800 border-yellow-200",
+            "beforeImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop&sat=1.2&hue=45",
+            "credits": 4,
+            "slug": "urban-street-portrait",
+            "prompt": "A stylish young man standing in a busy urban street, looking over his shoulder. He has slightly messy wavy hair, a thin mustache and light stubble, and is wearing round vintage sunglasses. He wears a dark turtleneck and a loose black bomber jacket. The city background is softly blurred with colorful lights and out-of-focus people around, giving a cinematic and moody depth-of-field effect.",
+            "variables": [],
+            "inputFields": []
+        },
+        {
+            "id": 29,
+            "title": "Textured Glass Portrait",
+            "description": "Create artistic portraits with textured glass distortion effects and dramatic lighting.",
+            "badge": "🪟 AI Glass Filter",
+            "badgeColor": "bg-cyan-100 text-cyan-800 border-cyan-200",
+            "beforeImage": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop&sat=1.5&hue=180",
+            "credits": 5,
+            "slug": "textured-glass-portrait",
+            "prompt": "A surreal portrait of ((person)) behind a textured, vertical ribbed glass panel, the face is partially visible, not clearly and heavily distorted by the glass, creating a wavy, abstract visual effect, the lighting is dramatic and cinematic, with the subject illuminated in vivid gold light, contrasting against a ((background_color)) background, the overall mood is mysterious and emotionally evocative, the image features high contrast and saturated colours with a strong emphasis on artistic lighting and abstract composition --ar 3:4 --style raw --stylize 75 --v 7",
+            "variables": [
+                "person",
+                "background_color"
+            ],
+            "inputFields": [
+                { "label": "Person", "placeholder": "uploaded photo subject" },
+                { "label": "Background Color", "placeholder": "deep blue, rich purple, dramatic black" }
+            ]
+        },
+        {
+            "id": 30,
+            "title": "Jungle T-Rex Adventure",
+            "description": "Create thrilling adventure scenes with dinosaurs in atmospheric jungle settings.",
+            "badge": "🦕 AI Adventure Filter",
+            "badgeColor": "bg-green-100 text-green-800 border-green-200",
+            "beforeImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop&sat=1.5&hue=120",
+            "credits": 7,
+            "slug": "jungle-trex-adventure",
+            "prompt": "A hyper-realistic, cinematic action scene of ((person)) crouching in a dense, glowing jungle at night, holding a high-tech flashlight emitting a vivid blue beam. ((person))'s expression is tense and alert, as if they just heard something behind them. A massive, roaring T-Rex emerges from the shadows in the background, its teeth bared mid-snarl. Dramatic lighting highlights their face and arm, casting sharp shadows through the jungle foliage.",
+            "variables": [
+                "person"
+            ],
+            "inputFields": [
+                { "label": "Person", "placeholder": "adventurous explorer from uploaded photo" }
+            ]
+        },
+        {
+            "id": 31,
+            "title": "All Black Fashion Portrait",
+            "description": "Create sophisticated all-black fashion portraits with luxury styling and dramatic lighting.",
+            "badge": "🖤 AI Fashion Filter",
+            "badgeColor": "bg-gray-100 text-gray-800 border-gray-200",
+            "beforeImage": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=400&fit=crop&sat=0.3&con=30",
+            "credits": 5,
+            "slug": "all-black-fashion-portrait",
+            "prompt": "A stylish ((person)) in a sleek, all-black outfit poses confidently against a pitch-black background. They wear a tailored black suit, a black shirt with the top buttons open, black sunglasses and a well-groomed beard, exuding charisma and mystery. A luxury wristwatch glints on their left wrist. The lighting is dramatic, highlighting facial features and casting soft shadows, creating a bold, high-fashion editorial look.",
+            "variables": [
+                "person"
+            ],
+            "inputFields": [
+                { "label": "Person", "placeholder": "confident individual from uploaded photo" }
+            ]
+        },
+        {
+            "id": 32,
+            "title": "London Fashion Week Runway",
+            "description": "Transform photos into high-fashion runway moments with professional lighting and crowd atmosphere.",
+            "badge": "👔 AI Runway Filter",
+            "badgeColor": "bg-purple-100 text-purple-800 border-purple-200",
+            "beforeImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop&sat=1.3&hue=270",
+            "credits": 6,
+            "slug": "london-fashion-week-runway",
+            "prompt": "In this electrifying moment captured at London Fashion Week, ((model_name)) radiates bold energy and sleek confidence. Clad in a sharply tailored charcoal suit, paired with minimalist jewelry and a statement pendant, they stride down the runway with purpose and poise. Their intense gaze, sculpted hair, and defined jawline are amplified by cinematic lighting and a sea of flashing cameras in the background. The stylish crowd fades into soft focus, spotlighting their magnetic presence. Every detail—from the crisp silhouette of the suit to the layered rings—echoes the voice of contemporary high fashion.",
+            "variables": [
+                "model_name"
+            ],
+            "inputFields": [
+                { "label": "Model Name", "placeholder": "fashion model from uploaded photo" }
+            ]
+        },
+        {
+            "id": 33,
+            "title": "Modern Indoor Editorial",
+            "description": "Create sophisticated indoor editorial shots with architectural elements and natural lighting.",
+            "badge": "🏢 AI Editorial Filter",
+            "badgeColor": "bg-blue-100 text-blue-800 border-blue-200",
+            "beforeImage": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop&sat=1.1&hue=210",
+            "credits": 5,
+            "slug": "modern-indoor-editorial",
+            "prompt": "Create an ultra-realistic, high-resolution editorial photograph of ((person)) leaning against a glass railing in a sleek, modern indoor setting. The background features a white curved architectural wall with dramatic shadows cast by strong directional sunlight. ((person)) wears a slightly oversized black pinstriped suit with a crisp white dress shirt and a classic striped tie. Pose is relaxed and self-assured, with one arm resting casually on the railing and an intense, composed gaze directed at the camera. Hairstyle is medium-length, voluminous, and slightly wavy, styled naturally. Maintain cinematic lighting with soft warm tones and bold contrast between light and shadow, giving the entire image a professional, editorial, and moody tone. Use a shallow depth of field for a creamy bokeh background. The framing should be 3:4 portrait ratio.",
+            "variables": [
+                "person"
+            ],
+            "inputFields": [
+                { "label": "Person", "placeholder": "professional model from uploaded photo" }
+            ]
+        },
+        {
+            "id": 34,
+            "title": "Red Background JT Monogram",
+            "description": "Create bold poster designs with monogram graphics and vibrant color schemes.",
+            "badge": "🔴 AI Monogram Filter",
+            "badgeColor": "bg-red-100 text-red-800 border-red-200",
+            "beforeImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop&sat=2&hue=0",
+            "credits": 4,
+            "slug": "red-background-jt-monogram",
+            "prompt": "Create a hyper-realistic digital poster of ((person)) standing against a vibrant red background with a large yellow '((monogram))' monogram. They have medium-length, voluminous, and slightly wavy hair styled upwards. Outfit includes a dark denim shirt with sleeves rolled up and a brown strap worn diagonally across the chest like a sling bag. Wearing black rectangular sunglasses and white wired earphones. Skin tone is fair and natural, with smooth, clean texture. The lighting should be soft and cinematic with realistic shadows and a slight grain for authenticity. The image should preserve a moody, modern vibe in ultra 8K quality.",
+            "variables": [
+                "person",
+                "monogram"
+            ],
+            "inputFields": [
+                { "label": "Person", "placeholder": "stylish individual from uploaded photo" },
+                { "label": "Monogram", "placeholder": "JT, AB, MK, custom initials" }
+            ]
+        },
+        {
+            "id": 35,
+            "title": "Ferrari Lifestyle Portrait",
+            "description": "Create luxury lifestyle shots with supercars and sophisticated outdoor settings.",
+            "badge": "🏎️ AI Luxury Filter",
+            "badgeColor": "bg-red-100 text-red-800 border-red-200",
+            "beforeImage": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=400&fit=crop&sat=1.5&hue=0",
+            "credits": 6,
+            "slug": "ferrari-lifestyle-portrait",
+            "prompt": "A hyper-realistic photo of ((person)) with a fair, flawless complexion, medium-length voluminous wavy hair styled naturally, and a neatly groomed beard. They are wearing stylish black sunglasses, a black and beige striped knit sweater, and fitted black jeans. ((person)) stands with arms crossed in front of a sleek red Ferrari parked under warm, golden afternoon sunlight. The lighting is cinematic, with soft shadows. The background includes a rustic wooden gate, a white stucco wall, and a slightly elevated garden with greenery.",
+            "variables": [
+                "person"
+            ],
+            "inputFields": [
+                { "label": "Person", "placeholder": "luxury lifestyle subject from uploaded photo" }
+            ]
+        },
+        {
+            "id": 36,
+            "title": "Motorcycle Street Portrait BW",
+            "description": "Create dramatic black and white motorcycle portraits with urban street atmosphere.",
+            "badge": "🏍️ AI Biker Filter",
+            "badgeColor": "bg-gray-100 text-gray-800 border-gray-200",
+            "beforeImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop&sat=-100&con=40",
+            "credits": 5,
+            "slug": "motorcycle-street-portrait-bw",
+            "prompt": "A hyper-realistic black and white portrait of ((person)) sitting on a motorcycle in the center of an empty city street during twilight. Wearing a fitted black t-shirt layered with a sleek black leather biker jacket, black fingerless gloves, and dark sunglasses. Hairstyle is voluminous and naturally styled, with slight waves. A thin metallic necklace with a small pendant is visible. The background shows softly blurred urban buildings and glowing bokeh streetlights. Lighting is moody and soft, with a shallow depth of field.",
+            "variables": [
+                "person"
+            ],
+            "inputFields": [
+                { "label": "Person", "placeholder": "biker character from uploaded photo" }
+            ]
+        },
+        {
+            "id": 37,
+            "title": "Pigeons Cinematic Portrait",
+            "description": "Create cinematic portraits with dramatic bird flight and golden hour lighting.",
+            "badge": "🕊️ AI Cinematic Filter",
+            "badgeColor": "bg-orange-100 text-orange-800 border-orange-200",
+            "beforeImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop&sat=1.3&hue=30",
+            "credits": 5,
+            "slug": "pigeons-cinematic-portrait",
+            "prompt": "A cinematic portrait of ((person)) standing with hands in pockets. Surrounded by a dramatic flock of pigeons mid-flight, creating a sense of motion and intensity. The sky is slightly cloudy with warm golden-hour tones, casting soft shadows.",
+            "variables": [
+                "person"
+            ],
+            "inputFields": [
+                { "label": "Person", "placeholder": "contemplative subject from uploaded photo" }
+            ]
+        },
+        {
+            "id": 38,
+            "title": "Toyota Supra Portrait",
+            "description": "Create automotive lifestyle portraits with sports cars and dramatic landscapes.",
+            "badge": "🚗 AI Auto Filter",
+            "badgeColor": "bg-blue-100 text-blue-800 border-blue-200",
+            "beforeImage": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=400&fit=crop&sat=1.4&hue=220",
+            "credits": 5,
+            "slug": "toyota-supra-portrait",
+            "prompt": "((person)) sitting-leaning at Toyota-Supra with doors-open. Wearing a nike t-shirt, black jeans and white sneakers and sunglasses. Holding a car-key and gazing thoughtfully into the distance. The sky above is dramatic with scattered clouds and golden-hour lighting, with background ravine. Generate this in 4k resolution.",
+            "variables": [
+                "person"
+            ],
+            "inputFields": [
+                { "label": "Person", "placeholder": "automotive enthusiast from uploaded photo" }
+            ]
+        },
+        {
+            "id": 39,
+            "title": "Luxury Car Rain Portrait",
+            "description": "Create moody luxury car portraits with rain effects and cinematic lighting.",
+            "badge": "🌧️ AI Luxury Filter",
+            "badgeColor": "bg-blue-100 text-blue-800 border-blue-200",
+            "beforeImage": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=400&fit=crop&sat=0.8&hue=210",
+            "credits": 6,
+            "slug": "luxury-car-rain-portrait",
+            "prompt": "Use ((person))'s face. A confident person in a luxury car, wearing a stylish black suit with a bow tie and sunglasses. The photo has a cinematic tone with moody contrast, light rain on the car's surface, and a shallow depth of field. Enhance colors subtly, sharpen facial details, and add a soft vignette for a dramatic effect. Maintain a classy, high-end look (f/2.8), ratio 9:16.",
+            "variables": [
+                "person"
+            ],
+            "inputFields": [
+                { "label": "Person", "placeholder": "sophisticated driver from uploaded photo" }
+            ]
+        },
+        {
+            "id": 40,
+            "title": "M3 GTR Overhead Shot",
+            "description": "Create dramatic overhead automotive portraits with cinematic film style and urban atmosphere.",
+            "badge": "🏁 AI Racing Filter",
+            "badgeColor": "bg-yellow-100 text-yellow-800 border-yellow-200",
+            "beforeImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=300&h=400&fit=crop&sat=1.2&hue=45",
+            "credits": 6,
+            "slug": "m3-gtr-overhead-shot",
+            "prompt": "An overhead cinematic shot of ((person)), leaning against the hood of a black M3 GTR on the street, wearing a black suit, left hand in pocket, right hand smoking a cigarette. A blurry crowd of cars and people are moving in the background. Gloomy lighting, 35mm film style, shallow depth of field, sharp focus on ((person)). Aspect ratio 9:16. 8K resolution.",
+            "variables": [
+                "person"
+            ],
+            "inputFields": [
+                { "label": "Person", "placeholder": "street racer character from uploaded photo" }
+            ]
+        },
+        {
+            "id": 41,
+            "title": "Shush Gesture Crowd Portrait",
+            "description": "Create powerful crowd scene portraits with dramatic gestures and intense expressions.",
+            "badge": "🤫 AI Crowd Filter",
+            "badgeColor": "bg-red-100 text-red-800 border-red-200",
+            "beforeImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop",
+            "afterImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop&sat=1.5&hue=0",
+            "credits": 5,
+            "slug": "shush-gesture-crowd-portrait",
+            "prompt": "A dramatic 8K ultra-realistic image of ((person)) standing confidently in the center of a crowd. Sharp jawline, voluminous textured hairstyle, wearing black sunglasses and a rich red button-up shirt. Making a 'shhh' gesture with right index finger on lips, staring directly at the camera with an intense expression.",
+            "variables": [
+                "person"
+            ],
+            "inputFields": [
+                { "label": "Person", "placeholder": "commanding presence from uploaded photo" }
+            ]
+        }
+    ]
+}

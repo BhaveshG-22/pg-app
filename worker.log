@@ -1,0 +1,707 @@
+
+> dashbaord2@0.1.0 worker
+> tsx worker.ts
+
+[dotenv@17.2.1] injecting env (16) from .env.local -- tip: 📡 auto-backup env with Radar: https://dotenvx.com/radar
+Worker started with concurrency: 6
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query UPDATE "public"."users" SET "credits" = ("public"."users"."credits" - $1), "updatedAt" = $2 WHERE ("public"."users"."id" = $3 AND 1=1) RETURNING "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt"
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "updatedAt" = $2 WHERE ("public"."generations"."id" = $3 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."presets"."id", "public"."presets"."prompt", "public"."presets"."title", "public"."presets"."provider"::text FROM "public"."presets" WHERE ("public"."presets"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Processing uploaded image: uploads/cmfuabxqr000q8ow1h3d6h7he/1758495203946-a84c403e-8ef2-4de9-a2b4-7699d0308828.jpg
+Created signed URL for uploaded image
+Generating Nano Banana image: Cyberpunk style portrait with ((neon_colors)) neon lighting, futuristic ((setting)), dramatic shadow...
+Using uploaded image for Nano Banana transformation: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfuabxqr000q8ow1h3d6h7he/1758495203946-a84c403e-8ef2-4de9-a2b4-7699d0308828.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAZ3MGNJGLILQFCHOR%2F20250921%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250921T225331Z&X-Amz-Expires=3600&X-Amz-Signature=8c17839d9117648e37aca164d3608feace363e34ac52c1a04f82def23bb8ae67&X-Amz-SignedHeaders=host%3Bx-amz-checksum-mode&response-content-type=image%2F%2A&x-id=GetObject
+Using direct S3 URL (bucket is now public): https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfuabxqr000q8ow1h3d6h7he/1758495203946-a84c403e-8ef2-4de9-a2b4-7699d0308828.jpg
+Nano Banana input: {
+  prompt: 'Cyberpunk style portrait with ((neon_colors)) neon lighting, futuristic ((setting)), dramatic shadow...',
+  hasImages: true,
+  imageCount: 1,
+  firstImageUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfuabxqr000q8ow1h3d6h7he/17584952...',
+  outputFormat: 'png'
+}
+=== FULL NANO BANANA INPUT DEBUG ===
+{
+  "prompt": "Cyberpunk style portrait with ((neon_colors)) neon lighting, futuristic ((setting)), dramatic shadows, high contrast, sci-fi aesthetic, ((tech_elements)), cyberpunk 2077 style, neon glow effects, dark atmospheric background.",
+  "image_input": [
+    "https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfuabxqr000q8ow1h3d6h7he/1758495203946-a84c403e-8ef2-4de9-a2b4-7699d0308828.jpg"
+  ],
+  "output_format": "png"
+}
+=== END FULL INPUT DEBUG ===
+=== NANO BANANA RESPONSE DEBUG ===
+Type: object
+Value: ReadableStream { locked: false, state: 'readable', supportsBYOB: false }
+Is Array: false
+=== END DEBUG ===
+Nano Banana returned ReadableStream, converting to buffer
+Converted ReadableStream to buffer, size: 2537906
+Uploaded Nano Banana result to S3: generated/1758495220610-nano-banana-result.png
+ ENGINE result
+{
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758495220610-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+=== ENGINE RESULT DEBUG ===
+Result type: object
+Result value: {
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758495220610-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+OutputUrl type: string
+OutputUrl value: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758495220610-nano-banana-result.png
+=== END ENGINE DEBUG ===
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."status"::text FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Job cmfuan80000108ow1m9idatrc completed successfully
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "outputUrl" = $2, "completedAt" = $3, "processingTime" = $4, "updatedAt" = $5 WHERE ("public"."generations"."id" = $6 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query SELECT 1
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query UPDATE "public"."users" SET "credits" = ("public"."users"."credits" - $1), "updatedAt" = $2 WHERE ("public"."users"."id" = $3 AND 1=1) RETURNING "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt"
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "updatedAt" = $2 WHERE ("public"."generations"."id" = $3 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."presets"."id", "public"."presets"."prompt", "public"."presets"."title", "public"."presets"."provider"::text FROM "public"."presets" WHERE ("public"."presets"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Processing uploaded image: uploads/cmfuabxqr000q8ow1h3d6h7he/1758495326550-6a8041a0-01d2-4a01-9d87-5b5b93cc156b.jpg
+Created signed URL for uploaded image
+Generating Nano Banana image: Cyberpunk style portrait with ((neon_colors)) neon lighting, futuristic ((setting)), dramatic shadow...
+Using uploaded image for Nano Banana transformation: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfuabxqr000q8ow1h3d6h7he/1758495326550-6a8041a0-01d2-4a01-9d87-5b5b93cc156b.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAZ3MGNJGLILQFCHOR%2F20250921%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250921T225538Z&X-Amz-Expires=3600&X-Amz-Signature=bd00a4ce28f551175548d668fc5d663d444fb5a494fc32c26a48802807e7e5b5&X-Amz-SignedHeaders=host%3Bx-amz-checksum-mode&response-content-type=image%2F%2A&x-id=GetObject
+Using direct S3 URL (bucket is now public): https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfuabxqr000q8ow1h3d6h7he/1758495326550-6a8041a0-01d2-4a01-9d87-5b5b93cc156b.jpg
+Nano Banana input: {
+  prompt: 'Cyberpunk style portrait with ((neon_colors)) neon lighting, futuristic ((setting)), dramatic shadow...',
+  hasImages: true,
+  imageCount: 1,
+  firstImageUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfuabxqr000q8ow1h3d6h7he/17584953...',
+  outputFormat: 'png'
+}
+=== FULL NANO BANANA INPUT DEBUG ===
+{
+  "prompt": "Cyberpunk style portrait with ((neon_colors)) neon lighting, futuristic ((setting)), dramatic shadows, high contrast, sci-fi aesthetic, ((tech_elements)), cyberpunk 2077 style, neon glow effects, dark atmospheric background.",
+  "image_input": [
+    "https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfuabxqr000q8ow1h3d6h7he/1758495326550-6a8041a0-01d2-4a01-9d87-5b5b93cc156b.jpg"
+  ],
+  "output_format": "png"
+}
+=== END FULL INPUT DEBUG ===
+=== NANO BANANA RESPONSE DEBUG ===
+Type: object
+Value: ReadableStream { locked: false, state: 'readable', supportsBYOB: false }
+Is Array: false
+=== END DEBUG ===
+Nano Banana returned ReadableStream, converting to buffer
+Converted ReadableStream to buffer, size: 2660544
+Uploaded Nano Banana result to S3: generated/1758495347215-nano-banana-result.png
+ ENGINE result
+{
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758495347215-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+=== ENGINE RESULT DEBUG ===
+Result type: object
+Result value: {
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758495347215-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+OutputUrl type: string
+OutputUrl value: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758495347215-nano-banana-result.png
+=== END ENGINE DEBUG ===
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."status"::text FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Job cmfuapv0300148ow18wzvxiqx completed successfully
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "outputUrl" = $2, "completedAt" = $3, "processingTime" = $4, "updatedAt" = $5 WHERE ("public"."generations"."id" = $6 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query SELECT 1
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query UPDATE "public"."users" SET "credits" = ("public"."users"."credits" - $1), "updatedAt" = $2 WHERE ("public"."users"."id" = $3 AND 1=1) RETURNING "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt"
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "updatedAt" = $2 WHERE ("public"."generations"."id" = $3 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."presets"."id", "public"."presets"."prompt", "public"."presets"."title", "public"."presets"."provider"::text FROM "public"."presets" WHERE ("public"."presets"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Processing uploaded image: uploads/cmfuabxqr000q8ow1h3d6h7he/1758494718644-1c3299b1-10c6-4b9c-9f35-7d0c19b4ffe6.jpg
+Created signed URL for uploaded image
+Generating Nano Banana image: Watercolor painting style portrait, ((color_palette)) colors, soft brushstrokes, ((painting_techniqu...
+Using uploaded image for Nano Banana transformation: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfuabxqr000q8ow1h3d6h7he/1758494718644-1c3299b1-10c6-4b9c-9f35-7d0c19b4ffe6.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAZ3MGNJGLILQFCHOR%2F20250921%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250921T225743Z&X-Amz-Expires=3600&X-Amz-Signature=a7f7afcac7ec1790d57a19cc0400690e4e537687de6c2499032ba963ab69b45a&X-Amz-SignedHeaders=host%3Bx-amz-checksum-mode&response-content-type=image%2F%2A&x-id=GetObject
+Using direct S3 URL (bucket is now public): https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfuabxqr000q8ow1h3d6h7he/1758494718644-1c3299b1-10c6-4b9c-9f35-7d0c19b4ffe6.jpg
+Nano Banana input: {
+  prompt: 'Watercolor painting style portrait, ((color_palette)) colors, soft brushstrokes, ((painting_techniqu...',
+  hasImages: true,
+  imageCount: 1,
+  firstImageUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfuabxqr000q8ow1h3d6h7he/17584947...',
+  outputFormat: 'png'
+}
+=== FULL NANO BANANA INPUT DEBUG ===
+{
+  "prompt": "Watercolor painting style portrait, ((color_palette)) colors, soft brushstrokes, ((painting_technique)), artistic flow, natural watercolor textures, ((mood)) atmosphere, hand-painted aesthetic, flowing pigments.",
+  "image_input": [
+    "https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfuabxqr000q8ow1h3d6h7he/1758494718644-1c3299b1-10c6-4b9c-9f35-7d0c19b4ffe6.jpg"
+  ],
+  "output_format": "png"
+}
+=== END FULL INPUT DEBUG ===
+=== NANO BANANA RESPONSE DEBUG ===
+Type: object
+Value: ReadableStream { locked: false, state: 'readable', supportsBYOB: false }
+Is Array: false
+=== END DEBUG ===
+Nano Banana returned ReadableStream, converting to buffer
+Converted ReadableStream to buffer, size: 2444109
+Uploaded Nano Banana result to S3: generated/1758495472449-nano-banana-result.png
+ ENGINE result
+{
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758495472449-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+=== ENGINE RESULT DEBUG ===
+Result type: object
+Result value: {
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758495472449-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+OutputUrl type: string
+OutputUrl value: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758495472449-nano-banana-result.png
+=== END ENGINE DEBUG ===
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."status"::text FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Job cmfuasmvv00168ow149jogkt3 completed successfully
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "outputUrl" = $2, "completedAt" = $3, "processingTime" = $4, "updatedAt" = $5 WHERE ("public"."generations"."id" = $6 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query UPDATE "public"."users" SET "credits" = ("public"."users"."credits" - $1), "updatedAt" = $2 WHERE ("public"."users"."id" = $3 AND 1=1) RETURNING "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt"
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "updatedAt" = $2 WHERE ("public"."generations"."id" = $3 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."presets"."id", "public"."presets"."prompt", "public"."presets"."title", "public"."presets"."provider"::text FROM "public"."presets" WHERE ("public"."presets"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Processing uploaded image: uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg
+Created signed URL for uploaded image
+Generating Nano Banana image: Watercolor painting style portrait, ((color_palette)) colors, soft brushstrokes, ((painting_techniqu...
+Using uploaded image for Nano Banana transformation: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAZ3MGNJGLILQFCHOR%2F20250921%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250921T230740Z&X-Amz-Expires=3600&X-Amz-Signature=e552aa64d96b91e3326e78d155bedb0ce64cb8ce19ad223e71d3be9ba23b90b4&X-Amz-SignedHeaders=host%3Bx-amz-checksum-mode&response-content-type=image%2F%2A&x-id=GetObject
+Using direct S3 URL (bucket is now public): https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg
+Nano Banana input: {
+  prompt: 'Watercolor painting style portrait, ((color_palette)) colors, soft brushstrokes, ((painting_techniqu...',
+  hasImages: true,
+  imageCount: 1,
+  firstImageUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/17584960...',
+  outputFormat: 'png'
+}
+=== FULL NANO BANANA INPUT DEBUG ===
+{
+  "prompt": "Watercolor painting style portrait, ((color_palette)) colors, soft brushstrokes, ((painting_technique)), artistic flow, natural watercolor textures, ((mood)) atmosphere, hand-painted aesthetic, flowing pigments.",
+  "image_input": [
+    "https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg"
+  ],
+  "output_format": "png"
+}
+=== END FULL INPUT DEBUG ===
+=== NANO BANANA RESPONSE DEBUG ===
+Type: object
+Value: ReadableStream { locked: false, state: 'readable', supportsBYOB: false }
+Is Array: false
+=== END DEBUG ===
+Nano Banana returned ReadableStream, converting to buffer
+Converted ReadableStream to buffer, size: 2564900
+Uploaded Nano Banana result to S3: generated/1758496068814-nano-banana-result.png
+ ENGINE result
+{
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758496068814-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+=== ENGINE RESULT DEBUG ===
+Result type: object
+Result value: {
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758496068814-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+OutputUrl type: string
+OutputUrl value: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758496068814-nano-banana-result.png
+=== END ENGINE DEBUG ===
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."status"::text FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Job cmfub5f7300048oo4a0il0ibs completed successfully
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "outputUrl" = $2, "completedAt" = $3, "processingTime" = $4, "updatedAt" = $5 WHERE ("public"."generations"."id" = $6 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query UPDATE "public"."users" SET "credits" = ("public"."users"."credits" - $1), "updatedAt" = $2 WHERE ("public"."users"."id" = $3 AND 1=1) RETURNING "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt"
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "updatedAt" = $2 WHERE ("public"."generations"."id" = $3 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."presets"."id", "public"."presets"."prompt", "public"."presets"."title", "public"."presets"."provider"::text FROM "public"."presets" WHERE ("public"."presets"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Processing uploaded image: uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg
+Created signed URL for uploaded image
+Generating Nano Banana image: Watercolor painting style portrait, ((color_palette)) colors, soft brushstrokes, ((painting_techniqu...
+Using uploaded image for Nano Banana transformation: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAZ3MGNJGLILQFCHOR%2F20250921%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250921T232821Z&X-Amz-Expires=3600&X-Amz-Signature=971ce95d264ec6f1ff8649bd98f7166593354762a905a220581425c13dab0b97&X-Amz-SignedHeaders=host%3Bx-amz-checksum-mode&response-content-type=image%2F%2A&x-id=GetObject
+Using direct S3 URL (bucket is now public): https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg
+Nano Banana input: {
+  prompt: 'Watercolor painting style portrait, ((color_palette)) colors, soft brushstrokes, ((painting_techniqu...',
+  hasImages: true,
+  imageCount: 1,
+  firstImageUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/17584960...',
+  outputFormat: 'png'
+}
+=== FULL NANO BANANA INPUT DEBUG ===
+{
+  "prompt": "Watercolor painting style portrait, ((color_palette)) colors, soft brushstrokes, ((painting_technique)), artistic flow, natural watercolor textures, ((mood)) atmosphere, hand-painted aesthetic, flowing pigments.",
+  "image_input": [
+    "https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg"
+  ],
+  "output_format": "png"
+}
+=== END FULL INPUT DEBUG ===
+=== NANO BANANA RESPONSE DEBUG ===
+Type: object
+Value: ReadableStream { locked: false, state: 'readable', supportsBYOB: false }
+Is Array: false
+=== END DEBUG ===
+Nano Banana returned ReadableStream, converting to buffer
+Converted ReadableStream to buffer, size: 2641748
+Uploaded Nano Banana result to S3: generated/1758497310165-nano-banana-result.png
+ ENGINE result
+{
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758497310165-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+=== ENGINE RESULT DEBUG ===
+Result type: object
+Result value: {
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758497310165-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+OutputUrl type: string
+OutputUrl value: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758497310165-nano-banana-result.png
+=== END ENGINE DEBUG ===
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."status"::text FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Job cmfubw0v800018o7lim525v3r completed successfully
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "outputUrl" = $2, "completedAt" = $3, "processingTime" = $4, "updatedAt" = $5 WHERE ("public"."generations"."id" = $6 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query SELECT 1
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query UPDATE "public"."users" SET "credits" = ("public"."users"."credits" - $1), "updatedAt" = $2 WHERE ("public"."users"."id" = $3 AND 1=1) RETURNING "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt"
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "updatedAt" = $2 WHERE ("public"."generations"."id" = $3 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."presets"."id", "public"."presets"."prompt", "public"."presets"."title", "public"."presets"."provider"::text FROM "public"."presets" WHERE ("public"."presets"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Processing uploaded image: uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg
+Created signed URL for uploaded image
+Generating Nano Banana image: 3D rendered character avatar, ((render_style)) rendering, detailed facial features, ((character_styl...
+Using uploaded image for Nano Banana transformation: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAZ3MGNJGLILQFCHOR%2F20250921%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250921T232859Z&X-Amz-Expires=3600&X-Amz-Signature=5c74ede0d96bbe2cc8c5ace712fb1c3a2f4474778d92e674003409a70047fc67&X-Amz-SignedHeaders=host%3Bx-amz-checksum-mode&response-content-type=image%2F%2A&x-id=GetObject
+Using direct S3 URL (bucket is now public): https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg
+Nano Banana input: {
+  prompt: '3D rendered character avatar, ((render_style)) rendering, detailed facial features, ((character_styl...',
+  hasImages: true,
+  imageCount: 1,
+  firstImageUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/17584960...',
+  outputFormat: 'png'
+}
+=== FULL NANO BANANA INPUT DEBUG ===
+{
+  "prompt": "3D rendered character avatar, ((render_style)) rendering, detailed facial features, ((character_style)) design, game-ready model, clean background, ((lighting_setup)) lighting, high quality 3D graphics, Pixar-style or realistic rendering.",
+  "image_input": [
+    "https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg"
+  ],
+  "output_format": "png"
+}
+=== END FULL INPUT DEBUG ===
+=== NANO BANANA RESPONSE DEBUG ===
+Type: object
+Value: ReadableStream { locked: false, state: 'readable', supportsBYOB: false }
+Is Array: false
+=== END DEBUG ===
+Nano Banana returned ReadableStream, converting to buffer
+Converted ReadableStream to buffer, size: 1700033
+Uploaded Nano Banana result to S3: generated/1758497347108-nano-banana-result.png
+ ENGINE result
+{
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758497347108-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+=== ENGINE RESULT DEBUG ===
+Result type: object
+Result value: {
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758497347108-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+OutputUrl type: string
+OutputUrl value: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758497347108-nano-banana-result.png
+=== END ENGINE DEBUG ===
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."status"::text FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Job cmfubwu6r00038o7lx7tfvx9d completed successfully
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "outputUrl" = $2, "completedAt" = $3, "processingTime" = $4, "updatedAt" = $5 WHERE ("public"."generations"."id" = $6 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query SELECT 1
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query UPDATE "public"."users" SET "credits" = ("public"."users"."credits" - $1), "updatedAt" = $2 WHERE ("public"."users"."id" = $3 AND 1=1) RETURNING "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt"
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "updatedAt" = $2 WHERE ("public"."generations"."id" = $3 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."presets"."id", "public"."presets"."prompt", "public"."presets"."title", "public"."presets"."provider"::text FROM "public"."presets" WHERE ("public"."presets"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Processing uploaded image: uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg
+Created signed URL for uploaded image
+Generating Nano Banana image: Anime style portrait artwork, ((style_type)) anime aesthetic, vibrant colors, ((art_style)), detaile...
+Using uploaded image for Nano Banana transformation: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAZ3MGNJGLILQFCHOR%2F20250921%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250921T232933Z&X-Amz-Expires=3600&X-Amz-Signature=ab9fcb9841410b9c3540961ea6c7b7f9b1599fc3d6e5775f643815eb8f0be534&X-Amz-SignedHeaders=host%3Bx-amz-checksum-mode&response-content-type=image%2F%2A&x-id=GetObject
+Using direct S3 URL (bucket is now public): https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg
+Nano Banana input: {
+  prompt: 'Anime style portrait artwork, ((style_type)) anime aesthetic, vibrant colors, ((art_style)), detaile...',
+  hasImages: true,
+  imageCount: 1,
+  firstImageUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/17584960...',
+  outputFormat: 'png'
+}
+=== FULL NANO BANANA INPUT DEBUG ===
+{
+  "prompt": "Anime style portrait artwork, ((style_type)) anime aesthetic, vibrant colors, ((art_style)), detailed eyes, smooth shading, manga-inspired, digital art style, ((color_palette)) color scheme, high quality anime illustration.",
+  "image_input": [
+    "https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg"
+  ],
+  "output_format": "png"
+}
+=== END FULL INPUT DEBUG ===
+=== NANO BANANA RESPONSE DEBUG ===
+Type: object
+Value: ReadableStream { locked: false, state: 'readable', supportsBYOB: false }
+Is Array: false
+=== END DEBUG ===
+Nano Banana returned ReadableStream, converting to buffer
+Converted ReadableStream to buffer, size: 1746749
+Uploaded Nano Banana result to S3: generated/1758497382154-nano-banana-result.png
+ ENGINE result
+{
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758497382154-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+=== ENGINE RESULT DEBUG ===
+Result type: object
+Result value: {
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758497382154-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+OutputUrl type: string
+OutputUrl value: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758497382154-nano-banana-result.png
+=== END ENGINE DEBUG ===
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."status"::text FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Job cmfubxk8h00058o7lvnp7l0xc completed successfully
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "outputUrl" = $2, "completedAt" = $3, "processingTime" = $4, "updatedAt" = $5 WHERE ("public"."generations"."id" = $6 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query SELECT 1
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query UPDATE "public"."users" SET "credits" = ("public"."users"."credits" - $1), "updatedAt" = $2 WHERE ("public"."users"."id" = $3 AND 1=1) RETURNING "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt"
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "updatedAt" = $2 WHERE ("public"."generations"."id" = $3 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."presets"."id", "public"."presets"."prompt", "public"."presets"."title", "public"."presets"."provider"::text FROM "public"."presets" WHERE ("public"."presets"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Processing uploaded image: uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg
+Created signed URL for uploaded image
+Generating Nano Banana image: He stands casually with hands in his pockets against a clean gradient background ((gradient)), looki...
+Using uploaded image for Nano Banana transformation: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAZ3MGNJGLILQFCHOR%2F20250921%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250921T233001Z&X-Amz-Expires=3600&X-Amz-Signature=063f85e6f6721c362b4e6c21c0d8439679ca3043ee2cc5aef6de447e500de504&X-Amz-SignedHeaders=host%3Bx-amz-checksum-mode&response-content-type=image%2F%2A&x-id=GetObject
+Using direct S3 URL (bucket is now public): https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg
+Nano Banana input: {
+  prompt: 'He stands casually with hands in his pockets against a clean gradient background ((gradient)), looki...',
+  hasImages: true,
+  imageCount: 1,
+  firstImageUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/17584960...',
+  outputFormat: 'png'
+}
+=== FULL NANO BANANA INPUT DEBUG ===
+{
+  "prompt": "He stands casually with hands in his pockets against a clean gradient background ((gradient)), looking straight at the camera. No text or logos in the background. Use shallow depth of field. Shot on a ((camera_model)) + ((lens)), ((lighting)), ((resolution)), cinematic editorial fashion shoot style.",
+  "image_input": [
+    "https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg"
+  ],
+  "output_format": "png"
+}
+=== END FULL INPUT DEBUG ===
+=== NANO BANANA RESPONSE DEBUG ===
+Type: object
+Value: ReadableStream { locked: false, state: 'readable', supportsBYOB: false }
+Is Array: false
+=== END DEBUG ===
+Nano Banana returned ReadableStream, converting to buffer
+Converted ReadableStream to buffer, size: 1600865
+Uploaded Nano Banana result to S3: generated/1758497410202-nano-banana-result.png
+ ENGINE result
+{
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758497410202-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+=== ENGINE RESULT DEBUG ===
+Result type: object
+Result value: {
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758497410202-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+OutputUrl type: string
+OutputUrl value: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758497410202-nano-banana-result.png
+=== END ENGINE DEBUG ===
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."status"::text FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Job cmfuby64j00078o7l744tuslq completed successfully
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "outputUrl" = $2, "completedAt" = $3, "processingTime" = $4, "updatedAt" = $5 WHERE ("public"."generations"."id" = $6 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT

@@ -1,0 +1,6 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#ffe6e6"/>
+  <circle cx="200" cy="150" r="70" fill="#ff9999"/>
+  <polygon points="200,80 220,120 180,120" fill="#ffcc00"/>
+  <text x="200" y="250" text-anchor="middle" font-family="Arial" font-size="14" fill="#cc0000">Christmas After 1</text>
+</svg>

@@ -1,0 +1,70 @@
+[
+    {
+        "title": "Luxury Editorial Portrait",
+        "prompt": "A highly stylized portrait of same person in image with sharp features, flawless fair skin, wearing a black sunglasses and standing against a bold red gradient background, confidently. The lighting is dramatic and cinematic, emphasizing his facial structure and giving a luxury fashion magazine vibe. Ultra-realistic, high-detail, editorial photography style. 8K resolution, symmetrical composition, minimal background elements. 4:3 ratio. Wearing a Brown Herringbone."
+    },
+    {
+        "title": "Black & White Graphic Design Poster",
+        "prompt": "Create a hyper-detailed graphic design featuring a striking portrait of a young man with the same face as uploaded, with a confident demeanour. His head is adorned with voluminous, adding texture and depth to the composition. The portrait is rendered in a high-contrast black-and-white style, standing out against the minimalist background. His expression is calm yet determined, with one eye partially obscured by a bold red rectangular overlay that adds a modern, artistic flair. The background is a smooth, textured grey canvas, serving as a neutral backdrop that enhances the focal elements. Overlayed vertically along the left side of the image, the word \"PAUL SOMENDRA\" is repeated in large, bold black letters with a slight transparency effect, creating a layered, dynamic look interspersed within this text are iconic design elements: a prominent Nike logo in red near the top, a stylized red “S” lower down, and a vertical red line that punctuates the design. To the right, a red geometric frame surrounds the obscured eye, drawing attention to the interplay of colour and form. At the bottom right, the phrase “WORK SMART NOT HARD” is written in bold red capital letters, with “SMART” in a smaller, elegant cursive script beneath it signed off with “GRAPHICS” in a matching style, suggesting a personal or brand signature. The bottom left corner features the hashtag #PAUL in red. The lighting is soft yet dramatic. Highlighting the textures of his hair and jacket, while the red accents pop vividly against the grayscale tones, creating a cohesive, high-energy visual that blends streetwear culture with graphic artistry. Photorealistic, shallow depth of field, high-resolution DSLR quality, Hasselblad X2D 100C, sharply focused on me. 4:5 aspect ratio. Make it 8K ultra realistic, hyper detailed."
+    },
+    {
+        "title": "Bold Fashion Shot with Red Gradient",
+        "prompt": "A highly stylized portrait of same person in image with sharp features, flawless fair skin, wearing a black coat, black sunglasses and standing against a bold red gradient background, confidently. The lighting is dramatic and cinematic, emphasizing his facial structure and giving a luxury fashion magazine vibe. Ultra-realistic, high-detail, editorial photography style. 4K resolution, symmetrical composition, minimal background elements. 9:16 ratio."
+    },
+    {
+        "title": "Y2K Skate Action Shot",
+        "prompt": "Surreal Y2K-style action shot of me mid-air in a dramatic leap, overhead fisheye view. He wears a vintage graphic tee, baggy jeans with a chain, and chunky sneakers. Stylized city blur below with retro cars and pedestrians. Bright daylight, high contrast, grainy like a 2001 skate game frame."
+    },
+    {
+        "title": "Nostalgic Train Window Portrait",
+        "prompt": "Side view of me looking out the window of a moving train. The interior is dim and warm-toned, while the outside world rushes by in soft motion blur. I sit still with a thoughtful expression, wearing headphones and a simple hoodie. The aesthetic is nostalgic, reminiscent of 35mm film with soft grain and moody natural lighting."
+    },
+    {
+        "title": "3D Embroidered Logo on Fabric",
+        "prompt": "Convert this image into a realistic 3D embroidered patch on a fabric that matches the dominant color of the logo. The embroidery should be placed on a high-detail dryfit jersey texture, with visible thread weave and soft folds. The embroidery must preserve the exact shape, color, and proportion of the original logo — no distortion or color changes. Use outdoor natural daylight for lighting, with a top-left camera perspective (looking diagonally from above left). The final image should appear photorealistic, as if it were a real-life close-up of a stitched logo on authentic sportswear."
+    },
+    {
+        "title": "Embroidery Branding Mockup",
+        "prompt": "A high-quality, hyper-realistic embroidered patch of the [insert logo name or symbol], crafted with [insert thread color] thread and a [insert border color] stitched border. The patch is displayed on a [insert background texture and color], such as canvas, denim, or neutral fabric. The embroidery features detailed, tight stitching with visible thread texture and soft lighting that enhances the 3D depth of the stitches. The composition is centered, with a clean and minimal layout. Shadows are subtle, and the overall image is crisp, detailed, and suitable for a product mockup or branding preview."
+    },
+    {
+        "title": "Futuristic Double Exposure Poster",
+        "prompt": "Double Exposure, Midjourney Style, Compositing, Blending, Superimposing. An extraordinary futuristic masterpiece that reveals a stunning double exposure composition in which the silhouette of Toprak Razgatlıoğlu is harmoniously intertwined with the high-octane, precision-engineered world of MotoGP racing. Inside his figure: a sleek BMW MotoGP motorcycle carving through a wet twilight circuit at intense speed, under futuristic LED track lights, reflective tarmac, and atmospheric motion blur. Shades of cool steel blue, gunmetal grey, and subtle electric neon accents combine to convey a sense of modern tension, cutting-edge technology, and adrenaline. The background remains neutral and slightly foggy, rendered in cool grey-blue tones, offering strong visual contrast while keeping focus on the intricate double exposure. The silhouette gleams with cold cinematic lighting, hyper-detailed reflections, wet track light trails, and technical photorealism enhanced by fine lens flares and a documentary-meets-sci-fi mood. Elements like motion streaks, digital HUD overlays, and subtle glitch textures contribute to the futuristic visual language. (Detail: 1.45) (Detailed background: 1.4) Cinematic cold tones, soft atmospheric lighting, realistic wet reflections, sharp photorealistic textures, technical lens flares, and a futuristic documentary tone. Added reference visuals."
+    },
+    {
+        "title": "Cinematic AI Selfie Replica",
+        "prompt": "Create an ultra-realistic portrait exactly replicating the reference image’s composition, pose, outfit, and background. Subject is turned slightly sideways with head tilted back and gaze forward, just like the reference. Use my uploaded selfie for the face, keeping every facial detail identical — same eyes, nose, lips, ears, jawline, and natural skin texture. Remove any glasses if present. Hair should be medium-length, wavy, voluminous, and styled naturally. Skin should appear fair, smooth, and naturally flawless, without losing realism. Background should be identical in tone and lighting to the reference. Lighting must be soft, diffused, and cinematic. Color grading should perfectly match the uploaded reference image’s style. The photo should look as if taken with an iPhone 16 Pro Max in high-resolution 4K quality."
+    },
+    {
+        "title": "Cinematic Birds-eye Urban Scene",
+        "prompt": "Transform this image into a cinematic bird's-eye view of me standing with my hands in my pockets on a brick city sidewalk, wearing a dark, baggy tuxedo. A crowd of people rush by, with a blur of motion. Dramatic lighting with a 35mm film effect, shallow depth of field, and sharp focus in a 4:3 aspect ratio without distorting my facial features."
+    },
+    {
+        "title": "3D Embroidered Logo Patch (Transparent PNG)",
+        "prompt": "Create a highly detailed embroidered patch of the uploaded logo. The patch should feature raised stitching and textured embroidery, giving it a realistic, 3D look. Maintain accurate colors and logo proportions. Present the patch isolated on a transparent PNG background, without any fabric or surface beneath it. Make it look like a professionally made logo patch ready for apparel or accessories."
+    },
+    {
+        "title": "Red Gradient Luxury Portrait",
+        "prompt": "A highly stylized portrait of same person in image with sharp features, flawless fair skin, wearing a black suit, black sunglasses and standing against a bold red gradient background, confidently. The lighting is dramatic and cinematic, emphasizing his facial structure and giving a luxury fashion magazine vibe. Ultra-realistic, high-detail, editorial photography style. 4K resolution, symmetrical composition, minimal background elements. 4:3 ratio."
+    },
+    {
+        "title": "Black & White Studio Portrait",
+        "prompt": "Create a high-end black and white portrait using my selfie. The face must remain exactly as in on my original selfie — no editing, no retouching, no smoothing. I’m wearing the business suits. Preserve every facial detail and texture for a raw, authentic look. The lighting should be dramatic and studio-quality, using strong contrast and shadows to sculpt the features. Use a clean, blurred studio-style background with soft gradients or subtle texture to enhance focus on the subject. Frame the portrait vertically (9:16 format), centered composition, with ultra-realistic skin texture and depth. No digital makeup or alterations. The final result should look timeless, editorial, and emotionally powerful — suitable for a gallery or fashion magazine."
+    },
+    {
+        "title": "Layered Grayscale Graphic Design",
+        "prompt": "Create a hyper-detailed graphic design featuring a striking portrait of a young man with the same face as uploaded with a confident demeanour. His head is adorned with voluminous, adding texture and depth to the composition. The portrait is rendered in a high-contrast black-and-white style, standing out against the minimalist background. His expression is calm yet determined, with one eye partially obscured by a bold red rectangular overlay that adds a modern, artistic flair. The background is a smooth, textured grey canvas, serving as a neutral backdrop that enhances the focal elements. Overlayed vertically along the left side of the image, the word 'PAUL SOMENDRA' is repeated in large, bold black letters with a slight transparency effect, creating a layered, dynamic look interspersed within this text are iconic design elements: a prominent Nike logo in red near the top, a stylized red 'S' lower down, and a vertical red line that punctuates the design. To the right, a red geometric frame surrounds the obscured eye, drawing attention to the interplay of colour and form. At the bottom right, the phrase 'WORK SMART NOT HARD' is written in bold red capital letters, with 'SMART' in a smaller, elegant cursive script beneath it signed off with 'GRAPHICS' in a matching style, suggesting a personal or brand signature. The bottom left corner features the hashtag #PAUL in red, reinforcing the identity theme. The young man’s attire, a partially visible black leather jacket with an open collar, adds a rugged yet stylish edge to the overall aesthetic. The lighting is soft yet dramatic. Highlighting the textures of his hair and jacket, while the red accents pop vividly against the grayscale tones, creating a cohesive, high-energy visual that blends streetwear culture with graphic artistry. Photorealistic, shallow depth of field, high-resolution DSLR quality, Hasselblad X2D 100C, shallow depth of field, sharply focused on me. 4:5 aspect ratio. Make it 8K ultra realistic, hyper detailed."
+    },
+    {
+        "title": "Gradient Studio Fashion Pose",
+        "prompt": "He stands casually with hands in his pockets against a clean gradient background (deep navy to sky blue), looking straight at the camera. No text or logos in the background. Use shallow depth of field. Shot on a Canon EOS R5 + RF 85mm f/1.2L lens, studio lighting, 12K resolution, cinematic editorial fashion shoot style."
+    },
+    {
+        "title": "Moody Black Suit Portrait (Stool Pose)",
+        "prompt": "Create a image of white portrait of a confident looking man. sitting on a wooden stool against a dark studio background. He is wearing a well-fitted, all-black suit with a black shirt, and black pant small silver chain at naki and small silver watch slightly unbuttoned at the top, exuding a moody and powerful aura. His posture is relaxed yet dominant, with one arm resting on his leg and the other one in his pant pocket. The lighting is soft but directional."
+    },
+    {
+        "title": "Fisheye Anime Room Selfie",
+        "prompt": "ULTRA-REALISTIC 9:16 VERTICAL FORMAT FISHEYE SELFIE OF ME WITH [SOLUÇO E BANGUELA DE COMO TREINAR SEU DRAGÃO]. WE’RE ALL MAKING SILLY, EXAGGERATED FACES. SET IN A SMALL, BRIGHT LIVING ROOM WITH WHITE TONES. HIGH CAMERA ANGLE. EXTREME FISHEYE DISTORTION. REALISTIC, CINEMATIC LIGHTING, ANIME CHARACTERS INTEGRATED WITH STYLIZED REALISM."
+    }
+]

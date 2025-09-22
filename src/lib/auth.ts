@@ -1,0 +1,40 @@
+import { currentUser } from '@clerk/nextjs/server'
+import { prisma } from './prisma'
+
+export async function ensureUserInDatabase() {
+  try {
+    const clerkUser = await currentUser()
+    
+    if (!clerkUser) {
+      return null
+    }
+
+    // Check if user exists in database
+    let dbUser = await prisma.user.findUnique({
+      where: { clerkId: clerkUser.id }
+    })
+
+    // If user doesn't exist, create them
+    if (!dbUser) {
+      console.log(`Creating new user for ${clerkUser.emailAddresses[0]?.emailAddress}`)
+      
+      dbUser = await prisma.user.create({
+        data: {
+          clerkId: clerkUser.id,
+          email: clerkUser.emailAddresses[0]?.emailAddress || '',
+          name: `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim() || 'Anonymous',
+          avatar: clerkUser.imageUrl || null,
+          credits: 5, // Give new users 5 free credits
+          totalCreditsUsed: 0,
+        },
+      })
+
+      console.log(`✅ Created user in database: ${dbUser.email}`)
+    }
+
+    return dbUser
+  } catch (error) {
+    console.error('❌ Error ensuring user in database:', error)
+    throw error
+  }
+}

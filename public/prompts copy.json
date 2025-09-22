@@ -1,0 +1,478 @@
+{
+    "prompts": [
+        {
+            "id": 1,
+            "title": "Fashion Shoot Portrait",
+            "prompt": "He stands casually with hands in his pockets against a clean gradient background ((gradient)), looking straight at the camera. No text or logos in the background. Use shallow depth of field. Shot on a ((camera_model)) + ((lens)), ((lighting)), ((resolution)), cinematic editorial fashion shoot style.",
+            "variables": [
+                "gradient",
+                "camera_model",
+                "lens",
+                "lighting",
+                "resolution"
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Embroidery Patch",
+            "prompt": "Create a highly detailed embroidered patch of the ((uploaded_logo)). The patch should feature raised stitching and textured embroidery, giving it a realistic, 3D look. Maintain accurate colors and logo proportions. Present the patch isolated on a transparent PNG background, without any fabric or surface beneath it. Make it look like a professionally made logo patch ready for ((use_case)).",
+            "variables": [
+                "uploaded_logo",
+                "use_case"
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Red Gradient Fashion Portrait",
+            "prompt": "A highly stylized portrait of ((subject)) with sharp features, flawless fair skin, wearing a ((outfit)), and standing against a ((background)), confidently. The lighting is dramatic and cinematic, emphasizing ((focus_area)) and giving a luxury fashion magazine vibe. Ultra-realistic, high-detail, editorial photography style. ((resolution)), symmetrical composition, minimal background elements. ((aspect_ratio))",
+            "variables": [
+                "subject",
+                "outfit",
+                "background",
+                "focus_area",
+                "resolution",
+                "aspect_ratio"
+            ]
+        },
+        {
+            "id": 4,
+            "title": "Fisheye Anime Selfie",
+            "prompt": "ULTRA-REALISTIC ((aspect_ratio)) FISHEYE SELFIE OF ME WITH ((characters)). WE’RE ALL MAKING ((expression)). SET IN A ((room_description)). ((camera_angle)). ((distortion)). ((lighting)), ((style)).",
+            "variables": [
+                "aspect_ratio",
+                "characters",
+                "expression",
+                "room_description",
+                "camera_angle",
+                "distortion",
+                "lighting",
+                "style"
+            ]
+        },
+        {
+            "id": 5,
+            "title": "BW Editorial Portrait",
+            "prompt": "Create a high-end black and white portrait using my ((input_image)). The face must remain exactly as in on my original selfie — no editing, no retouching, no smoothing. I’m wearing ((outfit)). Preserve every facial detail and texture for a raw, authentic look. The lighting should be dramatic and studio-quality, using ((lighting_style)) to sculpt the features. Use a ((background_style)). Frame the portrait vertically ((aspect_ratio)), centered composition, with ultra-realistic skin texture and depth. No digital makeup or alterations. The final result should look timeless, editorial, and emotionally powerful — suitable for a ((usage)).",
+            "variables": [
+                "input_image",
+                "outfit",
+                "lighting_style",
+                "background_style",
+                "aspect_ratio",
+                "usage"
+            ]
+        },
+        {
+            "id": 6,
+            "title": "Hyper-Detailed Graphic Poster",
+            "prompt": "CREATE A HYPER-DETAILED GRAPHIC DESIGN FEATURING A STRIKING PORTRAIT OF A YOUNG MAN WITH THE SAME FACE AS ((reference_face)) WITH A CONFIDENT DEMEANOUR. HIS HEAD IS ADORNED WITH ((hair_detail)). THE PORTRAIT IS RENDERED IN ((style)), STANDING OUT AGAINST ((background)). EXPRESSION IS ((expression)). ((overlay_elements)). ((typography)). ((design_elements)). ((quote)). ((signature_style)). ((lighting)). ((camera_details)). ((output_quality)).",
+            "variables": [
+                "reference_face",
+                "hair_detail",
+                "style",
+                "background",
+                "expression",
+                "overlay_elements",
+                "typography",
+                "design_elements",
+                "quote",
+                "signature_style",
+                "lighting",
+                "camera_details",
+                "output_quality"
+            ]
+        },
+        {
+            "id": 7,
+            "title": "Moody White Portrait on Stool",
+            "prompt": "Create an image of a white portrait of a confident looking man sitting on a ((seating)) against a ((background)). He is wearing ((outfit)) with ((accessories)). His posture is ((posture)). ((lighting_description)).",
+            "variables": [
+                "seating",
+                "background",
+                "outfit",
+                "accessories",
+                "posture",
+                "lighting_description"
+            ]
+        },
+        {
+            "id": 8,
+            "title": "Cinematic Street Portrait",
+            "prompt": "Black and white cinematic street portrait of a young man with ((hair)), ((facial_features)), and ((accessories)). He wears ((outfit)). ((lighting)), ((background_effects)), confident expression, ((style_vibe)), ((aspect_ratio)), ((depth_of_field)), ((film_effect)).",
+            "variables": [
+                "hair",
+                "facial_features",
+                "accessories",
+                "outfit",
+                "lighting",
+                "background_effects",
+                "style_vibe",
+                "aspect_ratio",
+                "depth_of_field",
+                "film_effect"
+            ]
+        },
+        {
+            "id": 9,
+            "title": "3D Landmarks Map",
+            "prompt": "A close-up photograph of a large map. All landmarks set on a vintage ((country_name)) map background. Write the country name with capital letters. A miniature 3D landscape is sculpted in ((material)), featuring most iconic and famous landmarks and architectural forms from ((country_name)). ((trees_effect)). Creating a surreal, cozy atmosphere.",
+            "variables": [
+                "country_name",
+                "material",
+                "trees_effect"
+            ]
+        },
+        {
+            "id": 10,
+            "title": "Moody Golden Spotlight Portrait",
+            "prompt": "Create a moody portrait with dramatic studio lighting. The subject should stand slightly off-center in front of a ((spotlight)). Use ((shadow_style)) and a cinematic feel. The subject must wear ((outfit)), have ((hairstyle)), and no glasses or facial hair. ((light_direction)). ((aspect_ratio)), ((camera_instructions)).",
+            "variables": [
+                "spotlight",
+                "shadow_style",
+                "outfit",
+                "hairstyle",
+                "light_direction",
+                "aspect_ratio",
+                "camera_instructions"
+            ]
+        },
+        {
+            "id": 11,
+            "title": "Neon Water Portrait",
+            "prompt": "A hyper-realistic close-up portrait of ((subject)), with only the ((visible_face_side)) visible and partially submerged in ((element)). The scene is illuminated dramatically with ((lighting_colors)), casting colorful reflections on ((skin_condition)) and ((hair_condition)). ((water_effects)) cling to ((subject_face)), enhancing the cinematic mood. The ((skin_details)) and ((eye_expression)) are clearly visible.",
+            "variables": [
+                "subject",
+                "visible_face_side",
+                "element",
+                "lighting_colors",
+                "skin_condition",
+                "hair_condition",
+                "water_effects",
+                "subject_face",
+                "skin_details",
+                "eye_expression"
+            ]
+        },
+        {
+            "id": 12,
+            "title": "Surreal Roof with Moon",
+            "prompt": "Create a surreal ultra-HD digital hyper-detailed image based on the photo I sent. It should depict ((subject_age)) sitting on ((setting)) at ((time_of_day)). He appears to be holding ((object)) with ((sky_details)) as the backdrop. In the background, there are ((city_description)). The atmosphere is ((mood_description)), with ((color_scheme)).",
+            "variables": [
+                "subject_age",
+                "setting",
+                "time_of_day",
+                "object",
+                "sky_details",
+                "city_description",
+                "mood_description",
+                "color_scheme"
+            ]
+        },
+        {
+            "id": 13,
+            "title": "Fisheye Intersection Portrait",
+            "prompt": "Ultra-realistic 9:16 vertical format fisheye overhead shot of ((subject)) (from the sent image) standing in the center of a ((location)).",
+            "variables": [
+                "subject",
+                "location"
+            ]
+        },
+        {
+            "id": 14,
+            "title": "Police Lights Hero Pose",
+            "prompt": "A confident man ((subject_reference)) in a ((outfit)), leaning on a ((vehicle)) with ((light_colors)) flashing. ((lighting_style)), ((expression)), hero-style pose, studio background with ((shadow_description)).",
+            "variables": [
+                "subject_reference",
+                "outfit",
+                "vehicle",
+                "light_colors",
+                "lighting_style",
+                "expression",
+                "shadow_description"
+            ]
+        },
+        {
+            "id": 15,
+            "title": "Stranger Things Poster",
+            "prompt": "Part 1 - Transform this selfie into a cinematic ((style)) poster with ((accuracy)). Place the person ((position)) looking slightly upwards with ((glow_effect)). Below them, create a ((scene_description)) with ((creatures)), ((surroundings)). Use ((ground_details)). Part 2 - ((apocalyptic_scene)) and an apocalyptic ((sky)). Don't change my face, keep it same. Add the text '((main_text))' in a ((font_style)) at the center, and the '((logo_text))' at the bottom, with ((season_number)) underneath. Stylized like ((poster_reference)).",
+            "variables": [
+                "style",
+                "accuracy",
+                "position",
+                "glow_effect",
+                "scene_description",
+                "creatures",
+                "surroundings",
+                "ground_details",
+                "apocalyptic_scene",
+                "sky",
+                "main_text",
+                "font_style",
+                "logo_text",
+                "season_number",
+                "poster_reference"
+            ]
+        },
+        {
+            "id": 16,
+            "title": "Hanuman Hug",
+            "prompt": "Create a realistic image of characters of ((reference_image)) who is giving hug to ((mythical_figure)) and ((mythical_figure)) is also providing hug and blessing. The scene must be located in ((environment)). The image should look like ((style)).",
+            "variables": [
+                "reference_image",
+                "mythical_figure",
+                "environment",
+                "style"
+            ]
+        },
+        {
+            "id": 17,
+            "title": "Nike BW Poster",
+            "prompt": "Black & white portrait of ((subject)), wearing ((outfit)). Add ((graphic_element)) over one eye. Background: ((background_style)) with ((graphic_items)) like '((tagline))' text on the side. Bottom text: ((bottom_quote_1)) / ((bottom_quote_2)) / ((hashtag)) / ((footer_text)).",
+            "variables": [
+                "subject",
+                "outfit",
+                "graphic_element",
+                "background_style",
+                "graphic_items",
+                "tagline",
+                "bottom_quote_1",
+                "bottom_quote_2",
+                "hashtag",
+                "footer_text"
+            ]
+        },
+        {
+            "id": 18,
+            "title": "Funny Vespa Chase (Part 1)",
+            "prompt": "Create a humorous, cinematic image of ((subject)) riding a ((vehicle)) at high speed on ((terrain)) surrounded by ((background)). The person looks ((expression)), with ((motion_effects)), while being chased by ((chasing_elements)). One of the dogs is ((special_dog_action)).",
+            "variables": [
+                "subject",
+                "vehicle",
+                "terrain",
+                "background",
+                "expression",
+                "motion_effects",
+                "chasing_elements",
+                "special_dog_action"
+            ]
+        },
+        {
+            "id": 19,
+            "title": "Funny Vespa Chase (Part 2)",
+            "prompt": "The scene is full of ((atmosphere_effects)). The ((vehicle)) is ((vehicle_pose)), and the person's clothes are ((clothing_motion)). Replace the original rider's face with ((uploaded_image)), keeping ((expression_type)). Ensure ((visual_match)). Image aspect: ((aspect_ratio)).",
+            "variables": [
+                "atmosphere_effects",
+                "vehicle",
+                "vehicle_pose",
+                "clothing_motion",
+                "uploaded_image",
+                "expression_type",
+                "visual_match",
+                "aspect_ratio"
+            ]
+        },
+        {
+            "id": 20,
+            "title": "Rain Window Reflection",
+            "prompt": "A highly realistic editorial portrait of ((subject)) standing behind ((object)) at ((time_of_day)). ((weather_effects)) create soft bokeh from ((light_sources)). Face is partially visible through the glass with ((expression)). He wears ((outfit)) and rests his forehead gently. The lighting is ((lighting_description)). The background glows with ((background_lighting)). Format: ((aspect_ratio)), mood: ((vibe)).",
+            "variables": [
+                "subject",
+                "object",
+                "time_of_day",
+                "weather_effects",
+                "light_sources",
+                "expression",
+                "outfit",
+                "lighting_description",
+                "background_lighting",
+                "aspect_ratio",
+                "vibe"
+            ]
+        },
+        {
+            "id": 21,
+            "title": "Cyberpunk Walk",
+            "prompt": "Cinematic shot of ((subject)) walking against ((setting)). All others are blurred with ((motion_effects)). I'm in focus, ((age)). ((pose)) – serious looking at a far distance, ((weather)) and I am soaked. Wearing ((outfit)). ((style)), ((film_look)), ((lighting)), ratio: ((aspect_ratio)).",
+            "variables": [
+                "subject",
+                "setting",
+                "motion_effects",
+                "age",
+                "pose",
+                "weather",
+                "outfit",
+                "style",
+                "film_look",
+                "lighting",
+                "aspect_ratio"
+            ]
+        },
+        {
+            "id": 22,
+            "title": "Action Figure Package Prompt",
+            "prompt": "Draw a Barbie-style action figure of ((person)) inside a blister package. Add the toy name ((toy_name)) and the headline ((headline)). Include accessories like ((accessories)).",
+            "variables": [
+                "person",
+                "toy_name",
+                "headline",
+                "accessories"
+            ]
+        },
+        {
+            "id": 23,
+            "title": "Anime Fisheye Selfie Prompt",
+            "prompt": "Ultra-realistic 9:16 vertical format fisheye selfie of ((person)) with ((characters)). We’re all making silly, exaggerated faces. Set in ((environment)). High camera angle. Extreme fisheye distortion. Realistic, cinematic lighting, anime characters integrated with stylized realism.",
+            "variables": [
+                "person",
+                "characters",
+                "environment"
+            ]
+        },
+        {
+            "id": 24,
+            "title": "Mediocre iPhone Selfie Prompt",
+            "prompt": "Create an image of an extremely unremarkable iPhone selfie with no clear subject or framing, just a careless snapshot. The photo should have a touch of motion blur and be mildly overexposed from uneven sunlight. The angle is awkward, the composition nonexistent, and the overall effect is aggressively mediocre, like a photo taken by accident while pulling the phone out of a pocket. ((add_subject_or_situation))",
+            "variables": [
+                "add_subject_or_situation"
+            ]
+        },
+        {
+            "id": 25,
+            "title": "3D Metal Sculpt Render Prompt",
+            "prompt": "Create a high-resolution 3D render of ((image_reference)), transformed into a solid, sculptural object made entirely of polished, hyperrealistic metal. The object must preserve the exact shape, proportions, and sharp edges of the original. Reflections should follow surface curvature. Incorporate micro-scratches, dents, warps, and compressed zones for realism. Final render must have frontal orientation, cinematic lighting, and show faint oxidized tones or tints.",
+            "variables": [
+                "image_reference"
+            ]
+        },
+        {
+            "id": 26,
+            "title": "Inflated Latex Render Prompt",
+            "prompt": "Create a high-resolution 3D render of ((image_name)), transformed into a fully inflatable object made of glossy, latex-like PVC or TPO — soft, air-filled, and hyperreflective. Volume must feel overstuffed. Use ((color)). Floating in mid-air on a neutral gray background. Use cinematic, multi-directional lighting. Ultra-high resolution (8K).",
+            "variables": [
+                "image_name",
+                "color"
+            ]
+        },
+        {
+            "id": 27,
+            "title": "Futuristic Anatomy Prompt",
+            "prompt": "A digital illustration of a ((subject)) outlined with bright blue lines over a dark background, highlighting its form. A specific ((part)) glows red to indicate focus. Educational and visually striking, styled like advanced imaging.",
+            "variables": [
+                "subject",
+                "part"
+            ]
+        },
+        {
+            "id": 28,
+            "title": "Urban Street Portrait",
+            "prompt": "A stylish young man standing in a busy urban street, looking over his shoulder. He has slightly messy wavy hair, a thin mustache and light stubble, and is wearing round vintage sunglasses. He wears a dark turtleneck and a loose black bomber jacket. The city background is softly blurred with colorful lights and out-of-focus people around, giving a cinematic and moody depth-of-field effect.",
+            "variables": []
+        },
+        {
+            "id": 29,
+            "title": "Textured Glass Portrait",
+            "prompt": "A surreal portrait of ((person)) behind a textured, vertical ribbed glass panel, the face is partially visible, not clearly and heavily distorted by the glass, creating a wavy, abstract visual effect, the lighting is dramatic and cinematic, with the subject illuminated in vivid gold light, contrasting against a ((background_color)) background, the overall mood is mysterious and emotionally evocative, the image features high contrast and saturated colours with a strong emphasis on artistic lighting and abstract composition --ar 3:4 --style raw --stylize 75 --v 7",
+            "variables": [
+                "person",
+                "background_color"
+            ]
+        },
+        {
+            "id": 30,
+            "title": "Jungle T-Rex Adventure",
+            "prompt": "A hyper-realistic, cinematic action scene of ((person)) crouching in a dense, glowing jungle at night, holding a high-tech flashlight emitting a vivid blue beam. ((person))'s expression is tense and alert, as if they just heard something behind them. A massive, roaring T-Rex emerges from the shadows in the background, its teeth bared mid-snarl. Dramatic lighting highlights their face and arm, casting sharp shadows through the jungle foliage.",
+            "variables": [
+                "person"
+            ]
+        },
+        {
+            "id": 31,
+            "title": "All Black Fashion Portrait",
+            "prompt": "A stylish ((person)) in a sleek, all-black outfit poses confidently against a pitch-black background. They wear a tailored black suit, a black shirt with the top buttons open, black sunglasses and a well-groomed beard, exuding charisma and mystery. A luxury wristwatch glints on their left wrist. The lighting is dramatic, highlighting facial features and casting soft shadows, creating a bold, high-fashion editorial look.",
+            "variables": [
+                "person"
+            ]
+        },
+        {
+            "id": 32,
+            "title": "London Fashion Week Runway",
+            "prompt": "In this electrifying moment captured at London Fashion Week, ((model_name)) radiates bold energy and sleek confidence. Clad in a sharply tailored charcoal suit, paired with minimalist jewelry and a statement pendant, they stride down the runway with purpose and poise. Their intense gaze, sculpted hair, and defined jawline are amplified by cinematic lighting and a sea of flashing cameras in the background. The stylish crowd fades into soft focus, spotlighting their magnetic presence. Every detail—from the crisp silhouette of the suit to the layered rings—echoes the voice of contemporary high fashion.",
+            "variables": [
+                "model_name"
+            ]
+        },
+        {
+            "id": 33,
+            "title": "Modern Indoor Editorial",
+            "prompt": "Create an ultra-realistic, high-resolution editorial photograph of ((person)) leaning against a glass railing in a sleek, modern indoor setting. The background features a white curved architectural wall with dramatic shadows cast by strong directional sunlight. ((person)) wears a slightly oversized black pinstriped suit with a crisp white dress shirt and a classic striped tie. Pose is relaxed and self-assured, with one arm resting casually on the railing and an intense, composed gaze directed at the camera. Hairstyle is medium-length, voluminous, and slightly wavy, styled naturally. Maintain cinematic lighting with soft warm tones and bold contrast between light and shadow, giving the entire image a professional, editorial, and moody tone. Use a shallow depth of field for a creamy bokeh background. The framing should be 3:4 portrait ratio.",
+            "variables": [
+                "person"
+            ]
+        },
+        {
+            "id": 34,
+            "title": "Red Background JT Monogram",
+            "prompt": "Create a hyper-realistic digital poster of ((person)) standing against a vibrant red background with a large yellow '((monogram))' monogram. They have medium-length, voluminous, and slightly wavy hair styled upwards. Outfit includes a dark denim shirt with sleeves rolled up and a brown strap worn diagonally across the chest like a sling bag. Wearing black rectangular sunglasses and white wired earphones. Skin tone is fair and natural, with smooth, clean texture. The lighting should be soft and cinematic with realistic shadows and a slight grain for authenticity. The image should preserve a moody, modern vibe in ultra 8K quality.",
+            "variables": [
+                "person",
+                "monogram"
+            ]
+        },
+        {
+            "id": 35,
+            "title": "Ferrari Lifestyle Portrait",
+            "prompt": "A hyper-realistic photo of ((person)) with a fair, flawless complexion, medium-length voluminous wavy hair styled naturally, and a neatly groomed beard. They are wearing stylish black sunglasses, a black and beige striped knit sweater, and fitted black jeans. ((person)) stands with arms crossed in front of a sleek red Ferrari parked under warm, golden afternoon sunlight. The lighting is cinematic, with soft shadows. The background includes a rustic wooden gate, a white stucco wall, and a slightly elevated garden with greenery.",
+            "variables": [
+                "person"
+            ]
+        },
+        {
+            "id": 36,
+            "title": "Motorcycle Street Portrait BW",
+            "prompt": "A hyper-realistic black and white portrait of ((person)) sitting on a motorcycle in the center of an empty city street during twilight. Wearing a fitted black t-shirt layered with a sleek black leather biker jacket, black fingerless gloves, and dark sunglasses. Hairstyle is voluminous and naturally styled, with slight waves. A thin metallic necklace with a small pendant is visible. The background shows softly blurred urban buildings and glowing bokeh streetlights. Lighting is moody and soft, with a shallow depth of field.",
+            "variables": [
+                "person"
+            ]
+        },
+        {
+            "id": 37,
+            "title": "Pigeons Cinematic Portrait",
+            "prompt": "A cinematic portrait of ((person)) standing with hands in pockets. Surrounded by a dramatic flock of pigeons mid-flight, creating a sense of motion and intensity. The sky is slightly cloudy with warm golden-hour tones, casting soft shadows.",
+            "variables": [
+                "person"
+            ]
+        },
+        {
+            "id": 38,
+            "title": "Toyota Supra Portrait",
+            "prompt": "((person)) sitting-leaning at Toyota-Supra with doors-open. Wearing a nike t-shirt, black jeans and white sneakers and sunglasses. Holding a car-key and gazing thoughtfully into the distance. The sky above is dramatic with scattered clouds and golden-hour lighting, with background ravine. Generate this in 4k resolution.",
+            "variables": [
+                "person"
+            ]
+        },
+        {
+            "id": 39,
+            "title": "Luxury Car Rain Portrait",
+            "prompt": "Use ((person))'s face. A confident person in a luxury car, wearing a stylish black suit with a bow tie and sunglasses. The photo has a cinematic tone with moody contrast, light rain on the car's surface, and a shallow depth of field. Enhance colors subtly, sharpen facial details, and add a soft vignette for a dramatic effect. Maintain a classy, high-end look (f/2.8), ratio 9:16.",
+            "variables": [
+                "person"
+            ]
+        },
+        {
+            "id": 40,
+            "title": "M3 GTR Overhead Shot",
+            "prompt": "An overhead cinematic shot of ((person)), leaning against the hood of a black M3 GTR on the street, wearing a black suit, left hand in pocket, right hand smoking a cigarette. A blurry crowd of cars and people are moving in the background. Gloomy lighting, 35mm film style, shallow depth of field, sharp focus on ((person)). Aspect ratio 9:16. 8K resolution.",
+            "variables": [
+                "person"
+            ]
+        },
+        {
+            "id": 41,
+            "title": "Shush Gesture Crowd Portrait",
+            "prompt": "A dramatic 8K ultra-realistic image of ((person)) standing confidently in the center of a crowd. Sharp jawline, voluminous textured hairstyle, wearing black sunglasses and a rich red button-up shirt. Making a 'shhh' gesture with right index finger on lips, staring directly at the camera with an intense expression.",
+            "variables": [
+                "person"
+            ]
+        }
+    ]
+}
