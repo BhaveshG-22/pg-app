@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { imageQueue } from '@/lib/queue';
+import { getImageQueue } from '@/lib/queue';
 
 export const runtime = 'nodejs';
 
@@ -107,16 +107,23 @@ export async function POST(req: NextRequest) {
     });
 
     // 8. Enqueue processing job
-    await imageQueue.add(
-      'generate',
-      { generationId: generation.id, userId },
-      {
-        attempts: 3,
-        backoff: { type: 'exponential', delay: 1500 },
-        jobId: generation.id,
-        removeOnComplete: true
-      }
-    );
+    try {
+      const queue = getImageQueue();
+      await queue.add(
+        'generate',
+        { generationId: generation.id, userId },
+        {
+          attempts: 3,
+          backoff: { type: 'exponential', delay: 1500 },
+          jobId: generation.id,
+          removeOnComplete: true
+        }
+      );
+      console.log(`✅ Successfully queued job ${generation.id}`);
+    } catch (queueError) {
+      console.error('❌ Failed to add job to queue:', queueError);
+      throw queueError;
+    }
 
     return NextResponse.json({ 
       jobId: generation.id,

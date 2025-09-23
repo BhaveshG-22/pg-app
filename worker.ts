@@ -115,9 +115,24 @@ new Worker('image-generate', async (job: Job) => {
     // Rethrow only if transient → let BullMQ retry
     if (isTransient(err)) throw err;
   }
-}, { connection: { url: process.env.REDIS_URL! }, concurrency: CONCURRENCY });
+}, {
+  connection: {
+    url: process.env.REDIS_URL!,
+    tls: {
+      rejectUnauthorized: false // Allow self-signed certificates for Aiven Redis
+    }
+  },
+  concurrency: CONCURRENCY
+});
 
 // Optional QueueEvents for monitoring/metrics
-new QueueEvents('image-generate', { connection: { url: process.env.REDIS_URL! } });
+new QueueEvents('image-generate', {
+  connection: {
+    url: process.env.REDIS_URL!,
+    tls: {
+      rejectUnauthorized: false // Allow self-signed certificates for Aiven Redis
+    }
+  }
+});
 
 console.log(`Worker started with concurrency: ${CONCURRENCY}`);

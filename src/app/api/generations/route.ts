@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { imageQueue } from '@/lib/queue';
+import { getImageQueue } from '@/lib/queue';
 
 export const runtime = 'nodejs';
 
@@ -137,16 +137,31 @@ export async function POST(req: NextRequest) {
     });
 
     // 8) Enqueue (credits will be debited atomically by worker)
-    await imageQueue.add(
-      'generate',
-      { generationId: gen.id, userId },
-      {
-        attempts: 3,
-        backoff: { type: 'exponential', delay: 1500 },
-        jobId: gen.id,
-        removeOnComplete: true
-      }
-    );
+    try {
+      const queue = getImageQueue();
+      await queue.add(
+        'generate',
+        { generationId: gen.id, userId },
+        {
+          attempts: 3,
+          backoff: { type: 'exponential', delay: 1500 },
+          jobId: gen.id,
+          removeOnComplete: true
+        }
+      );
+      console.log(`✅ Successfully queued job ${gen.id}`);
+    } catch (queueError) {
+      console.error('❌ Failed to add job to queue:', queueError);
+      // Update generation status to failed if queue add fails
+      await prisma.generation.update({
+        where: { id: gen.id },
+        data: {
+          status: 'FAILED',
+          errorMessage: 'Failed to add job to queue: ' + String(queueError)
+        }
+      });
+      throw queueError;
+    }
 
     return NextResponse.json({ jobId: gen.id });
 
