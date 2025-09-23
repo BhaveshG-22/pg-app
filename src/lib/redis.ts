@@ -7,9 +7,8 @@ export async function getRedisClient() {
     redis = createClient({
       url: process.env.REDIS_URL!,
       socket: {
-        tls: {
-          rejectUnauthorized: false // Allow self-signed certificates for Aiven Redis
-        }
+        tls: true,
+        rejectUnauthorized: false // Allow self-signed certificates for Aiven Redis
       }
     });
     redis.on('error', (err: any) => console.error('Redis Client Error', err));
