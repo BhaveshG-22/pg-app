@@ -1,10 +1,29 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
-import { GoogleOneTap } from "@clerk/nextjs"
+import { useSignIn } from "@clerk/nextjs"
+import { useRouter } from "next/navigation"
 import { FcGoogle } from "react-icons/fc"
 
 export function HeroForm() {
+  const { signIn } = useSignIn()
+  const router = useRouter()
+
+  const handleGoogleSignIn = async () => {
+    try {
+      if (!signIn) return
+
+      await signIn.authenticateWithRedirect({
+        strategy: "oauth_google",
+        redirectUrl: "/dashboard",
+        redirectUrlComplete: "/dashboard"
+      })
+    } catch (error) {
+      console.error('Google sign-in failed:', error)
+      router.push('/sign-in')
+    }
+  }
+
   return (
     <form className="space-y-4" onSubmit={e => e.preventDefault()}>
       {/* Header */}
@@ -41,7 +60,8 @@ export function HeroForm() {
 
       <button
         type="button"
-        className="w-full h-12 px-6 bg-background border border-border rounded-2xl flex items-center justify-center transition-all duration-200 hover:bg-muted"
+        onClick={handleGoogleSignIn}
+        className="w-full h-12 px-6 bg-background border border-border rounded-2xl flex items-center justify-center transition-all duration-200 hover:bg-muted hover:shadow-md"
       >
         <FcGoogle className="w-5 h-5 mr-3 flex-shrink-0" />
         <span className="text-base font-medium text-card-foreground">Continue with Google</span>

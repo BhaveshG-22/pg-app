@@ -1,16 +1,35 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
-import { useUser, SignOutButton } from "@clerk/nextjs"
+import { useUser, SignOutButton, useSignIn } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import { FcGoogle } from "react-icons/fc"
 
 export function Header() {
   const { isSignedIn } = useUser();
+  const { signIn } = useSignIn()
+  const router = useRouter()
 
   const [isScrolled, setIsScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
+
+  const handleGoogleSignIn = async () => {
+    try {
+      if (!signIn) return
+
+      await signIn.authenticateWithRedirect({
+        strategy: "oauth_google",
+        redirectUrl: "/dashboard",
+        redirectUrlComplete: "/dashboard"
+      })
+    } catch (error) {
+      console.error('Google sign-in failed:', error)
+      router.push('/sign-in')
+    }
+  }
 
 
 
@@ -109,6 +128,7 @@ export function Header() {
               </>
             ) : (
               <>
+                {/* 
                 <Button
                   variant="ghost"
                   className={`transition-colors duration-300 ${isScrolled
@@ -117,8 +137,17 @@ export function Header() {
                     }`}
                   asChild
                 >
-                  <Link href="/sign-in">Sign In</Link>
-                </Button>
+                 </Button> */}
+
+                <button
+                  onClick={handleGoogleSignIn}
+                  className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 hover:scale-[1.02] ${isScrolled
+                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                    : "border border-gray-300 text-gray-300 hover:bg-gray-300 hover:text-black"
+                    }`}
+                >
+                  Sign in
+                </button>
 
               </>
             )}
