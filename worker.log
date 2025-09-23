@@ -705,3 +705,569 @@ prisma:query BEGIN
 prisma:query DEALLOCATE ALL
 prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "outputUrl" = $2, "completedAt" = $3, "processingTime" = $4, "updatedAt" = $5 WHERE ("public"."generations"."id" = $6 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
 prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt" FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt" FROM "public"."users" WHERE "public"."users"."id" IN ($1) OFFSET $2
+prisma:query UPDATE "public"."users" SET "credits" = ("public"."users"."credits" - $1), "updatedAt" = $2 WHERE ("public"."users"."id" = $3 AND 1=1) RETURNING "public"."users"."id", "public"."users"."clerkId", "public"."users"."email", "public"."users"."name", "public"."users"."avatar", "public"."users"."credits", "public"."users"."totalCreditsUsed", "public"."users"."tier"::text, "public"."users"."createdAt", "public"."users"."updatedAt"
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "updatedAt" = $2 WHERE ("public"."generations"."id" = $3 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."presets"."id", "public"."presets"."prompt", "public"."presets"."title", "public"."presets"."provider"::text FROM "public"."presets" WHERE ("public"."presets"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Processing uploaded image: uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg
+Created signed URL for uploaded image
+Generating Nano Banana image: Create a highly detailed embroidered patch of the ((uploaded_logo)). The patch should feature raised...
+Using uploaded image for Nano Banana transformation: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAZ3MGNJGLILQFCHOR%2F20250922%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250922T020442Z&X-Amz-Expires=3600&X-Amz-Signature=570dd37b9d94666c524e3a72dbf90bda0dd1d84692e14bc5d1a1259e4477b516&X-Amz-SignedHeaders=host%3Bx-amz-checksum-mode&response-content-type=image%2F%2A&x-id=GetObject
+Using direct S3 URL (bucket is now public): https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg
+Nano Banana input: {
+  prompt: 'Create a highly detailed embroidered patch of the ((uploaded_logo)). The patch should feature raised...',
+  hasImages: true,
+  imageCount: 1,
+  firstImageUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/17584960...',
+  outputFormat: 'png'
+}
+=== FULL NANO BANANA INPUT DEBUG ===
+{
+  "prompt": "Create a highly detailed embroidered patch of the ((uploaded_logo)). The patch should feature raised stitching and textured embroidery, giving it a realistic, 3D look. Maintain accurate colors and logo proportions. Present the patch isolated on a transparent PNG background, without any fabric or surface beneath it. Make it look like a professionally made logo patch ready for ((use_case)).",
+  "image_input": [
+    "https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/uploads/cmfub4wh600008oo4ftjit9uz/1758496048193-4f252306-23d5-441d-ae1a-6d198184583a.jpg"
+  ],
+  "output_format": "png"
+}
+=== END FULL INPUT DEBUG ===
+=== NANO BANANA RESPONSE DEBUG ===
+Type: object
+Value: ReadableStream { locked: false, state: 'readable', supportsBYOB: false }
+Is Array: false
+=== END DEBUG ===
+Nano Banana returned ReadableStream, converting to buffer
+Converted ReadableStream to buffer, size: 2202933
+Uploaded Nano Banana result to S3: generated/1758506691916-nano-banana-result.png
+ ENGINE result
+{
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758506691916-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+=== ENGINE RESULT DEBUG ===
+Result type: object
+Result value: {
+  outputUrl: 'https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758506691916-nano-banana-result.png',
+  engine: 'nano-banana',
+  engineMeta: {
+    model: 'google/nano-banana',
+    dimensions: { width: 1024, height: 1024 },
+    strength: undefined,
+    guidance_scale: undefined,
+    num_inference_steps: undefined,
+    type: 'image_transformation',
+    negative_prompt: undefined,
+    debug_output: ReadableStream { locked: true, state: 'closed', supportsBYOB: false }
+  }
+}
+OutputUrl type: string
+OutputUrl value: https://pixelglow-user-uploads.s3.us-east-1.amazonaws.com/generated/1758506691916-nano-banana-result.png
+=== END ENGINE DEBUG ===
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."generations"."id", "public"."generations"."status"::text FROM "public"."generations" WHERE ("public"."generations"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+Job cmfuhh39m00018oelyxasywj9 completed successfully
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query UPDATE "public"."generations" SET "status" = CAST($1::text AS "public"."GenerationStatus"), "outputUrl" = $2, "completedAt" = $3, "processingTime" = $4, "updatedAt" = $5 WHERE ("public"."generations"."id" = $6 AND 1=1) RETURNING "public"."generations"."id", "public"."generations"."userId", "public"."generations"."presetId", "public"."generations"."userImageId", "public"."generations"."aspectRatio"::text, "public"."generations"."outputSize"::text, "public"."generations"."isPrivate", "public"."generations"."hasWatermark", "public"."generations"."inputValues", "public"."generations"."finalPrompt", "public"."generations"."status"::text, "public"."generations"."creditsUsed", "public"."generations"."processingTime", "public"."generations"."outputUrl", "public"."generations"."errorMessage", "public"."generations"."idempotencyKey", "public"."generations"."createdAt", "public"."generations"."completedAt", "public"."generations"."updatedAt"
+prisma:query COMMIT
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: connect ETIMEDOUT
+    at TLSSocket.<anonymous> (/Users/bhaveshgavali/Desktop/OpenSource/pixelglow-dashbaord/dashbaord3/node_modules/ioredis/built/Redis.js:171:41)
+    at Object.onceWrapper (node:events:638:28)
+    at TLSSocket.emit (node:events:524:28)
+    at Socket._onTimeout (node:net:595:8)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7) {
+  errorno: 'ETIMEDOUT',
+  code: 'ETIMEDOUT',
+  syscall: 'connect'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+Error: read ECONNRESET
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20) {
+  errno: -54,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
