@@ -3,13 +3,13 @@
 import { Upload, ChevronLeft, ChevronRight, Sparkles, GripVertical, X, ImageIcon, Camera, FolderOpen, Eye, Download } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { Badge } from '@/components/ui/badge'
 import { useParams } from 'next/navigation'
 import { useUser } from '@clerk/nextjs'
 import { useDbUser } from '@/hooks/useDbUser'
 import { OUTPUT_SIZES } from '@/lib/constants'
 import { uploadOnly, validateFile, confirmUpload } from '@/lib/upload'
 import GeneratedImagesDisplay from '@/components/GeneratedImagesDisplay'
+import { UserImage } from '@/types/user'
 
 // Function to load single preset data and transformations from API
 const loadPresetData = async (slug: string) => {
@@ -81,20 +81,6 @@ function Textarea({ label, placeholder, value, onChange }: {
 
 
 // Enhanced Upload Modal Component
-interface UserImage {
-  id: string;
-  fileName: string;
-  originalFileName: string;
-  fileSize: number;
-  mimeType: string;
-  url: string; // S3 key
-  thumbnailUrl: string; // S3 key
-  width: number;
-  height: number;
-  uploadedAt: string;
-  displayUrl?: string; // Presigned URL for display
-  thumbnailDisplayUrl?: string; // Presigned URL for thumbnail
-}
 
 const UploadModal = ({ isOpen, onClose, onImageSelect, onAwsUpload, isUploading, uploadProgress, preloadedImages, onRefreshImages }: {
   isOpen: boolean;
@@ -301,8 +287,8 @@ const UploadModal = ({ isOpen, onClose, onImageSelect, onAwsUpload, isUploading,
                       key={image.id}
                       onClick={() => handleImageSelection(image)}
                       className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer border-2 transition-all duration-200 hover:scale-105 group ${selectedImageId === image.id
-                          ? 'border-primary ring-2 ring-primary/50 shadow-lg'
-                          : 'border-border hover:border-primary/50'
+                        ? 'border-primary ring-2 ring-primary/50 shadow-lg'
+                        : 'border-border hover:border-primary/50'
                         }`}
                     >
                       <img
@@ -575,6 +561,12 @@ const DynamicSlider = ({ presetData, selectedGeneratedImage, onDownloadGenerated
   );
 };
 
+enum Status{
+  QUEUED,
+  RUNNING,
+  COMPLETED
+}
+
 export default function StudioPage() {
   const params = useParams();
   const preset = params.preset as string;
@@ -597,6 +589,7 @@ export default function StudioPage() {
   const [exampleTransformations, setExampleTransformations] = useState<Array<{ before: string, after: string, title: string }>>([]);
   const [inputValues, setInputValues] = useState<Record<string, string>>({});
   const [otherIdeas, setOtherIdeas] = useState<string>('');
+  const [jobStatus, setJobStatus] = useState('')
 
   // Background user images loading
   const [userImages, setUserImages] = useState<UserImage[]>([]);
@@ -855,14 +848,14 @@ export default function StudioPage() {
             if (saveResponse.ok) {
               const saveResult = await saveResponse.json();
               console.log('Image saved to database:', saveResult.image);
-              
+
               // Generate presigned URL for display (same as gallery images)
               const presignResponse = await fetch('/api/gallery/presign', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ keys: [s3Key] })
               });
-              
+
               if (presignResponse.ok) {
                 const { urls } = await presignResponse.json();
                 const urlData = urls[0];
@@ -891,7 +884,7 @@ export default function StudioPage() {
 
       // Close modal after upload (no processing started)
       setIsUploadModalOpen(false);
-      
+
       // Refresh the images list
       refreshUserImages();
 
@@ -927,6 +920,8 @@ export default function StudioPage() {
       try {
         const response = await fetch(`/api/generations/${jobId}`);
         const result = await response.json();
+
+        setJobStatus(result.status);
 
         if (result.status === 'COMPLETED' && result.outputUrl) {
           const selectedAspectRatio = OUTPUT_SIZES[selectedOutputSize].aspectRatio;
@@ -1139,6 +1134,13 @@ export default function StudioPage() {
                   <div className="space-y-3">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
                     <p className="text-lg font-medium">Generating your masterpiece...</p>
+                    {jobStatus && (
+                      <div className="bg-primary/10 px-4 py-2 rounded-lg border border-primary/20">
+                        <p className="text-sm font-medium text-primary">
+                          Status: {jobStatus}
+                        </p>
+                      </div>
+                    )}
                     <p className="text-sm">This may take a few moments</p>
                   </div>
                 </div>
