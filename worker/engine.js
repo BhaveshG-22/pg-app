@@ -1,8 +1,6 @@
-const { PrismaClient } = require('@prisma/client');
+const { prisma } = require('./prisma');
 const { getProvider } = require('./providers');
 const { createPresignedGetUrl } = require('./s3');
-
-const prisma = new PrismaClient();
 
 async function callEngineAndUploadToS3(params) {
   const { presetId, inputValues, outputSize, signal, generationId } = params;

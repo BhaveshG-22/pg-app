@@ -44,3 +44,6 @@ next-env.d.ts
 /.clerk/
 
 /src/generated/prisma
+
+# Issue tracking (keep local for development)
+ISSUES.md

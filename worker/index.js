@@ -1,11 +1,9 @@
 require('dotenv').config();
 
 const { Worker, QueueEvents } = require('bullmq');
-const { PrismaClient } = require('@prisma/client');
+const { prisma } = require('./prisma');
 const { callEngineAndUploadToS3 } = require('./engine');
 const { getRedisClient } = require('./redis');
-
-const prisma = new PrismaClient();
 
 // Helper to identify transient errors that should be retried
 function isTransient(err) {

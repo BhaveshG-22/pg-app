@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+.pnpm-debug.log*
+
+# Environment variables (keep .env.example)
+.env
+.env.local
+.env.production
+
+# Generated files
+generated/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
