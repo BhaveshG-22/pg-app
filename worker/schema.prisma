@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String         @id @default(cuid())
+  clerkId          String         @unique
+  email            String?
+  firstName        String?
+  lastName         String?
+  imageUrl         String?
+  credits          Int            @default(10)
+  tier             UserTier       @default(FREE)
+  stripeCustomerId String?        @unique
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  generations      Generation[]
+  userImages       UserImage[]
+
+  @@map("users")
+}
+
+model Preset {
+  id            String       @id @default(cuid())
+  title         String
+  description   String
+  prompt        String
+  badge         String?
+  badgeColor    String?
+  slug          String       @unique
+  isActive      Boolean      @default(true)
+  credits       Int          @default(1)
+  provider      String       @default("OPENAI")
+  inputFields   Json?
+  variables     String[]     @default([])
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  generations   Generation[]
+
+  @@map("presets")
+}
+
+model Generation {
+  id             String           @id @default(cuid())
+  userId         String
+  presetId       String
+  inputValues    Json?
+  outputSize     OutputSize       @default(SQUARE)
+  status         GenerationStatus @default(QUEUED)
+  outputUrl      String?
+  errorMessage   String?
+  creditsUsed    Int              @default(1)
+  processingTime Int?
+  userImageId    String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  completedAt    DateTime?
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  preset    Preset    @relation(fields: [presetId], references: [id], onDelete: Cascade)
+  userImage UserImage? @relation(fields: [userImageId], references: [id], onDelete: SetNull)
+
+  @@map("generations")
+}
+
+model UserImage {
+  id               String       @id @default(cuid())
+  userId           String
+  url              String
+  originalFileName String
+  fileName         String
+  fileSize         Int
+  mimeType         String
+  width            Int?
+  height           Int?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  generations      Generation[]
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_images")
+}
+
+enum UserTier {
+  FREE
+  PRO
+  ENTERPRISE
+}
+
+enum OutputSize {
+  SQUARE
+  PORTRAIT
+  VERTICAL
+  LANDSCAPE
+  STANDARD
+}
+
+enum GenerationStatus {
+  QUEUED
+  PENDING
+  RUNNING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
