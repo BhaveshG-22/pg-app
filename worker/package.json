@@ -4,8 +4,8 @@
   "description": "Background worker for PixelGlow image processing",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "node --watch index.js",
+    "start": "prisma generate --schema=./schema.prisma && node index.js",
+    "dev": "prisma generate --schema=./schema.prisma && node --watch index.js",
     "worker": "node index.js",
     "build": "prisma generate --schema=./schema.prisma",
     "postinstall": "prisma generate --schema=./schema.prisma",
