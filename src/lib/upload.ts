@@ -117,7 +117,13 @@ export async function confirmUpload(options: ConfirmUploadOptions) {
 
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(error.error || 'Failed to confirm upload');
+
+    // Create a custom error with the error code for better handling
+    const customError = new Error(error.error || 'Failed to confirm upload');
+    (customError as any).code = error.error;
+    (customError as any).status = response.status;
+
+    throw customError;
   }
 
   return response.json();

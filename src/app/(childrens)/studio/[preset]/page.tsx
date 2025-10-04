@@ -9,6 +9,7 @@ import { useDbUser } from '@/hooks/useDbUser'
 import { OUTPUT_SIZES } from '@/lib/constants'
 import { uploadOnly, validateFile, confirmUpload } from '@/lib/upload'
 import GeneratedImagesDisplay from '@/components/GeneratedImagesDisplay'
+import ErrorModal from '@/components/ErrorModal'
 import { UserImage } from '@/types/user'
 
 // Function to load single preset data and transformations from API
@@ -591,6 +592,20 @@ export default function StudioPage() {
   const [otherIdeas, setOtherIdeas] = useState<string>('');
   const [jobStatus, setJobStatus] = useState('')
 
+  // Error modal state
+  const [errorModal, setErrorModal] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    type?: 'error' | 'warning' | 'info';
+    actionButton?: { text: string; onClick: () => void };
+  }>({
+    isOpen: false,
+    title: '',
+    message: '',
+    type: 'error'
+  })
+
   // Background user images loading
   const [userImages, setUserImages] = useState<UserImage[]>([]);
   const [userImagesLoaded, setUserImagesLoaded] = useState(false);
@@ -802,14 +817,24 @@ export default function StudioPage() {
   // AWS S3 Upload Handler
   const handleAwsFileUpload = async (file: File) => {
     if (!presetData || !dbUser) {
-      alert('Please wait for the preset to load and ensure you are logged in.');
+      setErrorModal({
+        isOpen: true,
+        title: 'Please Wait',
+        message: 'Please wait for the preset to load and ensure you are logged in before uploading.',
+        type: 'info'
+      });
       return;
     }
 
     // Validate file before upload
     const validation = validateFile(file, dbUser.tier);
     if (!validation.valid) {
-      alert(validation.error);
+      setErrorModal({
+        isOpen: true,
+        title: 'Invalid File',
+        message: validation.error || 'Please select a valid image file.',
+        type: 'warning'
+      });
       return;
     }
 
@@ -878,7 +903,12 @@ export default function StudioPage() {
         },
         onError: (error: string) => {
           console.error('Upload failed:', error);
-          alert(`Upload failed: ${error}`);
+          setErrorModal({
+            isOpen: true,
+            title: 'Upload Failed',
+            message: `Failed to upload your image:\n\n${error}\n\nPlease try again or check your internet connection.`,
+            type: 'error'
+          });
         }
       });
 
@@ -890,7 +920,12 @@ export default function StudioPage() {
 
     } catch (error) {
       console.error('Upload error:', error);
-      alert(`Upload failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      setErrorModal({
+        isOpen: true,
+        title: 'Upload Failed',
+        message: `Upload failed: ${error instanceof Error ? error.message : 'Unknown error'}\n\nPlease try again or check your internet connection.`,
+        type: 'error'
+      });
     } finally {
       setIsUploading(false);
       setUploadProgress(0);
@@ -939,7 +974,12 @@ export default function StudioPage() {
 
         if (result.status === 'FAILED' || result.status === 'CANCELLED') {
           console.error('Generation failed:', result.error);
-          alert('Generation failed: ' + (result.error || 'Unknown error'));
+          setErrorModal({
+            isOpen: true,
+            title: 'Generation Failed',
+            message: `Image generation failed: ${result.error || 'Unknown error'}\n\nPlease try again or contact support if the problem persists.`,
+            type: 'error'
+          });
           break;
         }
 
@@ -956,7 +996,12 @@ export default function StudioPage() {
 
     if (attempts >= maxAttempts) {
       console.error('Generation timed out');
-      alert('Generation timed out. Please try again.');
+      setErrorModal({
+        isOpen: true,
+        title: 'Generation Timeout',
+        message: 'The image generation took too long and timed out.\n\nThis may be due to high server load. Please try again in a few minutes.',
+        type: 'warning'
+      });
     }
 
     setIsGenerating(false);
@@ -984,9 +1029,66 @@ export default function StudioPage() {
       } else {
         throw new Error('No job ID returned from confirm upload');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error generating image:', error);
-      alert('An error occurred while generating the image');
+
+      // Handle specific error cases
+      if (error.code === 'insufficient_credits') {
+        // Create a more user-friendly error message for insufficient credits
+        const creditsNeeded = presetData.credits;
+        const currentCredits = dbUser?.credits || 0;
+        const creditsShort = creditsNeeded - currentCredits;
+
+        setErrorModal({
+          isOpen: true,
+          title: 'Insufficient Credits',
+          message: `You don't have enough credits to generate this image.
+
+💳 Credit Details:
+• Required: ${creditsNeeded} credits
+• You have: ${currentCredits} credits
+• You need: ${creditsShort} more credits
+
+Upgrade your plan or purchase more credits to continue creating amazing images.`,
+          type: 'warning',
+          actionButton: {
+            text: 'Upgrade Plan',
+            onClick: () => {
+              setErrorModal(prev => ({ ...prev, isOpen: false }));
+              // Navigate to pricing/upgrade page
+              window.open('/pricing', '_blank');
+            }
+          }
+        });
+      } else if (error.code === 'too_many_in_flight') {
+        setErrorModal({
+          isOpen: true,
+          title: 'Too Many Active Generations',
+          message: `⏳ You have too many generations in progress.
+
+Please wait for them to complete before starting a new one.
+
+This helps ensure optimal performance and quality for all users.`,
+          type: 'warning'
+        });
+      } else if (error.code === 'preset_not_found') {
+        setErrorModal({
+          isOpen: true,
+          title: 'Preset Not Available',
+          message: `🚫 The selected preset is no longer available.
+
+Please try a different preset from our gallery.`,
+          type: 'error'
+        });
+      } else {
+        // Generic error handling
+        setErrorModal({
+          isOpen: true,
+          title: 'Generation Failed',
+          message: `An error occurred while generating the image:\n\n${error.message || 'Unknown error'}\n\nPlease try again or contact support if the problem persists.`,
+          type: 'error'
+        });
+      }
     } finally {
       setIsGenerating(false);
     }
@@ -1477,6 +1579,16 @@ export default function StudioPage() {
           </div>
         </div>
       )}
+
+      {/* Error Modal */}
+      <ErrorModal
+        isOpen={errorModal.isOpen}
+        onClose={() => setErrorModal(prev => ({ ...prev, isOpen: false }))}
+        title={errorModal.title}
+        message={errorModal.message}
+        type={errorModal.type}
+        actionButton={errorModal.actionButton}
+      />
     </div>
   );
 }
