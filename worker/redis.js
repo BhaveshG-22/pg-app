@@ -1,20 +1,43 @@
 const { createClient } = require('redis');
 
-let redis = null;
+let redisClient = null;
 
 async function getRedisClient() {
-  if (!redis) {
-    redis = createClient({
+  if (!redisClient) {
+    redisClient = createClient({
       url: process.env.REDIS_URL,
-      socket: process.env.REDIS_URL?.includes('rediss://') ? {
-        tls: true,
-        rejectUnauthorized: false // Allow self-signed certificates for Aiven Redis
-      } : undefined
+      socket: {
+        tls: process.env.REDIS_URL?.startsWith('rediss://'),
+        rejectUnauthorized: false // Allow self-signed certificates for managed Redis
+      }
     });
-    redis.on('error', (err) => console.error('Redis Client Error', err));
-    await redis.connect();
+
+    redisClient.on('error', (err) => {
+      console.error('Redis Client Error:', err);
+    });
+
+    redisClient.on('connect', () => {
+      console.log('Connected to Redis');
+    });
+
+    redisClient.on('disconnect', () => {
+      console.log('Disconnected from Redis');
+    });
+
+    await redisClient.connect();
   }
-  return redis;
+
+  return redisClient;
 }
 
-module.exports = { getRedisClient };
+async function closeRedisClient() {
+  if (redisClient) {
+    await redisClient.quit();
+    redisClient = null;
+  }
+}
+
+module.exports = {
+  getRedisClient,
+  closeRedisClient
+};

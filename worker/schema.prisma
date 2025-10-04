@@ -1,99 +1,127 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
+  output   = "./node_modules/.prisma/client"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  directUrl    = env("DIRECT_URL")
+  relationMode = "prisma"
 }
 
 model User {
-  id               String         @id @default(cuid())
-  clerkId          String         @unique
-  email            String?
-  firstName        String?
-  lastName         String?
-  imageUrl         String?
-  credits          Int            @default(10)
-  tier             UserTier       @default(FREE)
-  stripeCustomerId String?        @unique
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
+  id               String       @id @default(cuid())
+  clerkId          String       @unique
+  email            String       @unique
+  name             String
+  avatar           String?
+  credits          Int          @default(0)
+  totalCreditsUsed Int          @default(0)
+  tier             UserTier     @default(FREE)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
   generations      Generation[]
-  userImages       UserImage[]
 
   @@map("users")
-}
-
-model Preset {
-  id            String       @id @default(cuid())
-  title         String
-  description   String
-  prompt        String
-  badge         String?
-  badgeColor    String?
-  slug          String       @unique
-  isActive      Boolean      @default(true)
-  credits       Int          @default(1)
-  provider      String       @default("OPENAI")
-  inputFields   Json?
-  variables     String[]     @default([])
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  generations   Generation[]
-
-  @@map("presets")
 }
 
 model Generation {
   id             String           @id @default(cuid())
   userId         String
   presetId       String
-  inputValues    Json?
-  outputSize     OutputSize       @default(SQUARE)
-  status         GenerationStatus @default(QUEUED)
+  userImageId    String?
+  aspectRatio    AspectRatio?
+  outputSize     OutputSize
+  isPrivate      Boolean          @default(false)
+  hasWatermark   Boolean          @default(true)
+  inputValues    Json
+  finalPrompt    String?
+  status         GenerationStatus @default(PENDING)
+  creditsUsed    Int
+  processingTime Int?
   outputUrl      String?
   errorMessage   String?
-  creditsUsed    Int              @default(1)
-  processingTime Int?
-  userImageId    String?
+  idempotencyKey String?          @unique
   createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
   completedAt    DateTime?
-
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  preset    Preset    @relation(fields: [presetId], references: [id], onDelete: Cascade)
-  userImage UserImage? @relation(fields: [userImageId], references: [id], onDelete: SetNull)
+  updatedAt      DateTime         @updatedAt
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  preset         Preset           @relation(fields: [presetId], references: [id])
 
   @@map("generations")
 }
 
-model UserImage {
-  id               String       @id @default(cuid())
+model Preset {
+  id          String       @id @default(cuid())
+  title       String
+  description String
+  slug        String       @unique
+  prompt      String
+  badge       String
+  badgeColor  String
+  credits     Int
+  category    String
+  provider    Provider     @default(NANO_BANANA)
+  owner       String?
+  examples    Json?
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  inputFields Json?
+  variables   Json?
+  generations Generation[]
+
+  @@map("presets")
+}
+
+model generation_results {
+  id             String   @id
+  generationId   String
+  url            String
+  thumbnailUrl   String
+  width          Int
+  height         Int
+  fileSize       Int
+  processingTime Int
+  createdAt      DateTime @default(now())
+}
+
+model user_images {
+  id               String   @id
   userId           String
-  url              String
-  originalFileName String
   fileName         String
+  originalFileName String
   fileSize         Int
   mimeType         String
-  width            Int?
-  height           Int?
-  createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @updatedAt
-  generations      Generation[]
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("user_images")
+  url              String
+  thumbnailUrl     String
+  width            Int
+  height           Int
+  uploadedAt       DateTime @default(now())
 }
 
 enum UserTier {
   FREE
   PRO
   ENTERPRISE
+}
+
+enum GenerationStatus {
+  PENDING
+  QUEUED
+  RUNNING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum AspectRatio {
+  SQUARE
+  PORTRAIT
+  VERTICAL
+  LANDSCAPE
+  STANDARD
 }
 
 enum OutputSize {
@@ -104,11 +132,14 @@ enum OutputSize {
   STANDARD
 }
 
-enum GenerationStatus {
-  QUEUED
-  PENDING
-  RUNNING
-  COMPLETED
-  FAILED
-  CANCELLED
+enum Provider {
+  OPENAI
+  FLUX_DEV
+  FLUX_PRO
+  FLUX_SCHNELL
+  REPLICATE_OPENAI
+  SEEDREAM
+  STABLE_DIFFUSION
+  FLUX_KONTEXT
+  NANO_BANANA
 }

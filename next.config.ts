@@ -2,6 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    unoptimized: false, // Keep optimization enabled
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
     remotePatterns: [
       {
         protocol: 'https',
@@ -42,6 +46,18 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'pixelglow-user-uploads.s3.us-east-1.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 's3.us-east-1.amazonaws.com',
+        port: '',
+        pathname: '/pixelglow-user-uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'pixelglow-user-uploads.s3.amazonaws.com',
         port: '',
         pathname: '/**',
       },

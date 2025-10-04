@@ -1,8 +1,7 @@
 const { S3Client, PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 
-// S3 client singleton
-let s3Client;
+let s3Client = null;
 
 function getS3Client() {
   if (!s3Client) {
@@ -17,56 +16,87 @@ function getS3Client() {
   return s3Client;
 }
 
-// Generate presigned URL for uploads
-async function createPresignedPostUrl(key, expiresIn = 3600) {
-  const client = getS3Client();
+async function uploadImageToS3(imageBuffer, generationId, userId) {
+  const timestamp = Date.now();
+  const key = `results/${userId}/${generationId}-${timestamp}.webp`;
+
   const command = new PutObjectCommand({
     Bucket: process.env.S3_BUCKET,
     Key: key,
+    Body: imageBuffer,
+    ContentType: 'image/webp',
+    // Remove ACL - bucket should have public read policy instead
   });
 
-  const signedUrl = await getSignedUrl(client, command, { expiresIn });
-  return signedUrl;
+  await getS3Client().send(command);
+  return key;
 }
 
-// Generate presigned URL for downloads/viewing
-async function createPresignedGetUrl(key, expiresIn = 3600) {
-  const client = getS3Client();
+async function createPresignedGetUrl(key, expiresIn = 86400) {
   const command = new GetObjectCommand({
     Bucket: process.env.S3_BUCKET,
     Key: key,
+    ResponseContentType: 'image/*',
   });
 
-  const signedUrl = await getSignedUrl(client, command, { expiresIn });
-  return signedUrl;
+  return getSignedUrl(getS3Client(), command, {
+    expiresIn,
+    unhoistableHeaders: new Set(['x-amz-checksum-mode'])
+  });
 }
 
-// Generate S3 key for result images
-function generateResultKey(generationId, extension = 'jpg') {
-  const timestamp = Date.now();
-  return `results/${generationId}_${timestamp}.${extension}`;
-}
-
-// Upload buffer directly to S3
-async function uploadToS3(key, buffer, contentType) {
-  const client = getS3Client();
+async function createPresignedPutUrl(key, contentType, expiresIn = 300) {
   const command = new PutObjectCommand({
     Bucket: process.env.S3_BUCKET,
     Key: key,
-    Body: buffer,
     ContentType: contentType,
+    // Remove ACL - bucket should have public read policy instead
   });
 
-  await client.send(command);
+  return getSignedUrl(getS3Client(), command, { expiresIn });
+}
 
-  // Return the public URL
-  return `https://${process.env.S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
+// Upload with public read access for external services like Replicate
+async function uploadImageToS3WithPublicAccess(imageBuffer, userId, fileName) {
+  const key = `uploads/${userId}/${fileName}`;
+
+  const command = new PutObjectCommand({
+    Bucket: process.env.S3_BUCKET,
+    Key: key,
+    Body: imageBuffer,
+    ContentType: 'image/png',
+    // Remove ACL - bucket should have public read policy instead
+  });
+
+  await getS3Client().send(command);
+  return key;
+}
+
+// Get public URL (no signing needed for public objects)
+function getPublicS3Url(key) {
+  const bucket = process.env.S3_BUCKET;
+  const region = process.env.AWS_REGION;
+  return `https://${bucket}.s3.${region}.amazonaws.com/${key}`;
+}
+
+function generateResultKey(userId, generationId) {
+  const timestamp = Date.now();
+  return `results/${userId}/${generationId}-${timestamp}.webp`;
+}
+
+function s3KeyToUrl(s3Key) {
+  const bucket = process.env.S3_BUCKET;
+  const region = process.env.AWS_REGION;
+  return `https://${bucket}.s3.${region}.amazonaws.com/${s3Key}`;
 }
 
 module.exports = {
   getS3Client,
-  createPresignedPostUrl,
+  uploadImageToS3,
   createPresignedGetUrl,
+  createPresignedPutUrl,
   generateResultKey,
-  uploadToS3
+  s3KeyToUrl,
+  uploadImageToS3WithPublicAccess,
+  getPublicS3Url
 };

@@ -1,9 +1,10 @@
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require('./node_modules/.prisma/client');
 
 const globalForPrisma = globalThis;
 
 const prisma = globalForPrisma.prisma ?? new PrismaClient({
-  log: ['query'],
+  log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
+  errorFormat: 'pretty',
 });
 
 if (process.env.NODE_ENV !== 'production') {
