@@ -13,6 +13,7 @@ export interface Preset {
   category: string
   beforeImage: string
   afterImage: string
+  thumbnailImage: string
   // prompt is intentionally excluded - it's private IP
   isActive: boolean
   createdAt: Date

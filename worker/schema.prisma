@@ -53,24 +53,25 @@ model Generation {
 }
 
 model Preset {
-  id          String       @id @default(cuid())
-  title       String
-  description String
-  slug        String       @unique
-  prompt      String
-  badge       String
-  badgeColor  String
-  credits     Int
-  category    String
-  provider    Provider     @default(NANO_BANANA)
-  owner       String?
-  examples    Json?
-  isActive    Boolean      @default(true)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  inputFields Json?
-  variables   Json?
-  generations Generation[]
+  id           String       @id @default(cuid())
+  title        String
+  description  String
+  slug         String       @unique
+  prompt       String
+  badge        String
+  badgeColor   String
+  credits      Int
+  category     String
+  provider     Provider     @default(NANO_BANANA)
+  owner        String?
+  examples     Json?
+  thumbnailUrl String?
+  isActive     Boolean      @default(true)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  inputFields  Json?
+  variables    Json?
+  generations  Generation[]
 
   @@map("presets")
 }

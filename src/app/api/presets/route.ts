@@ -22,9 +22,10 @@ export async function GET() {
         createdAt: true,
         updatedAt: true
       },
-      orderBy: {
-        createdAt: 'desc'
-      }
+      orderBy: [
+        { category: 'asc' },
+        { createdAt: 'desc' }
+      ]
     })
 
     // Transform presets to include thumbnail and before/after images
@@ -32,6 +33,7 @@ export async function GET() {
       let beforeImage = '';
       let afterImage = '';
       let thumbnailImage = '';
+      let featured = false;
 
       // Use thumbnailUrl if available, otherwise fall back to examples
       if (preset.thumbnailUrl && preset.thumbnailUrl.trim() !== '') {
@@ -46,11 +48,15 @@ export async function GET() {
         }
       }
 
+      // Mark some presets as featured (you can customize this logic)
+      featured = preset.category === 'featured' || preset.credits <= 3;
+
       return {
         ...preset,
         beforeImage,
         afterImage,
-        thumbnailImage
+        thumbnailImage,
+        featured
       };
     });
 
@@ -61,7 +67,7 @@ export async function GET() {
     })
 
   } catch (error) {
-    console.error('Failed to fetch all presets:', error)
+    console.error('Failed to fetch presets:', error)
     return NextResponse.json(
       { success: false, error: 'Failed to fetch presets' },
       { status: 500 }

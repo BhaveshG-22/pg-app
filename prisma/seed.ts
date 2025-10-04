@@ -157,8 +157,11 @@ async function main() {
         badgeColor: preset.badgeColor,
         credits: preset.credits,
         category: preset.category,
-        provider: 'NANO_BANANA', // Use Nano Banana for all presets
-        examples: preset.beforeImage && preset.afterImage ? [[preset.beforeImage, preset.afterImage]] : undefined,
+        examples: preset.beforeImage && preset.afterImage ? [{
+          before: preset.beforeImage,
+          after: preset.afterImage
+        }] : undefined,
+        thumbnailUrl: preset.beforeImage, // Use beforeImage as thumbnail for testing
       },
     })
   }

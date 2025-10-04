@@ -47,7 +47,7 @@ export function Header() {
 
   if (!mounted) {
     return (
-      <nav className="fixed top-0 left-0 right-0 z-50 hidden lg:block bg-transparent">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
@@ -58,12 +58,12 @@ export function Header() {
                 height={32}
                 className="w-8 h-8 object-contain scale-125"
               />
-              <span className="text-xl font-bold text-white">PixelGlow</span>
+              <span className="text-lg sm:text-xl font-bold text-white">PixelGlow</span>
             </Link>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <Button
                 variant="ghost"
-                className="text-gray-300 hover:text-white"
+                className="text-gray-300 hover:text-white text-sm sm:text-base"
                 asChild
               >
                 <Link href="/dashboard">
@@ -71,7 +71,7 @@ export function Header() {
                 </Link>
               </Button>
               <Button
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-sm sm:text-base px-3 sm:px-4"
                 asChild
               >
                 <Link href="/dashboard">
@@ -86,7 +86,7 @@ export function Header() {
   }
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 hidden lg:block transition-all duration-300 ${isScrolled
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
       ? 'bg-background/80 backdrop-blur-md border-b border-border/50'
       : 'bg-transparent'
       }`}>
@@ -100,15 +100,14 @@ export function Header() {
               height={32}
               className="w-8 h-8 object-contain scale-125"
             />
-            <span className={`text-xl font-bold transition-colors duration-300 ${isScrolled ? 'text-foreground' : 'text-white'
+            <span className={`text-lg sm:text-xl font-bold transition-colors duration-300 ${isScrolled ? 'text-foreground' : 'text-white'
               }`}>PixelGlow</span>
           </Link>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             {isSignedIn ? (
               <>
-
                 <Button
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-sm sm:text-base px-3 sm:px-4"
                   asChild
                 >
                   <Link href="/dashboard">Dashboard</Link>
@@ -116,7 +115,7 @@ export function Header() {
                 <SignOutButton>
                   <Button
                     variant="ghost"
-                    className={`transition-colors duration-300 ${isScrolled
+                    className={`transition-colors duration-300 text-sm sm:text-base ${isScrolled
                       ? "text-muted-foreground hover:text-foreground"
                       : "text-gray-300 hover:text-white"
                       }`}
@@ -124,31 +123,28 @@ export function Header() {
                     Sign Out
                   </Button>
                 </SignOutButton>
-
               </>
             ) : (
               <>
-                {/* 
                 <Button
                   variant="ghost"
-                  className={`transition-colors duration-300 ${isScrolled
+                  className={`transition-colors duration-300 text-sm sm:text-base ${isScrolled
                     ? "text-muted-foreground hover:text-foreground"
                     : "text-gray-300 hover:text-white"
                     }`}
                   asChild
                 >
-                 </Button> */}
-
+                  <Link href="/dashboard">Dashboard</Link>
+                </Button>
                 <button
                   onClick={handleGoogleSignIn}
-                  className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 hover:scale-[1.02] ${isScrolled
+                  className={`px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 hover:scale-[1.02] ${isScrolled
                     ? "bg-primary text-primary-foreground hover:bg-primary/90"
                     : "border border-gray-300 text-gray-300 hover:bg-gray-300 hover:text-black"
                     }`}
                 >
                   Sign in
                 </button>
-
               </>
             )}
           </div>

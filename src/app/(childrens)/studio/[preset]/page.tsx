@@ -166,10 +166,10 @@ const UploadModal = ({ isOpen, onClose, onImageSelect, onAwsUpload, isUploading,
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-card rounded-2xl border border-border w-full max-w-4xl max-h-[90vh] overflow-hidden">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 sm:p-4">
+      <div className="bg-card rounded-2xl border border-border w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-border">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-border">
           <h2 className="text-xl font-semibold text-card-foreground">Select Image</h2>
           <button
             onClick={onClose}
@@ -204,12 +204,12 @@ const UploadModal = ({ isOpen, onClose, onImageSelect, onAwsUpload, isUploading,
         </div>
 
         {/* Content */}
-        <div className="p-6 max-h-[60vh]">
+        <div className="p-4 sm:p-6 max-h-[60vh] sm:max-h-[60vh]">
           {activeTab === 'upload' && (
             <div className="space-y-6">
               {/* Upload Area */}
               <div
-                className={`border-2 border-dashed rounded-2xl p-8 text-center transition-all cursor-pointer ${dragOver
+                className={`border-2 border-dashed rounded-2xl p-4 sm:p-8 text-center transition-all cursor-pointer ${dragOver
                   ? 'border-primary bg-primary/5'
                   : 'border-border hover:border-primary/50'
                   }`}
@@ -228,11 +228,11 @@ const UploadModal = ({ isOpen, onClose, onImageSelect, onAwsUpload, isUploading,
                   onChange={handleFileChange}
                   className="hidden"
                 />
-                <Camera className="mx-auto h-16 w-16 text-muted-foreground mb-4" />
-                <p className="text-lg font-medium text-card-foreground mb-2">
+                <Camera className="mx-auto h-12 w-12 sm:h-16 sm:w-16 text-muted-foreground mb-4" />
+                <p className="text-base sm:text-lg font-medium text-card-foreground mb-2">
                   {dragOver ? 'Drop your image here' : 'Click to upload or drag and drop'}
                 </p>
-                <p className="text-sm text-muted-foreground">PNG, JPG, or WEBP (Max 10MB)</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">PNG, JPG, or WEBP (Max 10MB)</p>
               </div>
 
               {/* Upload Progress */}
@@ -281,7 +281,7 @@ const UploadModal = ({ isOpen, onClose, onImageSelect, onAwsUpload, isUploading,
                   <p className="text-muted-foreground">Loading your images...</p>
                 </div>
               ) : userImages.length > 0 ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-80 overflow-y-auto">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 max-h-64 sm:max-h-80 overflow-y-auto">
                   {userImages.map((image) => (
                     <div
                       key={image.id}
@@ -423,10 +423,10 @@ const DynamicSlider = ({ presetData, selectedGeneratedImage, onDownloadGenerated
           {presetData.badge}
         </Badge> */}
         <div className="space-y-2">
-          <h2 className="text-4xl lg:text-5xl font-bold text-sidebar-foreground leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-sidebar-foreground leading-tight">
             {presetData.title}
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
+          <p className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-2xl">
             {presetData.description}
           </p>
         </div>
@@ -435,7 +435,7 @@ const DynamicSlider = ({ presetData, selectedGeneratedImage, onDownloadGenerated
       <div className="pt-6 w-full flex justify-center">
         <div className="w-full max-w-2xl">
           <div
-            className={`relative ${generatedImageAspectRatio || 'aspect-video'} w-full max-h-[50vh] overflow-hidden rounded-2xl select-none shadow-xl border border-border`}
+            className={`relative ${generatedImageAspectRatio || 'aspect-video'} w-full max-h-[40vh] sm:max-h-[50vh] overflow-hidden rounded-xl sm:rounded-2xl select-none shadow-xl border border-border`}
             onMouseMove={onMouseMove}
             onMouseUp={() => setOnMouseDown(false)}
             onTouchMove={onMouseMove}
@@ -449,10 +449,10 @@ const DynamicSlider = ({ presetData, selectedGeneratedImage, onDownloadGenerated
               }}
               onMouseDown={(e) => e.stopPropagation()}
               onMouseUp={(e) => e.stopPropagation()}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200"
+              className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 z-30 bg-black/50 hover:bg-black/70 text-white p-2 sm:p-3 rounded-full transition-all duration-200"
               title="Previous example"
             >
-              <ChevronLeft className="h-5 w-5" />
+              <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
             </button>
 
             <button
@@ -462,15 +462,15 @@ const DynamicSlider = ({ presetData, selectedGeneratedImage, onDownloadGenerated
               }}
               onMouseDown={(e) => e.stopPropagation()}
               onMouseUp={(e) => e.stopPropagation()}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200"
+              className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 z-30 bg-black/50 hover:bg-black/70 text-white p-2 sm:p-3 rounded-full transition-all duration-200"
               title="Next example"
             >
-              <ChevronRight className="h-5 w-5" />
+              <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
             </button>
 
             {/* Download button for generated images */}
             {selectedGeneratedImage && onDownloadGenerated && (
-              <div className="absolute top-4 right-4 z-30">
+              <div className="absolute top-2 sm:top-4 right-2 sm:right-4 z-30">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -478,11 +478,11 @@ const DynamicSlider = ({ presetData, selectedGeneratedImage, onDownloadGenerated
                   }}
                   onMouseDown={(e) => e.stopPropagation()}
                   onMouseUp={(e) => e.stopPropagation()}
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground p-3 rounded-full shadow-lg transition-all duration-200 flex items-center gap-2"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground p-2 sm:p-3 rounded-full shadow-lg transition-all duration-200 flex items-center gap-1 sm:gap-2"
                   title="Download generated image"
                 >
-                  <Download className="h-4 w-4" />
-                  <span className="text-sm font-medium">Download</span>
+                  <Download className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="text-xs sm:text-sm font-medium hidden sm:inline">Download</span>
                 </button>
               </div>
             )}
@@ -1107,8 +1107,8 @@ export default function StudioPage() {
 
   return (
     <div className="min-h-screen bg-content-bg select-none">
-      <div className="mx-auto max-w-7xl px-6 py-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+      <div className="mx-auto max-w-7xl px-3 sm:px-6 py-3 sm:py-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
 
 
           {/* LEFT SECTION: Preview & Info */}
@@ -1157,19 +1157,19 @@ export default function StudioPage() {
 
           {/* RIGHT SECTION: Upload & Inputs */}
           <div
-            className="lg:col-span-2 h-screen sticky top-0 overflow-y-auto [&::-webkit-scrollbar]:w-3 [&::-webkit-scrollbar-track]:bg-muted/20 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:m-1 [&::-webkit-scrollbar-thumb]:bg-primary/60 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb:hover]:bg-primary/80 [&::-webkit-scrollbar-thumb:active]:bg-primary"
+            className="lg:col-span-2 lg:h-screen lg:sticky lg:top-0 overflow-y-auto [&::-webkit-scrollbar]:w-3 [&::-webkit-scrollbar-track]:bg-muted/20 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:m-1 [&::-webkit-scrollbar-thumb]:bg-primary/60 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb:hover]:bg-primary/80 [&::-webkit-scrollbar-thumb:active]:bg-primary"
             style={{
               scrollbarWidth: 'thin',
               scrollbarColor: 'hsl(var(--primary) / 0.6) hsl(var(--muted) / 0.2)',
             }}
           >
 
-            <div className='space-y-6 py-6 pl-6 pr-1 mr-3'>
+            <div className='space-y-4 sm:space-y-6 py-3 sm:py-6 lg:pl-6 lg:pr-1 lg:mr-3'>
               {/* Upload Box */}
               <div className="space-y-4">
                 {selectedImage ? (
                   <div className="relative group">
-                    <div className="aspect-square rounded-2xl overflow-hidden border border-border">
+                    <div className="aspect-square rounded-xl sm:rounded-2xl overflow-hidden border border-border">
                       <img
                         src={selectedImage}
                         alt="Selected image"
@@ -1180,26 +1180,26 @@ export default function StudioPage() {
                     {/* Change Image Button */}
                     <button
                       onClick={() => setIsUploadModalOpen(true)}
-                      className="absolute top-3 right-3 bg-primary hover:bg-primary/90 text-primary-foreground px-3 py-2 rounded-full transition-colors flex items-center gap-2 shadow-lg"
+                      className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-primary hover:bg-primary/90 text-primary-foreground px-2 sm:px-3 py-1 sm:py-2 rounded-full transition-colors flex items-center gap-1 sm:gap-2 shadow-lg"
                     >
-                      <ImageIcon className="h-4 w-4" />
-                      <span className="text-sm font-medium">Change</span>
+                      <ImageIcon className="h-3 w-3 sm:h-4 sm:w-4" />
+                      <span className="text-xs sm:text-sm font-medium">Change</span>
                     </button>
 
-                    <div className="absolute bottom-3 left-3 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
+                    <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 bg-black/70 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">
                       ✓ Selected Image
                     </div>
                   </div>
                 ) : (
                   <div
-                    className="border-2 border-dashed border-border rounded-2xl p-8 text-center text-muted-foreground bg-card/30 hover:bg-card/50 transition-all cursor-pointer"
+                    className="border-2 border-dashed border-border rounded-xl sm:rounded-2xl p-4 sm:p-8 text-center text-muted-foreground bg-card/30 hover:bg-card/50 transition-all cursor-pointer"
                     onClick={() => setIsUploadModalOpen(true)}
                   >
-                    <Upload className="mx-auto h-14 w-14 text-muted-foreground mb-6" />
-                    <p className="text-lg font-medium text-card-foreground mb-2">Click to upload or drag and drop</p>
-                    <p className="text-sm text-muted-foreground">PNG, JPG, or WEBP (Max 10MB)</p>
-                    <div className="mt-4 pt-4 border-t border-border">
-                      <p className="text-sm text-muted-foreground">
+                    <Upload className="mx-auto h-10 w-10 sm:h-14 sm:w-14 text-muted-foreground mb-4 sm:mb-6" />
+                    <p className="text-base sm:text-lg font-medium text-card-foreground mb-2">Click to upload or drag and drop</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">PNG, JPG, or WEBP (Max 10MB)</p>
+                    <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-border">
+                      <p className="text-xs sm:text-sm text-muted-foreground">
                         Or select from <span className="text-primary font-medium">previously used images</span>
                       </p>
                     </div>
@@ -1210,7 +1210,7 @@ export default function StudioPage() {
               {/* Output Size Selection */}
               <div className="space-y-3">
                 <label className="block text-sm font-medium text-sidebar-foreground">Aspect Ratio</label>
-                <div className="flex gap-2">
+                <div className="flex gap-1 sm:gap-2">
                   {Object.entries(OUTPUT_SIZES).map(([key, config]) => {
                     const isSelected = selectedOutputSize === key;
 
@@ -1245,13 +1245,13 @@ export default function StudioPage() {
                       <button
                         key={key}
                         onClick={() => setSelectedOutputSize(key as keyof typeof OUTPUT_SIZES)}
-                        className={`flex-1 p-2 rounded-lg border-2 transition-all duration-200 ${isSelected
+                        className={`flex-1 p-1.5 sm:p-2 rounded-lg border-2 transition-all duration-200 ${isSelected
                           ? 'border-primary bg-primary/5'
                           : 'border-border bg-card hover:border-primary/50'
                           }`}
                         title={`${config.name} (${config.dimensions})`}
                       >
-                        <div className="flex flex-col items-center gap-1.5">
+                        <div className="flex flex-col items-center gap-1 sm:gap-1.5">
                           {getAspectRatioIcon(key)}
                           <span className="text-xs font-medium text-card-foreground">
                             {getRatioText(config.aspectRatio)}
@@ -1292,7 +1292,7 @@ export default function StudioPage() {
                 <button
                   onClick={handleGenerate}
                   disabled={!selectedImage || isGenerating || !areRequiredFieldsFilled()}
-                  className="w-full py-4 bg-primary hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground text-primary-foreground font-semibold rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center gap-2 text-base"
+                  className="w-full py-3 sm:py-4 bg-primary hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground text-primary-foreground font-semibold rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
                   {isGenerating ? (
                     <>
@@ -1302,7 +1302,7 @@ export default function StudioPage() {
                   ) : (
                     <>
                       Generate <Sparkles className="h-5 w-5" />
-                      <span className="text-primary-foreground/70 text-sm ml-1">({creditsRequired} credits)</span>
+                      <span className="text-primary-foreground/70 text-xs sm:text-sm ml-1">({creditsRequired} credits)</span>
                     </>
                   )}
                 </button>
@@ -1313,13 +1313,13 @@ export default function StudioPage() {
         </div>
 
         {/* Style Examples Gallery - Full Width Masonry Layout */}
-        <div className="mt-12 space-y-6">
+        <div className="mt-8 sm:mt-12 space-y-4 sm:space-y-6">
           <div className="text-center space-y-2">
-            <h2 className="text-3xl font-bold text-card-foreground">Style Inspiration Gallery</h2>
-            <p className="text-lg text-muted-foreground">Discover the endless possibilities of AI transformations</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-card-foreground">Style Inspiration Gallery</h2>
+            <p className="text-base sm:text-lg text-muted-foreground">Discover the endless possibilities of AI transformations</p>
           </div>
 
-          <div className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 gap-4 space-y-4 w-full">
+          <div className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 gap-2 sm:gap-4 space-y-2 sm:space-y-4 w-full">
             {(() => {
               // Define images array - length controls number of cards
               const imageUrls = [
@@ -1372,9 +1372,9 @@ export default function StudioPage() {
                 return (
                   <div
                     key={index}
-                    className="break-inside-avoid mb-4 w-full"
+                    className="break-inside-avoid mb-2 sm:mb-4 w-full"
                   >
-                    <div className={`group relative ${cardHeight} rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:-translate-y-2 shadow-lg hover:shadow-2xl hover:shadow-purple-500/20`}>
+                    <div className={`group relative ${cardHeight} rounded-xl sm:rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:-translate-y-2 shadow-lg hover:shadow-2xl hover:shadow-purple-500/20`}>
                       <img
                         src={imageUrl}
                         alt={`Style example ${index + 1}`}
@@ -1405,10 +1405,10 @@ export default function StudioPage() {
                       </div> */}
 
                       {/* Enhanced border with glow effect */}
-                      <div className="absolute inset-0 rounded-2xl border border-white/10 group-hover:border-white/40 transition-all duration-300" />
+                      <div className="absolute inset-0 rounded-xl sm:rounded-2xl border border-white/10 group-hover:border-white/40 transition-all duration-300" />
 
                       {/* Glowing border effect */}
-                      <div className={`absolute inset-0 rounded-2xl border-2 border-transparent bg-gradient-to-r ${badgeColor} opacity-0 group-hover:opacity-40 transition-opacity duration-300`}
+                      <div className={`absolute inset-0 rounded-xl sm:rounded-2xl border-2 border-transparent bg-gradient-to-r ${badgeColor} opacity-0 group-hover:opacity-40 transition-opacity duration-300`}
                         style={{
                           background: `linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)`,
                           mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
@@ -1428,7 +1428,7 @@ export default function StudioPage() {
 
           {/* Gradient fade-out at bottom for polished effect */}
           <div className="relative">
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-content-bg via-content-bg/80 to-transparent pointer-events-none z-10" />
+            <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-32 bg-gradient-to-t from-content-bg via-content-bg/80 to-transparent pointer-events-none z-10" />
           </div>
 
 

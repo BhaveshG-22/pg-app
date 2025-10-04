@@ -1,4 +1,5 @@
 import { currentUser } from '@clerk/nextjs/server'
+import Link from 'next/link'
 
 export default async function WelcomeHeroSection() {
   const user = await currentUser()
@@ -16,12 +17,12 @@ export default async function WelcomeHeroSection() {
         </h1>
         <p className="text-base text-gray-400 mb-6">Transform your photos with AI-powered style presets. No complex prompts needed.</p>
         <div className="flex justify-center gap-2">
-          <button className="px-4 py-1.5 border border-gray-300 rounded-full text-xs text-gray-300 hover:bg-gray-300 hover:text-black transition-colors">
+          <Link href="/studio" className="px-4 py-1.5 border border-gray-300 rounded-full text-xs text-gray-300 hover:bg-gray-300 hover:text-black transition-colors inline-block">
             Upload Photo
-          </button>
-          <button className="px-4 py-1.5 bg-primary text-primary-foreground rounded-full text-xs hover:bg-primary/90 transition-colors">
+          </Link>
+          <Link href="/studio" className="px-4 py-1.5 bg-primary text-primary-foreground rounded-full text-xs hover:bg-primary/90 transition-colors inline-block">
             Browse Styles
-          </button>
+          </Link>
         </div>
       </div>
     </div>
