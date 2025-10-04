@@ -40,8 +40,8 @@ export async function GET() {
         thumbnailImage = preset.thumbnailUrl;
         beforeImage = preset.thumbnailUrl; // Use thumbnail as beforeImage for backward compatibility
       } else if (preset.examples && Array.isArray(preset.examples)) {
-        const firstExample = preset.examples[0];
-        if (firstExample) {
+        const firstExample = preset.examples[0] as any;
+        if (firstExample && typeof firstExample === 'object') {
           beforeImage = firstExample.before || '';
           afterImage = firstExample.after || '';
           thumbnailImage = firstExample.before || ''; // Use example as thumbnail fallback
