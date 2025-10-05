@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useUser } from '@clerk/nextjs'
-import { Download, Calendar, Eye, Grid, List, ExternalLink } from 'lucide-react'
+import { Download, Calendar, Eye, Grid, List, ExternalLink, Filter } from 'lucide-react'
 import Image from 'next/image'
 
 interface Generation {
@@ -28,6 +28,7 @@ export default function AllCreationsPage() {
   const [loading, setLoading] = useState(true)
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const [selectedPresetFilter, setSelectedPresetFilter] = useState<string>('all')
 
   // ESC key handler for modal
   useEffect(() => {
@@ -135,6 +136,16 @@ export default function AllCreationsPage() {
     })
   }
 
+  // Filter generations by selected preset
+  const filteredGenerations = selectedPresetFilter === 'all'
+    ? generations
+    : generations.filter(gen => gen.presetId === selectedPresetFilter)
+
+  // Get unique presets from generations for filter dropdown
+  const uniquePresets = Object.values(presets).filter(preset =>
+    generations.some(gen => gen.presetId === preset.id)
+  )
+
   if (!isLoaded) {
     return (
       <div className="min-h-screen bg-content-bg flex items-center justify-center">
@@ -166,7 +177,7 @@ export default function AllCreationsPage() {
             <div>
               <h1 className="text-3xl font-bold text-card-foreground">All Creations</h1>
               <p className="text-muted-foreground mt-2">
-                {loading ? 'Loading...' : `${generations.length} creation${generations.length !== 1 ? 's' : ''} total`}
+                {loading ? 'Loading...' : `${filteredGenerations.length} creation${filteredGenerations.length !== 1 ? 's' : ''} ${selectedPresetFilter === 'all' ? 'total' : 'filtered'}`}
               </p>
             </div>
 
@@ -196,6 +207,34 @@ export default function AllCreationsPage() {
               </button>
             </div>
           </div>
+
+          {/* Filter Dropdown */}
+          <div className="flex items-center gap-3">
+            <Filter className="h-5 w-5 text-muted-foreground" />
+            <select
+              value={selectedPresetFilter}
+              onChange={(e) => setSelectedPresetFilter(e.target.value)}
+              className="bg-card border border-border text-card-foreground rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+            >
+              <option value="all">All Presets ({generations.length})</option>
+              {uniquePresets.map(preset => {
+                const count = generations.filter(gen => gen.presetId === preset.id).length
+                return (
+                  <option key={preset.id} value={preset.id}>
+                    {preset.badge} {preset.title} ({count})
+                  </option>
+                )
+              })}
+            </select>
+            {selectedPresetFilter !== 'all' && (
+              <button
+                onClick={() => setSelectedPresetFilter('all')}
+                className="text-sm text-primary hover:underline"
+              >
+                Clear filter
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Loading State */}
@@ -223,10 +262,27 @@ export default function AllCreationsPage() {
           </div>
         )}
 
+        {/* No Results After Filter */}
+        {!loading && generations.length > 0 && filteredGenerations.length === 0 && (
+          <div className="text-center py-12">
+            <div className="bg-muted/50 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6">
+              <Filter className="h-12 w-12 text-muted-foreground" />
+            </div>
+            <h3 className="text-xl font-semibold text-card-foreground mb-2">No creations found</h3>
+            <p className="text-muted-foreground mb-6">Try selecting a different preset filter.</p>
+            <button
+              onClick={() => setSelectedPresetFilter('all')}
+              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              Show All Creations
+            </button>
+          </div>
+        )}
+
         {/* Grid View */}
-        {!loading && generations.length > 0 && viewMode === 'grid' && (
+        {!loading && filteredGenerations.length > 0 && viewMode === 'grid' && (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {generations.map((generation, index) => {
+            {filteredGenerations.map((generation, index) => {
               const preset = presets[generation.presetId]
               return (
                 <div
@@ -310,10 +366,10 @@ export default function AllCreationsPage() {
         )}
 
         {/* List View */}
-        {!loading && generations.length > 0 && viewMode === 'list' && (
+        {!loading && filteredGenerations.length > 0 && viewMode === 'list' && (
           <div className="bg-card border border-border rounded-2xl overflow-hidden">
             <div className="divide-y divide-border">
-              {generations.map((generation, index) => {
+              {filteredGenerations.map((generation, index) => {
                 const preset = presets[generation.presetId]
                 return (
                   <div key={generation.id} className="p-6 hover:bg-muted/30 transition-colors">

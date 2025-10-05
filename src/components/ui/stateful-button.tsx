@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const RUNNING_MESSAGES = [
   "Bringing your vision to life...",
@@ -18,6 +19,7 @@ const RUNNING_MESSAGES = [
 interface StatefulButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   status?: "idle" | "queued" | "running" | "completed" | "failed" | "loading";
   onClickAsync?: (event: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
+  disabledTooltip?: string;
 }
 
 export function StatefulButton({
@@ -28,6 +30,7 @@ export function StatefulButton({
   disabled,
   type = "button",
   status = "idle",
+  disabledTooltip,
   ...props
 }: StatefulButtonProps) {
   const [internalStatus, setInternalStatus] = useState<"idle" | "loading" | "success">("idle");
@@ -110,7 +113,7 @@ export function StatefulButton({
 
   const isDisabled = disabled || displayStatus === "loading" || displayStatus === "queued" || displayStatus === "running";
 
-  return (
+  const button = (
     <button
       type={type}
       onClick={handleClick}
@@ -148,4 +151,20 @@ export function StatefulButton({
       </AnimatePresence>
     </button>
   );
+
+  // Wrap with tooltip if disabled and tooltip text is provided
+  if (isDisabled && disabledTooltip) {
+    return (
+      <Tooltip>
+        <TooltipTrigger asChild>
+          {button}
+        </TooltipTrigger>
+        <TooltipContent side="bottom">
+          <p>{disabledTooltip}</p>
+        </TooltipContent>
+      </Tooltip>
+    );
+  }
+
+  return button;
 }

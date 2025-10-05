@@ -649,6 +649,18 @@ export default function StudioPage() {
         console.log('📋 Variables:', result.preset.variables);
         setPresetData(result.preset);
         setExampleTransformations(result.transformations);
+
+        // Initialize inputValues with default values
+        if (result.preset.inputFields && result.preset.inputFields.length > 0) {
+          const defaultValues: Record<string, string> = {};
+          result.preset.inputFields.forEach((field: any, index: number) => {
+            const fieldKey = field.name || `input_${index}`;
+            if (field.defaultValue) {
+              defaultValues[fieldKey] = field.defaultValue;
+            }
+          });
+          setInputValues(defaultValues);
+        }
       } else {
         // If preset not found, set error state
         console.error('Preset not found for slug:', preset);
@@ -947,7 +959,7 @@ export default function StudioPage() {
       if (!field.required) return true;
 
       const fieldKey = field.name || `input_${presetData.inputFields.indexOf(field)}`;
-      const fieldValue = inputValues[fieldKey] || '';
+      const fieldValue = inputValues[fieldKey] || field.defaultValue || '';
 
       return fieldValue.trim() !== '';
     });
@@ -1356,6 +1368,7 @@ Please try a different preset from our gallery.`,
                 <StatefulButton
                   onClick={handleGenerate}
                   disabled={!selectedImage || isGenerating || !areRequiredFieldsFilled()}
+                  disabledTooltip={!selectedImage ? "Please upload an image before generation" : undefined}
                   status={
                     jobStatus === 'COMPLETED' ? 'completed' :
                     jobStatus === 'FAILED' ? 'failed' :
