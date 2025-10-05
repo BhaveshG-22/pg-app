@@ -28,30 +28,30 @@ export function CreditsBattery({ credits, maxCredits, className = '' }: CreditsB
       <div className="flex items-center space-x-2">
         <div className="flex items-center space-x-3">
           <div className="relative flex items-center justify-center">
-            <svg className="w-8 h-8 transform -rotate-90" viewBox="0 0 32 32">
+            <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 48 48">
               <circle
-                cx="16"
-                cy="16"
-                r="14"
+                cx="24"
+                cy="24"
+                r="20"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="3"
                 className="text-white/20"
               />
               <circle
-                cx="16"
-                cy="16"
-                r="14"
+                cx="24"
+                cy="24"
+                r="20"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
-                strokeDasharray={`${2 * Math.PI * 14}`}
-                strokeDashoffset={`${2 * Math.PI * 14 * (1 - percentage / 100)}`}
+                strokeWidth="3"
+                strokeDasharray={`${2 * Math.PI * 20}`}
+                strokeDashoffset={`${2 * Math.PI * 20 * (1 - percentage / 100)}`}
                 className="text-green-500 transition-all duration-500"
               />
             </svg>
             <span className="absolute text-xs font-medium text-sidebar-foreground">
-              {credits}
+              {credits > 999 ? '999+' : credits}
             </span>
           </div>
         </div>

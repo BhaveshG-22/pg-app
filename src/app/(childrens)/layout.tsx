@@ -14,7 +14,7 @@ export default function WithNavbarLayout({
       <div className="flex flex-col h-screen w-full pt-14">
         <SidebarProvider>
           <AppSidebar />
-          <SidebarInset className="flex-1 w-full overflow-hidden rounded-tl-2xl bg-content-bg">
+          <SidebarInset className="flex-1 w-full overflow-hidden sm:rounded-tl-2xl bg-content-bg">
             <div className="flex flex-1 flex-col w-full overflow-y-auto min-h-full">
               {children}
             </div>

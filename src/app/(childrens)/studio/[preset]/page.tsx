@@ -1234,12 +1234,12 @@ Please try a different preset from our gallery.`,
 
   return (
     <div className="min-h-screen bg-content-bg select-none">
-      <div className="mx-auto max-w-7xl px-3 sm:px-6 py-3 sm:py-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-0 sm:px-6 py-0 sm:py-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
 
 
           {/* LEFT SECTION: Preview & Info */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:col-span-3 space-y-6 px-3 sm:px-0">
 
             {/* Dynamic Before/After Slider */}
             <DynamicSlider
@@ -1268,7 +1268,7 @@ Please try a different preset from our gallery.`,
             }}
           >
 
-            <div className='space-y-4 sm:space-y-6 py-3 sm:py-6 lg:pl-6 lg:pr-1 lg:mr-3'>
+            <div className='space-y-4 sm:space-y-6 py-3 sm:py-6 px-3 sm:px-0 lg:pl-6 lg:pr-1 lg:mr-3'>
               {/* Upload Box */}
               <div className="space-y-4">
                 {selectedImage ? (
