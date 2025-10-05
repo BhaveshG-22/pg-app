@@ -61,10 +61,8 @@ export function Navbar() {
             <NavbarSearch isMobile={true} />
           </div>
           <div className="flex items-center space-x-1 sm:space-x-2">
+            <CreditsBattery credits={dbUser.credits} maxCredits={30} />
             <NavbarUser user={data.user} />
-            <div className="hidden sm:block">
-              <CreditsBattery credits={dbUser.credits} maxCredits={30} />
-            </div>
           </div>
         </div>
       </div>

@@ -62,15 +62,6 @@ export function Header() {
             </Link>
             <div className="flex items-center gap-2 sm:gap-4">
               <Button
-                variant="ghost"
-                className="text-gray-300 hover:text-white text-sm sm:text-base"
-                asChild
-              >
-                <Link href="/dashboard">
-                  Dashboard
-                </Link>
-              </Button>
-              <Button
                 className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-sm sm:text-base px-3 sm:px-4"
                 asChild
               >
@@ -125,27 +116,15 @@ export function Header() {
                 </SignOutButton>
               </>
             ) : (
-              <>
-                <Button
-                  variant="ghost"
-                  className={`transition-colors duration-300 text-sm sm:text-base ${isScrolled
-                    ? "text-muted-foreground hover:text-foreground"
-                    : "text-gray-300 hover:text-white"
-                    }`}
-                  asChild
-                >
-                  <Link href="/dashboard">Dashboard</Link>
-                </Button>
-                <button
-                  onClick={handleGoogleSignIn}
-                  className={`px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 hover:scale-[1.02] ${isScrolled
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                    : "border border-gray-300 text-gray-300 hover:bg-gray-300 hover:text-black"
-                    }`}
-                >
-                  Sign in
-                </button>
-              </>
+              <button
+                onClick={handleGoogleSignIn}
+                className={`px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 hover:scale-[1.02] ${isScrolled
+                  ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                  : "border border-gray-300 text-gray-300 hover:bg-gray-300 hover:text-black"
+                  }`}
+              >
+                Sign in
+              </button>
             )}
           </div>
         </div>
