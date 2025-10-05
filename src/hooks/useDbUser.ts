@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useUser } from '@clerk/nextjs'
 
 export function useDbUser() {
@@ -6,32 +6,39 @@ export function useDbUser() {
   const [user, setUser] = useState<any>(null)
   const [isLoaded, setIsLoaded] = useState(false)
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      if (!clerkUser || !isClerkLoaded) {
-        setIsLoaded(true)
-        return
-      }
-
-      try {
-        const response = await fetch('/api/user')
-        const data = await response.json()
-
-        if (data.success) {
-          setUser(data.user)
-        } else {
-          alert('Internal error, try again')
-        }
-      } catch (error) {
-        console.error('Error fetching user:', error)
-        alert('Internal error, try again')
-      } finally {
-        setIsLoaded(true)
-      }
+  const fetchUser = useCallback(async () => {
+    if (!clerkUser || !isClerkLoaded) {
+      setIsLoaded(true)
+      return
     }
 
-    fetchUser()
+    try {
+      // Add cache busting to ensure fresh data
+      const response = await fetch('/api/user', {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      })
+      const data = await response.json()
+
+      if (data.success) {
+        setUser(data.user)
+        console.log('✅ User data refreshed. Credits:', data.user.credits)
+      } else {
+        alert('Internal error, try again')
+      }
+    } catch (error) {
+      console.error('Error fetching user:', error)
+      alert('Internal error, try again')
+    } finally {
+      setIsLoaded(true)
+    }
   }, [clerkUser, isClerkLoaded])
 
-  return { user, isLoaded }
+  useEffect(() => {
+    fetchUser()
+  }, [fetchUser])
+
+  return { user, isLoaded, refetchUser: fetchUser }
 }

@@ -11,6 +11,7 @@ import { uploadOnly, validateFile, confirmUpload } from '@/lib/upload'
 import GeneratedImagesDisplay from '@/components/GeneratedImagesDisplay'
 import ErrorModal from '@/components/ErrorModal'
 import { UserImage } from '@/types/user'
+import { StatefulButton } from '@/components/ui/stateful-button'
 
 // Function to load single preset data and transformations from API
 const loadPresetData = async (slug: string) => {
@@ -572,7 +573,7 @@ export default function StudioPage() {
   const params = useParams();
   const preset = params.preset as string;
   const { user: clerkUser, isLoaded } = useUser();
-  const { user: dbUser, isLoaded: isDbUserLoaded } = useDbUser();
+  const { user: dbUser, isLoaded: isDbUserLoaded, refetchUser } = useDbUser();
 
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -643,6 +644,9 @@ export default function StudioPage() {
       const result = await loadPresetData(preset);
 
       if (result && result.preset) {
+        console.log('📝 Preset data loaded:', result.preset);
+        console.log('🔧 Input fields:', result.preset.inputFields);
+        console.log('📋 Variables:', result.preset.variables);
         setPresetData(result.preset);
         setExampleTransformations(result.transformations);
       } else {
@@ -938,10 +942,15 @@ export default function StudioPage() {
       return true; // No required fields, so it's valid
     }
 
-    const firstFieldKey = presetData.variables?.[0] || 'input_0';
-    const firstFieldValue = inputValues[firstFieldKey];
+    // Check all required fields
+    return presetData.inputFields.every((field: any) => {
+      if (!field.required) return true;
 
-    return firstFieldValue && firstFieldValue.trim() !== '';
+      const fieldKey = field.name || `input_${presetData.inputFields.indexOf(field)}`;
+      const fieldValue = inputValues[fieldKey] || '';
+
+      return fieldValue.trim() !== '';
+    });
   };
 
   // Poll for completion after S3 upload
@@ -969,6 +978,17 @@ export default function StudioPage() {
 
           setGeneratedImages(prev => [newGeneratedImage, ...prev]); // Add new image at the beginning
           console.log('S3 upload + generation completed successfully!');
+
+          // Refresh user data to update credits in navbar
+          console.log('🔄 Calling refetchUser to update credits...');
+          await refetchUser();
+          console.log('✅ refetchUser completed');
+
+          // Reset job status after 3 seconds to allow new generation
+          setTimeout(() => {
+            setJobStatus('');
+          }, 3000);
+
           break;
         }
 
@@ -1011,6 +1031,7 @@ export default function StudioPage() {
     if (!selectedImage || !selectedImageS3Key || !presetData || !areRequiredFieldsFilled()) return;
 
     setIsGenerating(true);
+    setJobStatus('PENDING'); // Show loading state while waiting for jobId
 
     try {
       // First, confirm the upload and start processing
@@ -1091,6 +1112,10 @@ Please try a different preset from our gallery.`,
       }
     } finally {
       setIsGenerating(false);
+      // Reset jobStatus on error so button returns to idle state
+      if (jobStatus !== 'COMPLETED') {
+        setTimeout(() => setJobStatus(''), 2000);
+      }
     }
   };
 
@@ -1226,34 +1251,11 @@ Please try a different preset from our gallery.`,
             />
 
             {/* Generated Images */}
-            {isGenerating ? (
-              <div className="bg-card border border-border rounded-2xl p-6 space-y-4">
-                <div className="space-y-2">
-                  <h2 className="text-xl font-semibold text-card-foreground">Your Generated Images</h2>
-                  <p className="text-sm text-muted-foreground">Images saved for 7 days. Upgrade to keep forever!</p>
-                </div>
-                <div className="text-center text-muted-foreground bg-muted rounded-xl p-12">
-                  <div className="space-y-3">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-                    <p className="text-lg font-medium">Generating your masterpiece...</p>
-                    {jobStatus && (
-                      <div className="bg-primary/10 px-4 py-2 rounded-lg border border-primary/20">
-                        <p className="text-sm font-medium text-primary">
-                          Status: {jobStatus}
-                        </p>
-                      </div>
-                    )}
-                    <p className="text-sm">This may take a few moments</p>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <GeneratedImagesDisplay
-                images={generatedImages}
-                onDownload={handleDownload}
-                className="bg-card border border-border rounded-2xl"
-              />
-            )}
+            <GeneratedImagesDisplay
+              images={generatedImages}
+              onDownload={handleDownload}
+              className="bg-card border border-border rounded-2xl"
+            />
           </div>
 
 
@@ -1312,19 +1314,34 @@ Please try a different preset from our gallery.`,
 
               {/* Input Fields */}
               <div className="space-y-6">
-                {presetData.inputFields?.map((field: any, index: number) => (
-                  <Input
-                    key={index}
-                    label={field.label}
-                    placeholder={field.placeholder}
-                    required={index === 0}
-                    value={inputValues[presetData.variables?.[index]] || inputValues[`input_${index}`] || ''}
-                    onChange={(value) => {
-                      const key = presetData.variables?.[index] || `input_${index}`;
-                      setInputValues(prev => ({ ...prev, [key]: value }));
-                    }}
-                  />
-                )) || []}
+                {presetData.inputFields?.map((field: any, index: number) => {
+                  const fieldKey = field.name || `input_${index}`;
+                  const fieldValue = inputValues[fieldKey] || field.defaultValue || '';
+
+                  return field.type === 'number' ? (
+                    <div key={index} className="space-y-2">
+                      <label className="block text-sm font-medium text-sidebar-foreground">
+                        {field.label} {field.required && <span className="text-destructive">*</span>}
+                      </label>
+                      <input
+                        type="number"
+                        placeholder={field.placeholder}
+                        value={fieldValue}
+                        onChange={(e) => setInputValues(prev => ({ ...prev, [fieldKey]: e.target.value }))}
+                        className="w-full rounded-lg border border-border bg-card px-4 py-3 text-sm text-card-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                      />
+                    </div>
+                  ) : (
+                    <Input
+                      key={index}
+                      label={field.label}
+                      placeholder={field.placeholder}
+                      required={field.required}
+                      value={fieldValue}
+                      onChange={(value) => setInputValues(prev => ({ ...prev, [fieldKey]: value }))}
+                    />
+                  );
+                }) || []}
                 <Textarea
                   label="Other Ideas (Optional)"
                   placeholder="Share any additional creative ideas for your image transformation"
@@ -1336,23 +1353,21 @@ Please try a different preset from our gallery.`,
 
               {/* Generate Button */}
               <div className="space-y-4">
-                <button
+                <StatefulButton
                   onClick={handleGenerate}
                   disabled={!selectedImage || isGenerating || !areRequiredFieldsFilled()}
-                  className="w-full py-3 sm:py-4 bg-primary hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground text-primary-foreground font-semibold rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base"
+                  status={
+                    jobStatus === 'COMPLETED' ? 'completed' :
+                    jobStatus === 'FAILED' ? 'failed' :
+                    jobStatus === 'RUNNING' ? 'running' :
+                    jobStatus === 'QUEUED' ? 'queued' :
+                    jobStatus === 'PENDING' ? 'loading' :
+                    'idle'
+                  }
                 >
-                  {isGenerating ? (
-                    <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-foreground"></div>
-                      Generating...
-                    </>
-                  ) : (
-                    <>
-                      Generate <Sparkles className="h-5 w-5" />
-                      <span className="text-primary-foreground/70 text-xs sm:text-sm ml-1">({creditsRequired} credits)</span>
-                    </>
-                  )}
-                </button>
+                  Generate <Sparkles className="h-5 w-5" />
+                  <span className="text-primary-foreground/70 text-xs sm:text-sm ml-1">({creditsRequired} credits)</span>
+                </StatefulButton>
               </div>
             </div>
           </div>
