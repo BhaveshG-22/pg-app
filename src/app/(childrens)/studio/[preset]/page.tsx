@@ -948,20 +948,22 @@ export default function StudioPage() {
     }
   };
 
-  // Check if all required fields are filled
+  // Check if all required fields are filled (or have default values)
   const areRequiredFieldsFilled = () => {
     if (!presetData || !presetData.inputFields || presetData.inputFields.length === 0) {
       return true; // No required fields, so it's valid
     }
 
-    // Check all required fields
+    // Check all required fields - allow empty if there's a default value
     return presetData.inputFields.every((field: any) => {
       if (!field.required) return true;
 
       const fieldKey = field.name || `input_${presetData.inputFields.indexOf(field)}`;
-      const fieldValue = inputValues[fieldKey] || field.defaultValue || '';
+      const userValue = inputValues[fieldKey];
+      const hasDefault = field.defaultValue && field.defaultValue.trim() !== '';
 
-      return fieldValue.trim() !== '';
+      // Field is valid if user provided a value OR there's a default value to fall back to
+      return (userValue && userValue.trim() !== '') || hasDefault;
     });
   };
 
@@ -1046,11 +1048,27 @@ export default function StudioPage() {
     setJobStatus('PENDING'); // Show loading state while waiting for jobId
 
     try {
+      // Prepare input values with defaults for empty fields
+      const finalInputValues: Record<string, string> = {};
+
+      if (presetData.inputFields && presetData.inputFields.length > 0) {
+        presetData.inputFields.forEach((field: any, index: number) => {
+          const fieldKey = field.name || `input_${index}`;
+          const userValue = inputValues[fieldKey];
+
+          // If user provided a value (even empty string), use it if not empty
+          // Otherwise fall back to default value
+          finalInputValues[fieldKey] = (userValue && userValue.trim() !== '')
+            ? userValue
+            : (field.defaultValue || '');
+        });
+      }
+
       // First, confirm the upload and start processing
       const confirmResult = await confirmUpload({
         s3Key: selectedImageS3Key, // Use the stored S3 key
         presetId: presetData.id,
-        inputValues,
+        inputValues: finalInputValues,
         outputSize: selectedOutputSize,
       });
 
@@ -1328,7 +1346,7 @@ Please try a different preset from our gallery.`,
               <div className="space-y-6">
                 {presetData.inputFields?.map((field: any, index: number) => {
                   const fieldKey = field.name || `input_${index}`;
-                  const fieldValue = inputValues[fieldKey] || field.defaultValue || '';
+                  const fieldValue = fieldKey in inputValues ? inputValues[fieldKey] : (field.defaultValue || '');
 
                   return field.type === 'number' ? (
                     <div key={index} className="space-y-2">

@@ -36,7 +36,7 @@ export default function GeneratedImagesDisplay({
 
   const navigateModal = (direction: 'prev' | 'next') => {
     if (selectedIndex === null) return;
-    
+
     if (direction === 'prev') {
       setSelectedIndex(selectedIndex === 0 ? images.length - 1 : selectedIndex - 1);
     } else {
@@ -84,7 +84,7 @@ export default function GeneratedImagesDisplay({
                 className="object-cover transition-transform group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, 33vw"
               />
-              
+
               {/* Overlay on hover */}
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-1 sm:space-x-2">
                 <Button
@@ -184,7 +184,6 @@ export default function GeneratedImagesDisplay({
               >
                 <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                 <span className="hidden sm:inline">Download</span>
-                <span className="sm:hidden">DL</span>
               </Button>
             </div>
           </div>
