@@ -1,14 +1,15 @@
 import { auth, currentUser } from "@clerk/nextjs/server"
 import { NavbarClient } from "./navbar"
-import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 
 export async function Navbar() {
   const { userId } = await auth()
   const clerkUser = await currentUser()
 
+  // Don't redirect here - let middleware handle auth
+  // If no user, return null and let the page handle it
   if (!userId || !clerkUser) {
-    redirect('/sign-in')
+    return null
   }
 
   // Fetch user from database
@@ -24,7 +25,7 @@ export async function Navbar() {
   })
 
   if (!dbUser) {
-    redirect('/sign-in')
+    return null
   }
 
   const userData = {
