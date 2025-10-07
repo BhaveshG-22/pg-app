@@ -1,5 +1,5 @@
 import "../globals.css";
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/components/navbar-server";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 

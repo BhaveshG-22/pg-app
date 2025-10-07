@@ -8,13 +8,16 @@ import { FAQSection } from "@/components/FAQSection"
 import { CTASection } from "@/components/CTASection"
 import { Footer } from "@/components/Footer"
 import { CustomGoogleOneTap } from "@/components/auth/CustomGoogleOneTap"
+import { auth } from "@clerk/nextjs/server"
 
-export default function Home() {
+export default async function Home() {
+  const { userId } = await auth()
+
   return (
     <CustomGoogleOneTap>
       <main className="min-h-screen bg-background">
-        <Header />
-        <HeroSection />
+        <Header isAuthenticated={!!userId} />
+        <HeroSection isAuthenticated={!!userId} />
         <KeyFeaturesSection />
         {/* <StyleShowcaseSection /> */}
         <ApplicationsSection />

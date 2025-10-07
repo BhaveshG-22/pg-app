@@ -16,12 +16,14 @@ export function CustomGoogleOneTap({ children }: { children: React.ReactNode }) 
   const router = useRouter()
 
   useEffect(() => {
-    // Will show the One Tap UI after two seconds
-    const timeout = setTimeout(() => oneTap(), 2000)
-    return () => {
-      clearTimeout(timeout)
+    // Only show One Tap UI if user is not already signed in
+    if (!clerk.user) {
+      const timeout = setTimeout(() => oneTap(), 2000)
+      return () => {
+        clearTimeout(timeout)
+      }
     }
-  }, [])
+  }, [clerk.user])
 
   const oneTap = () => {
     const { google } = window

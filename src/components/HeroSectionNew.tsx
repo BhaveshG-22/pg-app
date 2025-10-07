@@ -35,7 +35,7 @@ const generateAllStyles = () => {
 
 const gridImages = generateAllStyles()
 
-export function HeroSection() {
+export function HeroSection({ isAuthenticated }: { isAuthenticated: boolean }) {
   return (
     <section className="relative min-h-screen overflow-hidden bg-black flex items-center">
       {/* Background with animations */}
@@ -124,7 +124,7 @@ export function HeroSection() {
               {/* Static border base */}
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500/20 to-pink-500/20" />
               <div className="relative bg-card p-6 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300">
-                <HeroForm />
+                <HeroForm isAuthenticated={isAuthenticated} />
               </div>
             </div>
           </div>

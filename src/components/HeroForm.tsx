@@ -5,7 +5,7 @@ import { useSignIn } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
 import { FcGoogle } from "react-icons/fc"
 
-export function HeroForm() {
+export function HeroForm({ isAuthenticated }: { isAuthenticated: boolean }) {
   const { signIn } = useSignIn()
   const router = useRouter()
 
@@ -24,6 +24,38 @@ export function HeroForm() {
     }
   }
 
+  // If user is signed in, show alternative CTA
+  if (isAuthenticated) {
+    return (
+      <div className="space-y-4">
+        {/* Header */}
+        <div className="text-center mb-6">
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <div className="w-3 h-3 bg-primary rounded-full animate-pulse" />
+            <span className="text-sm font-medium text-muted-foreground">Welcome Back!</span>
+          </div>
+          <h3 className="text-xl font-bold text-card-foreground">Ready to Create?</h3>
+        </div>
+
+        <Button
+          onClick={() => router.push('/studio')}
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
+        >
+          🎨 Go to Studio
+        </Button>
+
+        <Button
+          onClick={() => router.push('/dashboard')}
+          variant="outline"
+          className="w-full border-border rounded-2xl py-3 font-semibold transition-all duration-200 hover:bg-muted"
+        >
+          📊 View Dashboard
+        </Button>
+      </div>
+    )
+  }
+
+  // Show sign-up form for non-authenticated users
   return (
     <form className="space-y-4" onSubmit={e => e.preventDefault()}>
       {/* Header */}

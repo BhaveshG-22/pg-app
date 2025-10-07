@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import {
   BadgeCheck,
   Bell,
@@ -23,8 +24,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { SignOutButton } from "@clerk/nextjs"
+import { useClerk } from "@clerk/nextjs"
 import Link from "next/link"
 
 export function NavbarUser({
@@ -36,6 +47,9 @@ export function NavbarUser({
     avatar: string
   }
 }) {
+  const [showSignOutDialog, setShowSignOutDialog] = useState(false)
+  const { signOut } = useClerk()
+
   const getInitials = (name: string) => {
     return name
       .split(' ')
@@ -44,7 +58,14 @@ export function NavbarUser({
       .substring(0, 2)
       .toUpperCase()
   }
+
+  const handleSignOut = async () => {
+    await signOut()
+    setShowSignOutDialog(false)
+  }
+
   return (
+    <>
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
@@ -107,18 +128,30 @@ export function NavbarUser({
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setShowSignOutDialog(true)}>
           <LogOut />
-          {/*  Log out */}
-
-          <SignOutButton>
-            Sign Out
-          </SignOutButton>
-
-
-
+          Sign Out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+
+    {/* Sign Out Confirmation Dialog */}
+    <AlertDialog open={showSignOutDialog} onOpenChange={setShowSignOutDialog}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Sign out of your account?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Are you sure you want to sign out? You'll need to sign in again to access your account.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleSignOut}>
+            Sign Out
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+    </>
   )
 }
