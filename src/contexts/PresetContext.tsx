@@ -42,18 +42,28 @@ export function PresetProvider({ children }: { children: React.ReactNode }) {
     try {
       setLoading(true)
       setError(null)
-      
-      const response = await fetch('/api/presets/all')
+
+      const response = await fetch('/api/presets/all', {
+        cache: 'no-store',
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       const data = await response.json()
-      
+
       if (!data.success) {
         throw new Error(data.error || 'Failed to fetch presets')
       }
-      
+
       setPresets(data.presets)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch presets')
-      console.error('Failed to fetch presets:', err)
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch presets'
+      setError(errorMessage)
+      console.error('[PresetContext] Failed to fetch presets:', err)
+      // Set empty array on error so app doesn't crash
+      setPresets([])
     } finally {
       setLoading(false)
     }

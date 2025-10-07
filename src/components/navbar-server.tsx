@@ -13,7 +13,7 @@ export async function Navbar() {
   }
 
   // Fetch user from database
-  const dbUser = await prisma.user.findUnique({
+  let dbUser = await prisma.user.findUnique({
     where: { clerkId: userId },
     select: {
       id: true,
@@ -24,8 +24,32 @@ export async function Navbar() {
     }
   })
 
+  // If user doesn't exist in database, create them (fallback for webhook failures)
   if (!dbUser) {
-    return null
+    console.log('[Navbar] User not found in database, creating fallback user...')
+    try {
+      dbUser = await prisma.user.create({
+        data: {
+          clerkId: userId,
+          email: clerkUser.emailAddresses[0]?.emailAddress || '',
+          name: clerkUser.fullName || clerkUser.username || 'Anonymous',
+          avatar: clerkUser.imageUrl || null,
+          credits: 5,
+          totalCreditsUsed: 0,
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          avatar: true,
+          credits: true,
+        }
+      })
+      console.log('[Navbar] Successfully created fallback user:', dbUser.email)
+    } catch (error) {
+      console.error('[Navbar] Failed to create fallback user:', error)
+      return null
+    }
   }
 
   const userData = {
