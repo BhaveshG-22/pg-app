@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
-import { useSignIn, useClerk } from "@clerk/nextjs"
+import { useClerk } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
@@ -18,26 +18,15 @@ import {
 } from "@/components/ui/alert-dialog"
 
 export function Header({ isAuthenticated }: { isAuthenticated?: boolean }) {
-  const { signIn } = useSignIn()
   const { signOut } = useClerk()
   const router = useRouter()
 
   const [isScrolled, setIsScrolled] = useState(false)
   const [showSignOutDialog, setShowSignOutDialog] = useState(false)
 
-  const handleGoogleSignIn = async () => {
-    try {
-      if (!signIn) return
-
-      await signIn.authenticateWithRedirect({
-        strategy: "oauth_google",
-        redirectUrl: "/dashboard",
-        redirectUrlComplete: "/dashboard"
-      })
-    } catch (error) {
-      console.error('Google sign-in failed:', error)
-      router.push('/sign-in')
-    }
+  const handleGoogleSignIn = () => {
+    // Redirect to sign-up page which handles both new users and existing users
+    router.push('/sign-up?redirect_url=/dashboard')
   }
 
   const handleSignOut = async () => {
@@ -107,7 +96,7 @@ export function Header({ isAuthenticated }: { isAuthenticated?: boolean }) {
                   : "border border-gray-300 text-gray-300 hover:bg-gray-300 hover:text-black"
                   }`}
               >
-                Sign in
+                Continue with Google
               </button>
             )}
           </div>
