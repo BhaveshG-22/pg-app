@@ -20,7 +20,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.864.0",
     "@aws-sdk/s3-request-presigner": "^3.864.0",
-    "@clerk/nextjs": "^6.29.0",
+    "@clerk/nextjs": "^6.36.5",
     "@prisma/client": "6.16.3",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-alert-dialog": "^1.1.15",
