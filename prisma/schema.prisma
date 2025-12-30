@@ -9,18 +9,25 @@ datasource db {
 }
 
 model User {
-  id               String       @id @default(cuid())
-  clerkId          String       @unique
-  email            String       @unique
-  name             String
-  avatar           String?
-  credits          Int          @default(0)
-  totalCreditsUsed Int          @default(0)
-  tier             UserTier     @default(FREE)
-  createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @updatedAt
-  generations      Generation[]
-  images           UserImage[]
+  id                          String       @id @default(cuid())
+  clerkId                     String       @unique
+  email                       String       @unique
+  name                        String
+  avatar                      String?
+  credits                     Int          @default(0)
+  totalCreditsUsed            Int          @default(0)
+  tier                        UserTier     @default(FREE)
+
+  // Lemon Squeezy subscription fields
+  subscriptionStatus          String?      // active, cancelled, expired, etc.
+  lemonSqueezySubscriptionId  String?      @unique
+  lemonSqueezyCustomerId      String?
+  subscriptionEndsAt          DateTime?
+
+  createdAt                   DateTime     @default(now())
+  updatedAt                   DateTime     @updatedAt
+  generations                 Generation[]
+  images                      UserImage[]
 
   @@map("users")
 }
@@ -138,7 +145,7 @@ enum GenerationStatus {
 enum UserTier {
   FREE
   PRO
-  ENTERPRISE
+  CREATOR
 }
 
 enum Provider {
