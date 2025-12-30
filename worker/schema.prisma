@@ -105,7 +105,7 @@ model user_images {
 enum UserTier {
   FREE
   PRO
-  ENTERPRISE
+  CREATOR
 }
 
 enum GenerationStatus {

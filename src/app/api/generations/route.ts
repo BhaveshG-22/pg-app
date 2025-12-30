@@ -88,10 +88,10 @@ export async function POST(req: NextRequest) {
       where: { userId: user.id, status: { in: ['QUEUED', 'RUNNING'] } }
     });
 
-    // Set caps based on user tier: FREE=1, PRO=2, ENTERPRISE=100
+    // Set caps based on user tier: FREE=1, PRO=2, CREATOR=100
     let cap: number;
     switch (user.tier) {
-      case 'ENTERPRISE':
+      case 'CREATOR':
         // cap = 10;
         cap = 100; //for Testing
         break;

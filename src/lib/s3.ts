@@ -68,11 +68,11 @@ export function generateResultKey(userId: string, generationId: string): string 
 export function validateUpload(
   mimeType: string,
   fileSize: number,
-  userTier: 'FREE' | 'PRO' | 'ENTERPRISE' = 'FREE'
+  userTier: 'FREE' | 'PRO' | 'CREATOR' = 'FREE'
 ) {
   const allowedTypes = [
     'image/jpeg',
-    'image/jpg', 
+    'image/jpg',
     'image/png',
     'image/webp'
   ];
@@ -87,8 +87,8 @@ export function validateUpload(
   // Size limits based on tier (in bytes)
   const sizeLimits = {
     FREE: 5 * 1024 * 1024,      // 5MB
-    PRO: 20 * 1024 * 1024,      // 20MB  
-    ENTERPRISE: 50 * 1024 * 1024 // 50MB
+    PRO: 20 * 1024 * 1024,      // 20MB
+    CREATOR: 50 * 1024 * 1024 // 50MB
   };
 
   const maxSize = sizeLimits[userTier];

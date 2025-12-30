@@ -189,12 +189,12 @@ export async function uploadAndProcess(options: UploadOptions & Omit<ConfirmUplo
 /**
  * Validate file before upload
  */
-export function validateFile(file: File, userTier: 'FREE' | 'PRO' | 'ENTERPRISE' = 'FREE') {
+export function validateFile(file: File, userTier: 'FREE' | 'PRO' | 'CREATOR' = 'FREE') {
   const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
   const sizeLimits = {
     FREE: 5 * 1024 * 1024,      // 5MB
     PRO: 20 * 1024 * 1024,      // 20MB
-    ENTERPRISE: 50 * 1024 * 1024 // 50MB
+    CREATOR: 50 * 1024 * 1024 // 50MB
   };
 
   if (!allowedTypes.includes(file.type)) {
