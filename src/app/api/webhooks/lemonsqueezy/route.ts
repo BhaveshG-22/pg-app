@@ -31,20 +31,21 @@ export async function POST(req: NextRequest) {
     const data = payload.data
 
     console.log("Lemon Squeezy webhook event:", eventName)
+    console.log("Full webhook payload:", JSON.stringify(payload, null, 2))
 
     switch (eventName) {
       case "subscription_created":
       case "subscription_updated":
-        await handleSubscriptionUpdate(data)
+        await handleSubscriptionUpdate(data, payload.meta)
         break
 
       case "subscription_cancelled":
       case "subscription_expired":
-        await handleSubscriptionCancellation(data)
+        await handleSubscriptionCancellation(data, payload.meta)
         break
 
       case "order_created":
-        await handleOrderCreated(data)
+        await handleOrderCreated(data, payload.meta)
         break
 
       default:
@@ -58,23 +59,39 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function handleSubscriptionUpdate(data: any) {
-  const userId = data.attributes.first_order_item?.custom_data?.user_id
+async function handleSubscriptionUpdate(data: any, meta: any) {
+  // Custom data is in meta.custom_data according to Lemon Squeezy docs
+  const userId = meta.custom_data?.user_id
+
   const status = data.attributes.status
   const variantName = data.attributes.variant_name?.toLowerCase()
+  const productName = data.attributes.product_name?.toLowerCase()
+
+  console.log("Subscription data:", {
+    userId,
+    status,
+    variantName,
+    productName,
+    customerId: data.attributes.customer_id
+  })
 
   if (!userId) {
     console.error("No user ID in subscription data")
+    console.error("Meta:", JSON.stringify(meta, null, 2))
     return
   }
 
-  // Map variant name to UserTier
+  // Map variant name or product name to UserTier
   let tier: "FREE" | "PRO" | "CREATOR" = "FREE"
-  if (variantName?.includes("pro")) {
+  const nameToCheck = (variantName || productName || "").toLowerCase()
+
+  if (nameToCheck.includes("pro")) {
     tier = "PRO"
-  } else if (variantName?.includes("creator")) {
+  } else if (nameToCheck.includes("creator")) {
     tier = "CREATOR"
   }
+
+  console.log(`Mapped tier: ${tier} from name: ${nameToCheck}`)
 
   // Update user subscription in database
   await prisma.user.update({
@@ -90,11 +107,13 @@ async function handleSubscriptionUpdate(data: any) {
   console.log(`Subscription updated for user ${userId}: ${tier} - ${status}`)
 }
 
-async function handleSubscriptionCancellation(data: any) {
-  const userId = data.attributes.first_order_item?.custom_data?.user_id
+async function handleSubscriptionCancellation(data: any, meta: any) {
+  // Custom data is in meta.custom_data according to Lemon Squeezy docs
+  const userId = meta.custom_data?.user_id
 
   if (!userId) {
-    console.error("No user ID in subscription data")
+    console.error("No user ID in subscription cancellation data")
+    console.error("Meta:", JSON.stringify(meta, null, 2))
     return
   }
 
@@ -110,12 +129,20 @@ async function handleSubscriptionCancellation(data: any) {
   console.log(`Subscription cancelled for user ${userId}`)
 }
 
-async function handleOrderCreated(data: any) {
-  const userId = data.attributes.first_order_item?.custom_data?.user_id
+async function handleOrderCreated(data: any, meta: any) {
+  // Custom data is in meta.custom_data according to Lemon Squeezy docs
+  const userId = meta.custom_data?.user_id
   const orderTotal = data.attributes.total
+
+  console.log("Order data:", {
+    userId,
+    orderTotal,
+    customData: meta.custom_data
+  })
 
   if (!userId) {
     console.error("No user ID in order data")
+    console.error("Meta:", JSON.stringify(meta, null, 2))
     return
   }
 
