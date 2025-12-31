@@ -375,7 +375,33 @@ const DynamicSlider = ({ presetData, selectedGeneratedImage, onDownloadGenerated
   const [onMouseDown, setOnMouseDown] = useState<boolean>(false);
   const [imageError, setImageError] = useState<boolean>(false);
   const [currentExampleIndex, setCurrentExampleIndex] = useState(0);
+  const [exampleAspectRatio, setExampleAspectRatio] = useState<string>('aspect-square');
 
+  // Detect aspect ratio of the first example image
+  useEffect(() => {
+    if (exampleTransformations.length > 0 && exampleTransformations[0].before) {
+      const img = window.document.createElement('img');
+      img.src = exampleTransformations[0].before;
+      img.onload = () => {
+        const ratio = img.width / img.height;
+
+        // Determine aspect ratio class based on image dimensions
+        if (ratio >= 1.7) {
+          setExampleAspectRatio('aspect-video'); // 16:9
+        } else if (ratio >= 1.4) {
+          setExampleAspectRatio('aspect-[4/3]'); // 4:3
+        } else if (ratio >= 1.1) {
+          setExampleAspectRatio('aspect-[5/4]'); // 5:4
+        } else if (ratio >= 0.9 && ratio <= 1.1) {
+          setExampleAspectRatio('aspect-square'); // 1:1
+        } else if (ratio >= 0.7) {
+          setExampleAspectRatio('aspect-[4/5]'); // 4:5 portrait
+        } else {
+          setExampleAspectRatio('aspect-[9/16]'); // 9:16 vertical
+        }
+      };
+    }
+  }, [exampleTransformations]);
 
   const onMouseMove = (e: React.MouseEvent | React.TouchEvent) => {
     if (!onMouseDown) return;
@@ -437,7 +463,7 @@ const DynamicSlider = ({ presetData, selectedGeneratedImage, onDownloadGenerated
       <div className="pt-6 w-full flex justify-center">
         <div className="w-full max-w-2xl">
           <div
-            className={`relative ${generatedImageAspectRatio || 'aspect-video'} w-full max-h-[40vh] sm:max-h-[50vh] overflow-hidden rounded-xl sm:rounded-2xl select-none shadow-xl border border-border`}
+            className={`relative ${generatedImageAspectRatio || exampleAspectRatio} w-full max-h-[40vh] sm:max-h-[50vh] overflow-hidden rounded-xl sm:rounded-2xl select-none shadow-xl border border-border`}
             onMouseMove={onMouseMove}
             onMouseUp={() => setOnMouseDown(false)}
             onTouchMove={onMouseMove}
@@ -519,9 +545,9 @@ const DynamicSlider = ({ presetData, selectedGeneratedImage, onDownloadGenerated
                 src={afterImageSrc}
                 alt="Christmas transformed photo"
                 width={800}
-                height={600}
+                height={800}
                 priority={currentExampleIndex < 2} // Prioritize first 2 images
-                className="absolute left-0 top-0 z-10 w-full h-full aspect-video rounded-2xl select-none object-cover"
+                className="absolute left-0 top-0 z-10 w-full h-full rounded-2xl select-none object-cover"
                 style={{
                   clipPath: "inset(0 0 0 " + inset + "%)",
                 }}
@@ -531,7 +557,7 @@ const DynamicSlider = ({ presetData, selectedGeneratedImage, onDownloadGenerated
               <img
                 src={afterFallback}
                 alt="Christmas transformed photo"
-                className="absolute left-0 top-0 z-10 w-full h-full aspect-video rounded-2xl select-none object-cover"
+                className="absolute left-0 top-0 z-10 w-full h-full rounded-2xl select-none object-cover"
                 style={{
                   clipPath: "inset(0 0 0 " + inset + "%)",
                 }}
@@ -544,16 +570,16 @@ const DynamicSlider = ({ presetData, selectedGeneratedImage, onDownloadGenerated
                 src={beforeImageSrc}
                 alt="Original photo before Christmas transformation"
                 width={800}
-                height={600}
+                height={800}
                 priority={currentExampleIndex < 2} // Prioritize first 2 images
-                className="absolute left-0 top-0 w-full h-full aspect-video rounded-2xl select-none object-cover"
+                className="absolute left-0 top-0 w-full h-full rounded-2xl select-none object-cover"
                 onError={() => setImageError(true)}
               />
             ) : (
               <img
                 src={beforeFallback}
                 alt="Original photo before Christmas transformation"
-                className="absolute left-0 top-0 w-full h-full aspect-video rounded-2xl select-none object-cover"
+                className="absolute left-0 top-0 w-full h-full rounded-2xl select-none object-cover"
               />
             )}
           </div>

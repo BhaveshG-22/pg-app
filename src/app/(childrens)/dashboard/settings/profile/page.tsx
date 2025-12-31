@@ -11,29 +11,52 @@ import {
   Settings,
   Zap,
 } from "lucide-react";
+import { auth } from "@clerk/nextjs/server";
+import { prisma } from "@/lib/prisma";
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
-const invoices = [
-  {
-    id: "INV-001",
-    date: "Mar 1, 2024",
-    amount: "$29.00",
-    status: "Paid",
-  },
-  {
-    id: "INV-002",
-    date: "Feb 1, 2024",
-    amount: "$29.00",
-    status: "Paid",
-  },
-  {
-    id: "INV-003",
-    date: "Jan 1, 2024",
-    amount: "$29.00",
-    status: "Paid",
-  },
-];
+const PLAN_PRICES: Record<string, string> = {
+  FREE: "$0",
+  PRO: "$4.99",
+  CREATOR: "$14.99",
+};
 
-export default function UserBilling() {
+const PLAN_NAMES: Record<string, string> = {
+  FREE: "Free",
+  PRO: "Pro",
+  CREATOR: "Creator",
+};
+
+export default async function UserBilling() {
+  const { userId } = await auth();
+
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
+  // Fetch user data from database
+  const user = await prisma.user.findUnique({
+    where: { clerkId: userId },
+    select: {
+      tier: true,
+      credits: true,
+      totalCreditsUsed: true,
+      subscriptionStatus: true,
+      subscriptionEndsAt: true,
+      createdAt: true,
+    },
+  });
+
+  if (!user) {
+    redirect("/sign-in");
+  }
+
+  const planName = PLAN_NAMES[user.tier] || user.tier;
+  const planPrice = PLAN_PRICES[user.tier] || "$0";
+  const isActive = user.subscriptionStatus === "active";
+  const isCancelled = user.subscriptionStatus === "cancelled";
+  const isFree = user.tier === "FREE";
   return (
     <div className="container mx-auto px-4 py-6 md:px-6 2xl:max-w-[1400px]">
       <div className="mx-auto max-w-4xl">
@@ -58,16 +81,37 @@ export default function UserBilling() {
               <div>
                 <div className="flex items-center gap-2">
                   <Package className="text-primary size-5" />
-                  <h2 className="text-lg font-semibold">Pro Plan</h2>
-                  <Badge>Current Plan</Badge>
+                  <h2 className="text-lg font-semibold">{planName} Plan</h2>
+                  <Badge>{isFree ? "Free" : "Current Plan"}</Badge>
+                  {isCancelled && <Badge variant="destructive">Cancelled</Badge>}
                 </div>
                 <p className="text-muted-foreground mt-1 text-sm">
-                  $29/month • Renews on April 1, 2024
+                  {isFree ? (
+                    "Free plan with 20 credits per month"
+                  ) : (
+                    <>
+                      {planPrice}/month
+                      {isActive && user.subscriptionEndsAt && (
+                        <> • Renews on {new Date(user.subscriptionEndsAt).toLocaleDateString()}</>
+                      )}
+                      {isCancelled && user.subscriptionEndsAt && (
+                        <> • Expires on {new Date(user.subscriptionEndsAt).toLocaleDateString()}</>
+                      )}
+                    </>
+                  )}
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
-                <Button variant="outline">Change Plan</Button>
-                <Button variant="destructive">Cancel Plan</Button>
+                <Button variant="outline" asChild>
+                  <Link href="/plans">
+                    {isFree ? "Upgrade Plan" : "Change Plan"}
+                  </Link>
+                </Button>
+                {!isFree && isActive && (
+                  <Button variant="destructive" disabled>
+                    Cancel Plan
+                  </Button>
+                )}
               </div>
             </div>
 
@@ -76,85 +120,89 @@ export default function UserBilling() {
                 <div className="mb-2 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Zap className="text-primary size-4" />
-                    <span className="text-sm font-medium">API Requests</span>
+                    <span className="text-sm font-medium">Credits Used</span>
                   </div>
-                  <span className="text-sm">8,543 / 10,000</span>
+                  <span className="text-sm">{user.totalCreditsUsed} total</span>
                 </div>
-                <Progress value={85.43} className="h-2" />
               </div>
 
               <div>
                 <div className="mb-2 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <RefreshCw className="text-primary size-4" />
-                    <span className="text-sm font-medium">Monthly Syncs</span>
+                    <span className="text-sm font-medium">Credits Remaining</span>
                   </div>
-                  <span className="text-sm">143 / 200</span>
+                  <span className="text-sm">{user.credits} credits</span>
                 </div>
-                <Progress value={71.5} className="h-2" />
+                <Progress value={(user.credits / 100) * 100} className="h-2" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Payment Method */}
-        <Card className="mb-8 p-0">
-          <CardContent className="p-6">
-            <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
-              <div className="space-y-1">
-                <h2 className="text-lg font-semibold">Payment Method</h2>
-                <div className="flex items-center gap-2">
-                  <CreditCard className="text-muted-foreground size-4" />
-                  <span className="text-muted-foreground text-sm">
-                    Visa ending in 4242
-                  </span>
+        {/* Payment Method - Only show for paid plans */}
+        {!isFree && (
+          <Card className="mb-8 p-0">
+            <CardContent className="p-6">
+              <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
+                <div className="space-y-1">
+                  <h2 className="text-lg font-semibold">Payment Method</h2>
+                  <div className="flex items-center gap-2">
+                    <CreditCard className="text-muted-foreground size-4" />
+                    <span className="text-muted-foreground text-sm">
+                      Managed by Lemon Squeezy
+                    </span>
+                  </div>
                 </div>
+                <Button variant="outline" asChild>
+                  <a
+                    href="https://app.lemonsqueezy.com/my-orders"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Manage Subscription
+                  </a>
+                </Button>
               </div>
-              <Button variant="outline">Update Payment Method</Button>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Billing History */}
-        <Card className="p-0">
-          <CardContent className="p-6">
-            <div className="mb-6 flex flex-col items-start justify-between gap-3 sm:flex-row">
-              <h2 className="text-lg font-semibold">Billing History</h2>
-              <Button variant="outline" size="sm">
-                <Download className="mr-2 size-4" />
-                Download All
-              </Button>
-            </div>
-
-            <div className="space-y-4">
-              {invoices.map((invoice) => (
-                <div
-                  key={invoice.id}
-                  className="flex flex-col items-start justify-between gap-3 border-b py-3 last:border-0 sm:flex-row sm:items-center"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="bg-muted rounded-md p-2">
-                      <FileText className="text-muted-foreground size-4" />
-                    </div>
-                    <div>
-                      <p className="font-medium">{invoice.id}</p>
-                      <p className="text-muted-foreground text-sm">
-                        {invoice.date}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <Badge variant="outline">{invoice.status}</Badge>
-                    <span className="font-medium">{invoice.amount}</span>
-                    <Button variant="ghost" size="sm">
-                      <Download className="size-4" />
-                    </Button>
-                  </div>
+        {!isFree && (
+          <Card className="p-0">
+            <CardContent className="p-6">
+              <div className="mb-6 flex flex-col items-start justify-between gap-3 sm:flex-row">
+                <div>
+                  <h2 className="text-lg font-semibold">Billing History</h2>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    View your invoices and payment history
+                  </p>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                <Button variant="outline" size="sm" asChild>
+                  <a
+                    href="https://app.lemonsqueezy.com/my-orders"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Download className="mr-2 size-4" />
+                    View Invoices
+                  </a>
+                </Button>
+              </div>
+
+              <div className="text-center py-8 text-muted-foreground">
+                <FileText className="mx-auto size-12 mb-2 opacity-50" />
+                <p className="text-sm">
+                  All billing and invoices are managed through Lemon Squeezy.
+                </p>
+                <p className="text-sm mt-1">
+                  Click "View Invoices" above to access your billing portal.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );
