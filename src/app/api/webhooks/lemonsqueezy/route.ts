@@ -64,12 +64,14 @@ async function handleSubscriptionUpdate(data: any, meta: any) {
   const userId = meta.custom_data?.user_id
 
   const status = data.attributes.status
+  const variantId = data.attributes.variant_id?.toString()
   const variantName = data.attributes.variant_name?.toLowerCase()
   const productName = data.attributes.product_name?.toLowerCase()
 
   console.log("Subscription data:", {
     userId,
     status,
+    variantId,
     variantName,
     productName,
     customerId: data.attributes.customer_id
@@ -81,17 +83,27 @@ async function handleSubscriptionUpdate(data: any, meta: any) {
     return
   }
 
-  // Map variant name or product name to UserTier
+  // Map variant ID to UserTier (most reliable method)
   let tier: "FREE" | "PRO" | "CREATOR" = "FREE"
-  const nameToCheck = (variantName || productName || "").toLowerCase()
 
-  if (nameToCheck.includes("pro")) {
+  const proVariantId = process.env.LEMONSQUEEZY_VARIANT_ID_PRO
+  const creatorVariantId = process.env.LEMONSQUEEZY_VARIANT_ID_CREATOR
+
+  if (variantId === proVariantId) {
     tier = "PRO"
-  } else if (nameToCheck.includes("creator")) {
+  } else if (variantId === creatorVariantId) {
     tier = "CREATOR"
+  } else {
+    // Fallback to name-based detection
+    const nameToCheck = (variantName || productName || "").toLowerCase()
+    if (nameToCheck.includes("pro")) {
+      tier = "PRO"
+    } else if (nameToCheck.includes("creator")) {
+      tier = "CREATOR"
+    }
   }
 
-  console.log(`Mapped tier: ${tier} from name: ${nameToCheck}`)
+  console.log(`Mapped tier: ${tier} from variant ID: ${variantId}`)
 
   // Update user subscription in database
   await prisma.user.update({
