@@ -24,14 +24,22 @@ export async function Navbar() {
     }
   })
 
-  // If user doesn't exist in database, create them (fallback for webhook failures)
+  // If user doesn't exist in database, create or update them (fallback for webhook failures)
   if (!dbUser) {
-    console.log('[Navbar] User not found in database, creating fallback user...')
+    console.log('[Navbar] User not found in database, creating/updating fallback user...')
     try {
-      dbUser = await prisma.user.create({
-        data: {
+      const email = clerkUser.emailAddresses[0]?.emailAddress || ''
+
+      dbUser = await prisma.user.upsert({
+        where: { email },
+        update: {
           clerkId: userId,
-          email: clerkUser.emailAddresses[0]?.emailAddress || '',
+          name: clerkUser.fullName || clerkUser.username || 'Anonymous',
+          avatar: clerkUser.imageUrl || null,
+        },
+        create: {
+          clerkId: userId,
+          email,
           name: clerkUser.fullName || clerkUser.username || 'Anonymous',
           avatar: clerkUser.imageUrl || null,
           credits: 5,
@@ -45,9 +53,9 @@ export async function Navbar() {
           credits: true,
         }
       })
-      console.log('[Navbar] Successfully created fallback user:', dbUser.email)
+      console.log('[Navbar] Successfully created/updated fallback user:', dbUser.email)
     } catch (error) {
-      console.error('[Navbar] Failed to create fallback user:', error)
+      console.error('[Navbar] Failed to create/update fallback user:', error)
       return null
     }
   }

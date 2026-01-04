@@ -1,11 +1,12 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
-import { useClerk } from "@clerk/nextjs"
+import { useClerk, SignUpButton } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import { FcGoogle } from "react-icons/fc"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,16 +19,12 @@ import {
 } from "@/components/ui/alert-dialog"
 
 export function Header({ isAuthenticated }: { isAuthenticated?: boolean }) {
-  const { signOut } = useClerk()
+  const clerk = useClerk()
+  const { signOut } = clerk
   const router = useRouter()
 
   const [isScrolled, setIsScrolled] = useState(false)
   const [showSignOutDialog, setShowSignOutDialog] = useState(false)
-
-  const handleGoogleSignIn = () => {
-    // Redirect to sign-up page which handles both new users and existing users
-    router.push('/sign-up?redirect_url=/dashboard')
-  }
 
   const handleSignOut = async () => {
     try {
@@ -89,15 +86,26 @@ export function Header({ isAuthenticated }: { isAuthenticated?: boolean }) {
                 </Button>
               </>
             ) : (
-              <button
-                onClick={handleGoogleSignIn}
-                className={`px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 hover:scale-[1.02] ${isScrolled
-                  ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                  : "border border-gray-300 text-gray-300 hover:bg-gray-300 hover:text-black"
-                  }`}
-              >
-                Continue with Google
-              </button>
+              <>
+                <SignUpButton mode="modal" forceRedirectUrl="/dashboard">
+                  <button
+                    className="flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-2.5 bg-[#2d2d2d] hover:bg-[#3d3d3d] text-white rounded-lg text-sm sm:text-base font-medium transition-all duration-200 hover:scale-[1.02]"
+                  >
+                    <FcGoogle className="w-5 h-5" />
+                    Continue with Google
+                  </button>
+                </SignUpButton>
+                {/* <SignUpButton mode="redirect" forceRedirectUrl="/dashboard">
+                  <button
+                    className={`px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 hover:scale-[1.02] ${isScrolled
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                      : "border border-gray-300 text-gray-300 hover:bg-gray-300 hover:text-black"
+                      }`}
+                  >
+                    Continue with Google
+                  </button>
+                </SignUpButton> */}
+              </>
             )}
           </div>
         </div>
