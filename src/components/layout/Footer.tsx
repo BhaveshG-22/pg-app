@@ -64,16 +64,6 @@ export default function Footer() {
                   Contact Support
                 </a>
               </li>
-              <li>
-                <a
-                  href="https://discord.gg/pixelglow"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-muted-foreground hover:text-card-foreground transition-colors"
-                >
-                  Join Discord
-                </a>
-              </li>
             </ul>
           </div>
         </div>
