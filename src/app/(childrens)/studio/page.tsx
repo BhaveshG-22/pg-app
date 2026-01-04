@@ -63,7 +63,7 @@ export default function StudioPage() {
 
   if (!isLoaded || !isDbUserLoaded) {
     return (
-      <div className="min-h-screen bg-content-bg flex items-center justify-center">
+      <div className="flex-1 bg-content-bg flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading studio...</p>
@@ -74,7 +74,7 @@ export default function StudioPage() {
 
   if (!clerkUser || !dbUser) {
     return (
-      <div className="min-h-screen bg-content-bg flex items-center justify-center">
+      <div className="flex-1 bg-content-bg flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-xl font-semibold text-card-foreground mb-4">Please sign in</h2>
           <p className="text-muted-foreground">You need to be signed in to access the studio.</p>
@@ -84,8 +84,8 @@ export default function StudioPage() {
   }
 
   return (
-    <div className="min-h-screen bg-content-bg">
-      <div className="w-full p-4 md:p-6">
+    <div className="flex-1 bg-content-bg">
+      <div className="w-full p-4 md:p-6 pb-8">
         {/* Category Filter Buttons */}
         <div className="mb-6 flex flex-wrap gap-2">
           {categories.map((category) => (

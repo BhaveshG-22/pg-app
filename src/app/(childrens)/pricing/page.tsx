@@ -12,8 +12,8 @@ export default function PricingPage() {
   const userEmail = clerkUser?.primaryEmailAddress?.emailAddress || dbUser?.email || 'your-email@example.com'
 
   return (
-    <div className="min-h-screen bg-content-bg">
-      <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="flex-1 bg-content-bg">
+      <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8 pb-12">
         {/* Back Button */}
         <div className="mb-8">
           <Link

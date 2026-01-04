@@ -1223,7 +1223,7 @@ Please try a different preset from our gallery.`,
   // Loading state
   if (!isLoaded || isLoadingPreset || !isDbUserLoaded) {
     return (
-      <div className="min-h-screen bg-content-bg flex items-center justify-center">
+      <div className="flex-1 bg-content-bg flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-muted-foreground">
@@ -1237,7 +1237,7 @@ Please try a different preset from our gallery.`,
   // Loading state - wait for preset and images to load
   if (isLoadingPreset || (presetData && !areImagesLoaded)) {
     return (
-      <div className="min-h-screen bg-content-bg flex items-center justify-center">
+      <div className="flex-1 bg-content-bg flex items-center justify-center">
         <div className="text-center space-y-6">
           <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto"></div>
           <div className="space-y-2">
@@ -1254,7 +1254,7 @@ Please try a different preset from our gallery.`,
   // Preset not found state
   if (!presetData) {
     return (
-      <div className="min-h-screen bg-content-bg flex items-center justify-center">
+      <div className="flex-1 bg-content-bg flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-xl font-semibold text-card-foreground mb-4">Preset Not Found</h2>
           <p className="text-muted-foreground mb-4">The preset "{preset}" could not be found.</p>
@@ -1272,7 +1272,7 @@ Please try a different preset from our gallery.`,
   // Check if user is authenticated
   if (!clerkUser || !dbUser) {
     return (
-      <div className="min-h-screen bg-content-bg flex items-center justify-center">
+      <div className="flex-1 bg-content-bg flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-xl font-semibold text-card-foreground mb-4">Please sign in</h2>
           <p className="text-muted-foreground">You need to be signed in to use the image generation features.</p>
@@ -1289,8 +1289,8 @@ Please try a different preset from our gallery.`,
     : null;
 
   return (
-    <div className="min-h-screen bg-content-bg select-none">
-      <div className="mx-auto max-w-7xl px-0 sm:px-6 py-0 sm:py-6 lg:px-8">
+    <div className="flex-1 bg-content-bg select-none">
+      <div className="mx-auto max-w-7xl px-0 sm:px-6 py-0 sm:py-6 lg:px-8 pb-8">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
 
 
