@@ -266,7 +266,7 @@ export default function PricingPlans() {
           </div>
 
           {/* Trust Badges */}
-          <div className="bg-gray-900 rounded-2xl border border-gray-700 p-8">
+          <div className="bg-gray-900 rounded-2xl border border-gray-700 p-8 mb-8">
             <div className="flex flex-wrap justify-center items-center gap-8">
               <div className="flex items-center gap-2 text-gray-300">
                 <Lock className="w-5 h-5 text-green-400" />
@@ -284,6 +284,29 @@ export default function PricingPlans() {
                 <MessageCircle className="w-5 h-5 text-green-400" />
                 <span className="text-sm font-medium">24/7 Support</span>
               </div>
+            </div>
+          </div>
+
+          {/* Support Section */}
+          <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl border border-blue-500/20 p-8">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-500/20 rounded-full mb-4">
+                <Headphones className="w-6 h-6 text-blue-400" />
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-3">Need Help?</h3>
+              <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+                Have questions about billing, refunds, or need to make changes to your subscription? Our support team is here to help you.
+              </p>
+              <a
+                href="mailto:support@pixelglow.app"
+                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200"
+              >
+                <Mail className="w-5 h-5" />
+                Contact Support
+              </a>
+              <p className="text-sm text-gray-400 mt-4">
+                Response time: Usually within 24 hours
+              </p>
             </div>
           </div>
         </div>

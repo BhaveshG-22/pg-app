@@ -6,15 +6,18 @@ import { usePresets, Preset } from '@/contexts/PresetContext'
 
 const staticFooterData = {
   "Pages": [
-    "Free AI Photo Generator",
-    "Photo Shoot Ideas",
+    "Dashboard",
     "Gallery",
     "Sign up or Log in",
     "Plans",
     "FAQ",
     "Billing",
-    "Legal",
     "Report Issue"
+  ],
+  "Legal": [
+    "Terms of Service",
+    "Privacy Policy",
+    "Refund Policy"
   ]
 }
 
@@ -23,13 +26,12 @@ export function Footer() {
 
   const organizePresets = (): Record<string, Preset[]> => {
     if (loading || presets.length === 0) return {}
-    
+
     const categories: Record<string, Preset[]> = {
       "Professional": presets.filter(p => p.category === "Professional"),
-      "Creative": presets.filter(p => p.category === "Creative"), 
-      "Artistic": presets.filter(p => p.category === "Artistic")
+      "Creative": presets.filter(p => p.category === "Creative")
     }
-    
+
     return categories
   }
 
@@ -65,10 +67,15 @@ export function Footer() {
               <ul className="space-y-3">
                 {links.map((link, index) => (
                   <li key={index}>
-                    <Link 
+                    <Link
                       href={
+                        link === "Dashboard" ? "/dashboard" :
                         link === "Report Issue" ? "/report-issue" :
                         link === "Plans" ? "/plans" :
+                        link === "Sign up or Log in" ? "/sign-up?redirect_url=/dashboard" :
+                        link === "Terms of Service" ? "/terms" :
+                        link === "Privacy Policy" ? "/privacy" :
+                        link === "Refund Policy" ? "/refund" :
                         `/preset/${link.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`
                       }
                       className="text-sm text-muted-foreground hover:text-foreground transition-colors"
