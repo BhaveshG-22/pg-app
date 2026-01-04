@@ -92,7 +92,8 @@ export function Header({ isAuthenticated }: { isAuthenticated?: boolean }) {
                     className="flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-2.5 bg-[#2d2d2d] hover:bg-[#3d3d3d] text-white rounded-lg text-sm sm:text-base font-medium transition-all duration-200 hover:scale-[1.02]"
                   >
                     <FcGoogle className="w-5 h-5" />
-                    Continue with Google
+                    <span className="hidden sm:inline">Continue with Google</span>
+                    <span className="sm:hidden">Sign In</span>
                   </button>
                 </SignUpButton>
                 {/* <SignUpButton mode="redirect" forceRedirectUrl="/dashboard">
