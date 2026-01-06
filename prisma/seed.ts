@@ -157,7 +157,7 @@ async function main() {
         badgeColor: preset.badgeColor,
         credits: preset.credits,
         category: preset.category,
-        examples: preset.beforeImage && preset.afterImage ? [{
+        slider_img: preset.beforeImage && preset.afterImage ? [{
           before: preset.beforeImage,
           after: preset.afterImage
         }] : undefined,
