@@ -27,7 +27,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
         badgeColor: true,
         credits: true,
         category: true,
-        examples: true,
+        slider_img: true,
+        gallery: true,
         inputFields: true,
         variables: true,
         isActive: true
@@ -43,8 +44,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
     // Get transformations only for the current preset
     const transformations = []
-    if (preset.examples && Array.isArray(preset.examples)) {
-      transformations.push(...preset.examples
+    if (preset.slider_img && Array.isArray(preset.slider_img)) {
+      transformations.push(...preset.slider_img
         .filter((example): example is [string, string] =>
           Array.isArray(example) &&
           example.length === 2 &&

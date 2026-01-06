@@ -23,7 +23,8 @@ export default function CreatePresetPage() {
     provider: 'OPENAI' as const,
     owner: '',
     isActive: true,
-    examples: '',
+    slider_img: '',
+    gallery: '',
     inputFields: '',
     variables: ''
   })
@@ -86,15 +87,26 @@ export default function CreatePresetPage() {
 
     try {
       // Parse JSON fields if provided
-      let parsedExamples = null
+      let parsedSliderImg = null
+      let parsedGallery = null
       let parsedInputFields = null
       let parsedVariables = null
 
-      if (formData.examples.trim()) {
+      if (formData.slider_img.trim()) {
         try {
-          parsedExamples = JSON.parse(formData.examples)
+          parsedSliderImg = JSON.parse(formData.slider_img)
         } catch {
-          setMessage('Invalid JSON in examples field')
+          setMessage('Invalid JSON in slider_img field')
+          setIsSubmitting(false)
+          return
+        }
+      }
+
+      if (formData.gallery.trim()) {
+        try {
+          parsedGallery = JSON.parse(formData.gallery)
+        } catch {
+          setMessage('Invalid JSON in gallery field')
           setIsSubmitting(false)
           return
         }
@@ -125,7 +137,8 @@ export default function CreatePresetPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          examples: parsedExamples,
+          slider_img: parsedSliderImg,
+          gallery: parsedGallery,
           inputFields: parsedInputFields,
           variables: parsedVariables
         })
@@ -148,7 +161,8 @@ export default function CreatePresetPage() {
           provider: 'OPENAI',
           owner: '',
           isActive: true,
-          examples: '',
+          slider_img: '',
+          gallery: '',
           inputFields: '',
           variables: ''
         })
@@ -323,14 +337,26 @@ export default function CreatePresetPage() {
               <h3 className="text-lg font-medium text-white">Optional JSON Fields</h3>
               
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Examples (JSON)</label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Slider Images (JSON)</label>
                 <textarea
-                  value={formData.examples}
-                  onChange={(e) => setFormData(prev => ({ ...prev, examples: e.target.value }))}
+                  value={formData.slider_img}
+                  onChange={(e) => setFormData(prev => ({ ...prev, slider_img: e.target.value }))}
                   rows={3}
-                  placeholder='{"example1": "value1", "example2": "value2"}'
+                  placeholder='[["before1.jpg", "after1.jpg"], ["before2.jpg", "after2.jpg"]]'
                   className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm placeholder-gray-500"
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Gallery (JSON)</label>
+                <textarea
+                  value={formData.gallery}
+                  onChange={(e) => setFormData(prev => ({ ...prev, gallery: e.target.value }))}
+                  rows={3}
+                  placeholder='["image1.jpg", "image2.jpg", "image3.jpg"]'
+                  className="w-full px-3 py-2 bg-gray-800 border border-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm placeholder-gray-500"
+                />
+                <p className="mt-1 text-xs text-gray-400">Gallery of previously created images using this preset</p>
               </div>
 
               <div>

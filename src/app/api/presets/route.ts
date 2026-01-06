@@ -16,7 +16,8 @@ export async function GET() {
         badgeColor: true,
         credits: true,
         category: true,
-        examples: true,
+        slider_img: true,
+        gallery: true,
         thumbnailUrl: true,
         isActive: true,
         createdAt: true,
@@ -35,16 +36,16 @@ export async function GET() {
       let thumbnailImage = '';
       let featured = false;
 
-      // Use thumbnailUrl if available, otherwise fall back to examples
+      // Use thumbnailUrl if available, otherwise fall back to slider_img
       if (preset.thumbnailUrl && preset.thumbnailUrl.trim() !== '') {
         thumbnailImage = preset.thumbnailUrl;
         beforeImage = preset.thumbnailUrl; // Use thumbnail as beforeImage for backward compatibility
-      } else if (preset.examples && Array.isArray(preset.examples)) {
-        const firstExample = preset.examples[0] as any;
+      } else if (preset.slider_img && Array.isArray(preset.slider_img)) {
+        const firstExample = preset.slider_img[0] as any;
         if (firstExample && typeof firstExample === 'object') {
           beforeImage = firstExample.before || '';
           afterImage = firstExample.after || '';
-          thumbnailImage = firstExample.before || ''; // Use example as thumbnail fallback
+          thumbnailImage = firstExample.before || ''; // Use slider_img as thumbnail fallback
         }
       }
 
