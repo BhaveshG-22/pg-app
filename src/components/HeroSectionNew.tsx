@@ -105,7 +105,7 @@ export function HeroSection({ isAuthenticated }: { isAuthenticated: boolean }) {
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-green-400 text-xl font-bold">✓</span>
-                <span><strong className="text-white">Full rights:</strong> use photos for professional, business, or personal use</span>
+                <span><strong className="text-white">Full rights:</strong> use photos for professional, business, or personal usecase</span>
               </li>
             </ul>
           </div>
