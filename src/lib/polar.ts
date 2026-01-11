@@ -1,7 +1,9 @@
 import { Polar } from "@polar-sh/sdk"
 
+const isSandbox = process.env.POLAR_SERVER === 'sandbox'
+
 export function configurePolar() {
-  const accessToken = process.env.POLAR_ACCESS_TOKEN
+  const accessToken = isSandbox ? process.env.POLAR_ACCESS_TOKEN_SANDBOX : process.env.POLAR_ACCESS_TOKEN
 
   if (!accessToken) {
     throw new Error("POLAR_ACCESS_TOKEN is not set")
@@ -9,14 +11,19 @@ export function configurePolar() {
 
   return new Polar({
     accessToken,
+    server: process.env.POLAR_SERVER as "sandbox" | "production"
   })
 }
 
 // Polar product/price IDs for different plans
 export const POLAR_PRICE_IDS = {
-  pro: process.env.POLAR_PRICE_ID_PRO || "",
-  creator: process.env.POLAR_PRICE_ID_CREATOR || "",
+  pro: isSandbox ? process.env.POLAR_PRICE_ID_PRO_SANDBOX || "" : process.env.POLAR_PRICE_ID_PRO || "",
+  creator: isSandbox ? process.env.POLAR_PRICE_ID_CREATOR_SANDBOX || "" : process.env.POLAR_PRICE_ID_CREATOR || "",
 }
+
+// Other Polar config
+export const POLAR_WEBHOOK_SECRET = isSandbox ? process.env.POLAR_WEBHOOK_SECRET_SANDBOX : process.env.POLAR_WEBHOOK_SECRET
+export const POLAR_ORGANIZATION_ID = isSandbox ? process.env.POLAR_ORGANIZATION_ID_SANDBOX : process.env.POLAR_ORGANIZATION_ID
 
 export const PLANS = [
   {

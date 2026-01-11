@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { configurePolar } from "@/lib/polar"
+import { configurePolar, POLAR_ORGANIZATION_ID } from "@/lib/polar"
 
 export async function GET() {
   try {
@@ -7,7 +7,7 @@ export async function GET() {
 
     // Fetch products with their prices from Polar
     const products = await polar.products.list({
-      organizationId: process.env.POLAR_ORGANIZATION_ID!,
+      organizationId: POLAR_ORGANIZATION_ID!,
     })
 
     // Transform Polar products into our plan format

@@ -1,5 +1,6 @@
 import { Webhooks } from "@polar-sh/nextjs"
 import { prisma } from "@/lib/prisma"
+import { POLAR_PRICE_IDS, POLAR_WEBHOOK_SECRET } from "@/lib/polar"
 
 // Define webhook payload types locally since they're not exported from the SDK
 type WebhookSubscriptionCreatedPayload = any
@@ -7,11 +8,6 @@ type WebhookSubscriptionActivePayload = any
 type WebhookSubscriptionUpdatedPayload = any
 type WebhookSubscriptionCanceledPayload = any
 type WebhookSubscriptionRevokedPayload = any
-
-const POLAR_PRICE_IDS = {
-  pro: process.env.POLAR_PRICE_ID_PRO || "",
-  creator: process.env.POLAR_PRICE_ID_CREATOR || "",
-}
 
 // Map Polar price IDs to user tiers
 function getTierFromPriceId(priceId: string): "FREE" | "PRO" | "CREATOR" {
@@ -24,7 +20,7 @@ function getTierFromPriceId(priceId: string): "FREE" | "PRO" | "CREATOR" {
 }
 
 export const POST = Webhooks({
-  webhookSecret: process.env.POLAR_WEBHOOK_SECRET!,
+  webhookSecret: POLAR_WEBHOOK_SECRET!,
   onSubscriptionCreated: async (payload: WebhookSubscriptionCreatedPayload) => {
     console.log("Subscription created:", payload)
 

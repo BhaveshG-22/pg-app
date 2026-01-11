@@ -11,6 +11,8 @@ export default function PricingPlans() {
   const router = useRouter();
   const [currentTier, setCurrentTier] = useState<string | null>(null);
 
+  const isSandbox = process.env.NEXT_PUBLIC_POLAR_SERVER === 'sandbox';
+
   // Fetch user's current tier
   useEffect(() => {
     if (user) {
@@ -44,8 +46,8 @@ export default function PricingPlans() {
       price: '$4.99',
       interval: 'month',
       description: 'For creators & influencers',
-      priceId: process.env.NEXT_PUBLIC_POLAR_PRICE_ID_PRO || 'pro',
-      productId: process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_PRO || 'pro',
+      priceId: (isSandbox ? process.env.NEXT_PUBLIC_POLAR_PRICE_ID_PRO_SANDBOX : process.env.NEXT_PUBLIC_POLAR_PRICE_ID_PRO) || 'pro',
+      productId: (isSandbox ? process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_PRO_SANDBOX : process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_PRO) || 'pro',
       features: [
         { icon: Coins, text: '100 credits per month' },
         { icon: Sparkles, text: 'Premium AI model quality' },
@@ -63,8 +65,8 @@ export default function PricingPlans() {
       price: '$14.99',
       interval: 'month',
       description: 'For professional creators',
-      priceId: process.env.NEXT_PUBLIC_POLAR_PRICE_ID_CREATOR || 'creator',
-      productId: process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_CREATOR || 'creator',
+      priceId: (isSandbox ? process.env.NEXT_PUBLIC_POLAR_PRICE_ID_CREATOR_SANDBOX : process.env.NEXT_PUBLIC_POLAR_PRICE_ID_CREATOR) || 'creator',
+      productId: (isSandbox ? process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_CREATOR_SANDBOX : process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_CREATOR) || 'creator',
       features: [
         { icon: Coins, text: '400 credits per month' },
         { icon: Sparkles, text: 'Premium AI model quality' },
