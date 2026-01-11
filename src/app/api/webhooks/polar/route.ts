@@ -25,7 +25,7 @@ export const POST = Webhooks({
     console.log("Subscription created:", payload)
 
     const userId = payload.data.metadata?.user_id as string | undefined
-    const priceId = payload.data.priceId
+    const priceId = payload.data.prices?.[0]?.id || payload.data.priceId
 
     if (!userId) {
       console.error("No user ID in subscription created webhook")
@@ -51,7 +51,7 @@ export const POST = Webhooks({
     console.log("Subscription activated:", payload)
 
     const userId = payload.data.metadata?.user_id as string | undefined
-    const priceId = payload.data.priceId
+    const priceId = payload.data.prices?.[0]?.id || payload.data.priceId
 
     if (!userId) {
       console.error("No user ID in subscription active webhook")
@@ -80,7 +80,7 @@ export const POST = Webhooks({
     console.log("Subscription updated:", payload)
 
     const userId = payload.data.metadata?.user_id as string | undefined
-    const priceId = payload.data.priceId
+    const priceId = payload.data.prices?.[0]?.id || payload.data.priceId
 
     if (!userId) {
       console.error("No user ID in subscription updated webhook")
