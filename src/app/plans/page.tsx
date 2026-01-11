@@ -30,7 +30,7 @@ export default function PricingPlans() {
       priceId: null,
       productId: 'free',
       features: [
-        { icon: Coins, text: '20 credits per month' },
+        { icon: Coins, text: '5 credits per month' },
         { icon: Sparkles, text: 'Premium AI model quality' },
         { icon: Gauge, text: 'Standard processing speed' },
         { icon: Droplet, text: 'Limited watermark' },
