@@ -178,25 +178,12 @@ export default async function UserBilling() {
                     View your invoices and payment history
                   </p>
                 </div>
-                <Button variant="outline" size="sm" asChild>
-                  <a
-                    href="https://polar.sh/customer-portal"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FileText className="mr-2 size-4" />
-                    View Invoices
-                  </a>
-                </Button>
               </div>
 
               <div className="text-center py-8 text-muted-foreground">
                 <FileText className="mx-auto size-12 mb-2 opacity-50" />
                 <p className="text-sm">
-                  All billing and invoices are managed through Polar.
-                </p>
-                <p className="text-sm mt-1">
-                  Click "View Invoices" above to access your billing portal.
+                  Billing and invoices will be available once payment integration is completed.
                 </p>
               </div>
             </CardContent>
