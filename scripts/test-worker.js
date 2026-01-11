@@ -67,7 +67,8 @@ async function createDemoJob() {
         attempts: 3,
         backoff: { type: 'exponential', delay: 1500 },
         jobId: generation.id,
-        removeOnComplete: true
+        removeOnComplete: 100, // Keep last 100 completed jobs
+        removeOnFail: 50       // Keep last 50 failed jobs
       }
     );
 

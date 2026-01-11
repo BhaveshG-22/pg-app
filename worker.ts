@@ -23,7 +23,7 @@ async function takeToken(bucket: string, maxPerMinute: number): Promise<void> {
 
 const CONCURRENCY = Number(process.env.WORKER_CONCURRENCY ?? 6);
 
-new Worker('image-generate', async (job: Job) => {
+const worker = new Worker('image-generate', async (job: Job) => {
   const { generationId } = job.data;
 
   // Load job from DB
@@ -122,11 +122,16 @@ new Worker('image-generate', async (job: Job) => {
       rejectUnauthorized: false // Allow self-signed certificates for Aiven Redis
     }
   },
-  concurrency: CONCURRENCY
+  concurrency: CONCURRENCY,
+  lockDuration: 60000,        // 60 seconds - how long a job can be locked
+  stalledInterval: 30000,     // 30 seconds - how often to check for stalled jobs
+  maxStalledCount: 2,         // Allow 2 stall attempts before failing
+  removeOnComplete: { count: 100 }, // Keep last 100 completed jobs
+  removeOnFail: { count: 50 }       // Keep last 50 failed jobs
 });
 
 // Optional QueueEvents for monitoring/metrics
-new QueueEvents('image-generate', {
+const queueEvents = new QueueEvents('image-generate', {
   connection: {
     url: process.env.REDIS_URL!,
     tls: {
@@ -135,4 +140,48 @@ new QueueEvents('image-generate', {
   }
 });
 
-console.log(`Worker started with concurrency: ${CONCURRENCY}`);
+// Worker event listeners
+worker.on('ready', () => {
+  console.log(`[Worker] Ready! Concurrency: ${CONCURRENCY}`);
+});
+
+worker.on('active', (job: Job) => {
+  console.log(`[Worker] Job active: ${job.id} (${job.data.generationId})`);
+});
+
+worker.on('completed', (job: Job) => {
+  console.log(`[Worker] Job completed: ${job.id} (${job.data.generationId})`);
+});
+
+worker.on('failed', (job: Job | undefined, err: Error) => {
+  console.error(`[Worker] Job failed: ${job?.id} (${job?.data?.generationId}) - ${err.message}`);
+});
+
+worker.on('error', (err: Error) => {
+  console.error('[Worker] Worker error:', err);
+});
+
+// Queue event listeners
+queueEvents.on('waiting', ({ jobId }: { jobId: string }) => {
+  console.log(`[Queue] Job waiting: ${jobId}`);
+});
+
+queueEvents.on('stalled', ({ jobId }: { jobId: string }) => {
+  console.warn(`[Queue] Job stalled: ${jobId}`);
+});
+
+// Graceful shutdown
+const shutdown = async () => {
+  console.log('[Worker] Shutting down gracefully...');
+  await worker.close();
+  await queueEvents.close();
+  await prisma.$disconnect();
+  process.exit(0);
+};
+
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
+
+console.log(`[Worker] PixelGlow Worker starting...`);
+console.log(`[Worker] Queue: image-generate`);
+console.log(`[Worker] Concurrency: ${CONCURRENCY}`);

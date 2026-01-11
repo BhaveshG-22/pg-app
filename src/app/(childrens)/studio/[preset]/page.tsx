@@ -618,6 +618,7 @@ export default function StudioPage() {
   const [inputValues, setInputValues] = useState<Record<string, string>>({});
   const [otherIdeas, setOtherIdeas] = useState<string>('');
   const [jobStatus, setJobStatus] = useState('')
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
 
   // Error modal state
   const [errorModal, setErrorModal] = useState<{
@@ -794,6 +795,27 @@ export default function StudioPage() {
       console.error('Error refreshing user images:', error);
     }
   };
+
+  // Fetch gallery images for the masonry gallery
+  useEffect(() => {
+    const fetchGalleryImages = async () => {
+      if (!presetData?.id) return;
+
+      try {
+        const response = await fetch(`/api/gallery/preset-images?presetId=${presetData.id}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success && data.images) {
+            setGalleryImages(data.images);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching gallery images:', error);
+      }
+    };
+
+    fetchGalleryImages();
+  }, [presetData?.id]);
 
   // Preload images after preset data and transformations are loaded
   useEffect(() => {
@@ -1440,29 +1462,15 @@ Please try a different preset from our gallery.`,
 
           <div className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 gap-2 sm:gap-4 space-y-2 sm:space-y-4 w-full">
             {(() => {
-              // Define images array - length controls number of cards
-              const imageUrls = [
-                'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=500&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=400&h=450&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=650&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=480&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=400&h=520&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=400&h=580&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=400&h=470&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=550&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=600&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=500&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1463453091185-61582044d556?w=400&h=650&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&h=480&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=400&h=580&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=450&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=480&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=520&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=400&h=450&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=550&fit=crop&crop=face',
-                'https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=400&h=500&fit=crop&crop=face'
-              ];
+              // Create array of 20 items - use gallery images + blur placeholders
+              const totalSlots = 20;
+              const displayItems = Array.from({ length: totalSlots }, (_, index) => {
+                if (index < galleryImages.length) {
+                  return { type: 'image', url: galleryImages[index] };
+                } else {
+                  return { type: 'placeholder' };
+                }
+              });
 
 
               // Varied heights for organic masonry layout like Pinterest/reference
@@ -1482,7 +1490,7 @@ Please try a different preset from our gallery.`,
                 'from-emerald-500 to-green-600'
               ];
 
-              return imageUrls.map((imageUrl, index) => {
+              return displayItems.map((item, index) => {
                 // Create organic masonry layout with varied heights
                 // Use index-based distribution for consistent but varied heights
                 const cardHeight = heights[index % heights.length];
@@ -1494,12 +1502,16 @@ Please try a different preset from our gallery.`,
                     className="break-inside-avoid mb-2 sm:mb-4 w-full"
                   >
                     <div className={`group relative ${cardHeight} rounded-xl sm:rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:-translate-y-2 shadow-lg hover:shadow-2xl hover:shadow-purple-500/20`}>
-                      <img
-                        src={imageUrl}
-                        alt={`Style example ${index + 1}`}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        loading={index < 6 ? "eager" : "lazy"}
-                      />
+                      {item.type === 'image' && item.url ? (
+                        <img
+                          src={item.url}
+                          alt={`Gallery image ${index + 1}`}
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          loading={index < 6 ? "eager" : "lazy"}
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-gray-200 via-gray-300 to-gray-200 animate-pulse backdrop-blur-md" />
+                      )}
 
                       {/* Base gradient overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-black/90 group-hover:via-black/40 transition-all duration-300" />

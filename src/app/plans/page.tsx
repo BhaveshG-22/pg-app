@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Check, Star, Coins, Sparkles, Gauge, Droplet, Layers, Briefcase, Mail, Headphones, Zap, Code, Lock, DollarSign, RefreshCw, MessageCircle, ArrowUpRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Coins, Sparkles, Droplet, Layers, Briefcase, Mail, Headphones, Zap, Code, Star, ArrowUpRight, Gauge } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 export default function PricingPlans() {
   const { user, isLoaded } = useUser();
   const router = useRouter();
-  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const [currentTier, setCurrentTier] = useState<string | null>(null);
 
   // Fetch user's current tier
@@ -22,25 +21,14 @@ export default function PricingPlans() {
     }
   }, [user]);
 
-  // Define tier hierarchy
-  const TIER_HIERARCHY: Record<string, number> = {
-    FREE: 0,
-    PRO: 1,
-    CREATOR: 2,
-  };
-
-  // Check if a plan is lower than current tier (should be disabled)
-  const isPlanLowerTier = (planName: string) => {
-    if (!currentTier) return false;
-    return TIER_HIERARCHY[planName.toUpperCase()] < TIER_HIERARCHY[currentTier.toUpperCase()];
-  };
-
   const plans = [
     {
       name: 'Free',
-      price: 0,
-      variantId: null,
+      price: '$0',
+      interval: 'month',
       description: 'Perfect for getting started',
+      priceId: null,
+      productId: 'free',
       features: [
         { icon: Coins, text: '20 credits per month' },
         { icon: Sparkles, text: 'Premium AI model quality' },
@@ -48,14 +36,16 @@ export default function PricingPlans() {
         { icon: Droplet, text: 'Limited watermark' },
         { icon: Layers, text: '1 concurrent job' }
       ],
-      popular: false,
-      mostValue: false
+      badge: null,
+      buttonStyle: 'outline'
     },
     {
       name: 'Pro',
-      price: 4.99,
-      variantId: 'pro',
+      price: '$4.99',
+      interval: 'month',
       description: 'For creators & influencers',
+      priceId: process.env.NEXT_PUBLIC_POLAR_PRICE_ID_PRO || 'pro',
+      productId: process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_PRO || 'pro',
       features: [
         { icon: Coins, text: '100 credits per month' },
         { icon: Sparkles, text: 'Premium AI model quality' },
@@ -65,14 +55,16 @@ export default function PricingPlans() {
         { icon: Briefcase, text: 'Commercial usage rights' },
         { icon: Mail, text: 'Email support' }
       ],
-      popular: true,
-      mostValue: false
+      badge: 'Most Popular',
+      buttonStyle: 'primary'
     },
     {
       name: 'Creator',
-      price: 14.99,
-      variantId: 'creator',
+      price: '$14.99',
+      interval: 'month',
       description: 'For professional creators',
+      priceId: process.env.NEXT_PUBLIC_POLAR_PRICE_ID_CREATOR || 'creator',
+      productId: process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_CREATOR || 'creator',
       features: [
         { icon: Coins, text: '400 credits per month' },
         { icon: Sparkles, text: 'Premium AI model quality' },
@@ -82,16 +74,23 @@ export default function PricingPlans() {
         { icon: Headphones, text: 'Priority customer support' },
         { icon: Code, text: 'API access (coming soon)' }
       ],
-      popular: false,
-      mostValue: true
+      badge: 'Most Value',
+      buttonStyle: 'gradient'
     }
   ];
 
-  const handleSubscribe = async (variantId: string | null, planName: string) => {
+  // Define tier hierarchy
+  const TIER_HIERARCHY: Record<string, number> = {
+    FREE: 0,
+    PRO: 1,
+    CREATOR: 2,
+  };
+
+  const handleSubscribe = async (priceId: string | null, productId: string) => {
     if (!isLoaded) return;
 
     // Free plan - just redirect to dashboard
-    if (variantId === null) {
+    if (!priceId) {
       router.push('/dashboard');
       return;
     }
@@ -103,15 +102,14 @@ export default function PricingPlans() {
     }
 
     try {
-      setLoadingPlan(planName);
-
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          variantId,
+          priceId,
+          productId,
           userId: user.id,
           userEmail: user.emailAddresses[0]?.emailAddress,
         }),
@@ -127,31 +125,17 @@ export default function PricingPlans() {
     } catch (error) {
       console.error('Checkout error:', error);
       alert('Failed to start checkout. Please try again.');
-    } finally {
-      setLoadingPlan(null);
     }
   };
 
-  const testimonials = [
-    {
-      quote: "As a freelancer, this plan gives me everything I need to create stunning AI-generated photos for my clients efficiently.",
-      author: "Alex Morgan",
-      role: "Freelance Designer",
-      initials: "AM"
-    },
-    {
-      quote: "We've grown our content output by 40% since switching to the Pro plan. The generation speed and quality are game-changing.",
-      author: "Sarah Chen",
-      role: "Marketing Director, GrowthLabs",
-      initials: "SC"
-    },
-    {
-      quote: "The creator features have helped us maintain quality while scaling our operations across multiple departments.",
-      author: "Michael Johnson",
-      role: "CTO, Enterprise Solutions Inc.",
-      initials: "MJ"
-    }
-  ];
+  const isCurrentPlan = (planName: string) => {
+    return currentTier?.toUpperCase() === planName.toUpperCase();
+  };
+
+  const isLowerTier = (planName: string) => {
+    if (!currentTier) return false;
+    return TIER_HIERARCHY[planName.toUpperCase()] < TIER_HIERARCHY[currentTier.toUpperCase()];
+  };
 
   return (
     <>
@@ -169,145 +153,74 @@ export default function PricingPlans() {
           </div>
 
           {/* Pricing Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {plans.map((plan, idx) => {
-              const testimonial = testimonials[idx];
-              return (
-                <div key={idx} className="flex flex-col">
-                  {/* Pricing Card */}
-                  <div className={`bg-gray-900 rounded-2xl border ${plan.popular || plan.mostValue ? 'border-white ring-2 ring-white/20' : 'border-gray-700'} p-8 flex-1 relative`}>
-                    {plan.popular && (
-                      <div className="absolute -top-3 right-6">
-                        <span className="bg-white text-gray-900 px-4 py-1 rounded-full text-xs font-bold">
-                          Most Popular
-                        </span>
-                      </div>
-                    )}
-                    {plan.mostValue && (
-                      <div className="absolute -top-3 right-6">
-                        <span className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-1 rounded-full text-xs font-bold">
-                          Most Value
-                        </span>
-                      </div>
-                    )}
-
-                    <div className="mb-6">
-                      <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
-                      <div className="flex items-baseline mb-2">
-                        <span className="text-5xl font-bold text-white">${plan.price}</span>
-                        <span className="text-gray-400 ml-2">/month</span>
-                      </div>
-                      <p className="text-gray-400 text-sm">{plan.description}</p>
-                    </div>
-
-                    <button
-                      onClick={() => handleSubscribe(plan.variantId, plan.name)}
-                      disabled={
-                        loadingPlan === plan.name ||
-                        currentTier?.toUpperCase() === plan.name.toUpperCase() ||
-                        isPlanLowerTier(plan.name)
-                      }
-                      className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 mb-6 flex items-center justify-center gap-2 ${
-                        currentTier?.toUpperCase() === plan.name.toUpperCase()
-                          ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
-                          : isPlanLowerTier(plan.name)
-                            ? 'bg-gray-800 text-gray-600 cursor-not-allowed opacity-50'
-                            : plan.popular
-                              ? 'bg-white text-gray-900 hover:bg-gray-100'
-                              : plan.mostValue
-                                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700'
-                                : 'bg-gray-800 text-white hover:bg-gray-700 border border-gray-700'
-                      } disabled:opacity-50 disabled:cursor-not-allowed`}>
-                      {loadingPlan === plan.name
-                        ? 'Loading...'
-                        : currentTier?.toUpperCase() === plan.name.toUpperCase()
-                          ? 'Your current plan'
-                          : `Get ${plan.name}`
-                      }
-                      {loadingPlan !== plan.name && currentTier?.toUpperCase() !== plan.name.toUpperCase() && !isPlanLowerTier(plan.name) && <ArrowUpRight className="w-5 h-5" />}
-                    </button>
-
-                    <ul className="space-y-4 mb-8">
-                      {plan.features.map((feature, featureIdx) => {
-                        const FeatureIcon = feature.icon;
-                        return (
-                          <li key={featureIdx} className="flex items-start gap-3">
-                            <FeatureIcon className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" strokeWidth={2} />
-                            <span className="text-white text-sm">{feature.text}</span>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-
-                  {/* Testimonial Card */}
-                  <div className="bg-gray-900/50 rounded-2xl border border-gray-800 p-6 mt-6">
-                    <p className="text-gray-300 italic text-sm mb-4">"{testimonial.quote}"</p>
-
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                        <span className="text-white font-bold text-sm">{testimonial.initials}</span>
-                      </div>
-                      <div>
-                        <div className="text-white font-semibold text-sm">{testimonial.author}</div>
-                        <div className="text-gray-400 text-xs">{testimonial.role}</div>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Trust Badges */}
-          <div className="bg-gray-900 rounded-2xl border border-gray-700 p-8 mb-8">
-            <div className="flex flex-wrap justify-center items-center gap-8">
-              <div className="flex items-center gap-2 text-gray-300">
-                <Lock className="w-5 h-5 text-green-400" />
-                <span className="text-sm font-medium">Secure Payment</span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-300">
-                <DollarSign className="w-5 h-5 text-green-400" />
-                <span className="text-sm font-medium">No Hidden Fees</span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-300">
-                <RefreshCw className="w-5 h-5 text-green-400" />
-                <span className="text-sm font-medium">Cancel Anytime</span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-300">
-                <MessageCircle className="w-5 h-5 text-green-400" />
-                <span className="text-sm font-medium">24/7 Support</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Support Section */}
-          <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl border border-blue-500/20 p-8">
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-500/20 rounded-full mb-4">
-                <Headphones className="w-6 h-6 text-blue-400" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-3">Need Help?</h3>
-              <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-                Have questions about billing, refunds, or need to make changes to your subscription? Our support team is here to help you.
-              </p>
-              <a
-                href="mailto:support@pixelglow.app"
-                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200"
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {plans.map((plan) => (
+              <div
+                key={plan.name}
+                className={`bg-gray-900 rounded-2xl border ${
+                  plan.badge ? 'border-white ring-2 ring-white/20' : 'border-gray-700'
+                } p-8 relative`}
               >
-                <Mail className="w-5 h-5" />
-                Contact Support
-              </a>
-              <p className="text-sm text-gray-400 mt-4">
-                Response time: Usually within 24 hours
-              </p>
-            </div>
+                {/* Badge */}
+                {plan.badge && (
+                  <div className="absolute -top-3 right-6">
+                    <span className={`px-4 py-1 rounded-full text-xs font-bold ${
+                      plan.badge === 'Most Popular'
+                        ? 'bg-white text-gray-900'
+                        : 'bg-gradient-to-r from-green-500 to-emerald-600 text-white'
+                    }`}>
+                      {plan.badge}
+                    </span>
+                  </div>
+                )}
+
+                {/* Plan Header */}
+                <div className="mb-6">
+                  <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
+                  <div className="flex items-baseline mb-2">
+                    <span className="text-5xl font-bold text-white">{plan.price}</span>
+                    <span className="text-gray-400 ml-2">/{plan.interval}</span>
+                  </div>
+                  <p className="text-gray-400 text-sm">{plan.description}</p>
+                </div>
+
+                {/* CTA Button */}
+                <button
+                  onClick={() => handleSubscribe(plan.priceId, plan.productId)}
+                  disabled={isCurrentPlan(plan.name) || isLowerTier(plan.name)}
+                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 mb-6 flex items-center justify-center gap-2 ${
+                    isCurrentPlan(plan.name)
+                      ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                      : isLowerTier(plan.name)
+                        ? 'bg-gray-800 text-gray-600 cursor-not-allowed opacity-50'
+                        : plan.buttonStyle === 'primary'
+                          ? 'bg-white text-gray-900 hover:bg-gray-100'
+                          : plan.buttonStyle === 'gradient'
+                            ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700'
+                            : 'bg-gray-800 text-white hover:bg-gray-700 border border-gray-700'
+                  } disabled:opacity-50 disabled:cursor-not-allowed`}
+                >
+                  {isCurrentPlan(plan.name)
+                    ? 'Your current plan'
+                    : `Get ${plan.name}`
+                  }
+                  {!isCurrentPlan(plan.name) && !isLowerTier(plan.name) && plan.priceId && <ArrowUpRight className="w-5 h-5" />}
+                </button>
+
+                {/* Features */}
+                <ul className="space-y-4">
+                  {plan.features.map((feature, idx) => {
+                    const FeatureIcon = feature.icon;
+                    return (
+                      <li key={idx} className="flex items-center gap-3">
+                        <FeatureIcon className="w-5 h-5 text-gray-300 flex-shrink-0" strokeWidth={1.5} />
+                        <span className="text-white text-sm leading-relaxed">{feature.text}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </div>

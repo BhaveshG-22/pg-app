@@ -197,13 +197,11 @@ const worker = new Worker(QUEUE_NAME, processImageGenerationJob, {
     }
   },
   concurrency: CONCURRENCY,
-  attempts: MAX_RETRIES,
-  backoff: {
-    type: 'exponential',
-    delay: 5000, // Start with 5 seconds
-  },
-  removeOnComplete: 100, // Keep last 100 completed jobs
-  removeOnFail: 50,      // Keep last 50 failed jobs
+  lockDuration: 60000,        // 60 seconds - how long a job can be locked
+  stalledInterval: 30000,     // 30 seconds - how often to check for stalled jobs
+  maxStalledCount: 2,         // Allow 2 stall attempts before failing
+  removeOnComplete: { count: 100 }, // Keep last 100 completed jobs
+  removeOnFail: { count: 50 }       // Keep last 50 failed jobs
 });
 
 // Create queue events for monitoring

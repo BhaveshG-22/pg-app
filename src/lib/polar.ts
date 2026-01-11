@@ -1,24 +1,21 @@
-import { lemonSqueezySetup } from "@lemonsqueezy/lemonsqueezy.js"
+import { Polar } from "@polar-sh/sdk"
 
-export function configureLemonSqueezy() {
-  const apiKey = process.env.LEMONSQUEEZY_API_KEY
+export function configurePolar() {
+  const accessToken = process.env.POLAR_ACCESS_TOKEN
 
-  if (!apiKey) {
-    throw new Error("LEMONSQUEEZY_API_KEY is not set")
+  if (!accessToken) {
+    throw new Error("POLAR_ACCESS_TOKEN is not set")
   }
 
-  lemonSqueezySetup({
-    apiKey,
-    onError: (error) => {
-      console.error("Lemon Squeezy Error:", error)
-      throw error
-    },
+  return new Polar({
+    accessToken,
   })
 }
 
-export const PLAN_VARIANTS = {
-  pro: process.env.LEMONSQUEEZY_VARIANT_ID_PRO || "",
-  creator: process.env.LEMONSQUEEZY_VARIANT_ID_CREATOR || "",
+// Polar product/price IDs for different plans
+export const POLAR_PRICE_IDS = {
+  pro: process.env.POLAR_PRICE_ID_PRO || "",
+  creator: process.env.POLAR_PRICE_ID_CREATOR || "",
 }
 
 export const PLANS = [
@@ -27,7 +24,7 @@ export const PLANS = [
     price: "$0",
     priceValue: 0,
     interval: "month",
-    variantId: null,
+    priceId: null,
     features: [
       "20 credits per month",
       "Premium AI model quality",
@@ -41,7 +38,7 @@ export const PLANS = [
     price: "$4.99",
     priceValue: 4.99,
     interval: "month",
-    variantId: PLAN_VARIANTS.pro,
+    priceId: POLAR_PRICE_IDS.pro,
     popular: true,
     features: [
       "100 credits per month",
@@ -58,7 +55,7 @@ export const PLANS = [
     price: "$14.99",
     priceValue: 14.99,
     interval: "month",
-    variantId: PLAN_VARIANTS.creator,
+    priceId: POLAR_PRICE_IDS.creator,
     features: [
       "400 credits per month",
       "Premium AI model quality",
