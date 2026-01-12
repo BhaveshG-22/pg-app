@@ -11,6 +11,7 @@ interface NavbarClientProps {
     name: string
     email: string
     avatar: string
+    tier: string
   }
   credits: number
   maxCredits: number

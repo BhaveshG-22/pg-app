@@ -102,7 +102,7 @@ export default async function UserBilling() {
               </div>
               <div className="flex flex-wrap gap-2">
                 <Button variant="outline" asChild>
-                  <Link href="/plans">
+                  <Link href="/pricing">
                     {isFree ? "Upgrade Plan" : "Change Plan"}
                   </Link>
                 </Button>

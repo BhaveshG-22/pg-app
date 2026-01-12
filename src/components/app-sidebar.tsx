@@ -97,8 +97,8 @@ const getNavigationData = (studioItems: any[]) => ({
           icon: BarChart3,
         },
         {
-          title: "Plans",
-          url: "/dashboard/credits/plans",
+          title: "Pricing",
+          url: "/pricing",
           icon: Crown,
         },
       ],

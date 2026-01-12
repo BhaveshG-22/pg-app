@@ -1154,8 +1154,8 @@ Upgrade your plan or purchase more credits to continue creating amazing images.`
             text: 'Upgrade Plan',
             onClick: () => {
               setErrorModal(prev => ({ ...prev, isOpen: false }));
-              // Navigate to plans page
-              window.open('/plans', '_blank');
+              // Navigate to pricing page
+              window.open('/pricing', '_blank');
             }
           }
         });

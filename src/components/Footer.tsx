@@ -9,7 +9,7 @@ const staticFooterData = {
     "Dashboard",
     "Gallery",
     "Sign up or Log in",
-    "Plans",
+    "Pricing",
     "FAQ",
     "Billing",
     "Report Issue"
@@ -71,7 +71,7 @@ export function Footer() {
                       href={
                         link === "Dashboard" ? "/dashboard" :
                         link === "Report Issue" ? "/report-issue" :
-                        link === "Plans" ? "/plans" :
+                        link === "Pricing" ? "/pricing" :
                         link === "Sign up or Log in" ? "/sign-up?redirect_url=/dashboard" :
                         link === "Terms of Service" ? "/terms" :
                         link === "Privacy Policy" ? "/privacy" :

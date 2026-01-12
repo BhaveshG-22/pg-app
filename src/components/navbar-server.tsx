@@ -21,6 +21,7 @@ export async function Navbar() {
       email: true,
       avatar: true,
       credits: true,
+      tier: true,
     }
   })
 
@@ -51,6 +52,7 @@ export async function Navbar() {
           email: true,
           avatar: true,
           credits: true,
+          tier: true,
         }
       })
       console.log('[Navbar] Successfully created/updated fallback user:', dbUser.email)
@@ -64,6 +66,7 @@ export async function Navbar() {
     name: clerkUser.fullName || clerkUser.username || dbUser.name || "Anonymous",
     email: clerkUser.emailAddresses[0]?.emailAddress || dbUser.email || "No email",
     avatar: clerkUser.imageUrl || dbUser.avatar || "",
+    tier: dbUser.tier,
   }
 
   return (

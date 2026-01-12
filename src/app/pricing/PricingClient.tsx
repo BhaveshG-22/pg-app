@@ -68,7 +68,7 @@ export default function PricingClient({
 
     // Check if user is signed in
     if (!isAuthenticated || !userId || !userEmail) {
-      router.push('/sign-in?redirect_url=/plans');
+      router.push('/sign-in?redirect_url=/pricing');
       return;
     }
 
@@ -213,6 +213,19 @@ export default function PricingClient({
               </ul>
             </div>
           ))}
+        </div>
+
+        {/* Contact Section */}
+        <div className="text-center mt-12">
+          <p className="text-gray-400">
+            Have any questions?{' '}
+            <a
+              href="mailto:pixelglow.app@gmail.com"
+              className="text-white hover:text-gray-200 underline transition-colors"
+            >
+              Contact us at pixelglow.app@gmail.com
+            </a>
+          </p>
         </div>
       </div>
     </div>

@@ -142,8 +142,17 @@ export default function SuccessMessage() {
           <CheckCircle className="w-6 h-6 flex-shrink-0 mt-0.5" />
           <div className="flex-1">
             <h3 className="font-semibold text-lg mb-1">Payment Processing</h3>
-            <p className="text-sm text-yellow-50">
+            <p className="text-sm text-yellow-50 mb-2">
               Your payment is being processed. Your subscription will be activated shortly. Please refresh the page in a moment.
+            </p>
+            <p className="text-xs text-yellow-100">
+              Need help?{' '}
+              <a
+                href="mailto:pixelglow.app@gmail.com"
+                className="underline hover:text-white"
+              >
+                Contact us at pixelglow.app@gmail.com
+              </a>
             </p>
           </div>
           <button
