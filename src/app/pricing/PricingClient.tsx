@@ -144,11 +144,11 @@ export default function PricingClient({
             <div
               key={plan.name}
               className={`bg-gray-900 rounded-2xl border ${
-                plan.badge ? 'border-white ring-2 ring-white/20' : 'border-gray-700'
+                plan.badge && !isCurrentPlan(plan.name) ? 'border-white ring-2 ring-white/20' : 'border-gray-700'
               } p-8 relative`}
             >
               {/* Badge */}
-              {plan.badge && (
+              {plan.badge && !isCurrentPlan(plan.name) && (
                 <div className="absolute -top-3 right-6">
                   <span className={`px-4 py-1 rounded-full text-xs font-bold ${
                     plan.badge === 'Most Popular'
