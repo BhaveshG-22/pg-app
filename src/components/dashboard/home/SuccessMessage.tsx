@@ -17,76 +17,44 @@ export default function SuccessMessage() {
     const success = searchParams.get('success')
     if (success !== 'true') return
 
-    const customerSessionToken = searchParams.get('customer_session_token')
-
     setShowMessage(true)
     setPaymentStatus('waiting')
 
     let pollCount = 0
-    const maxPolls = 20 // Poll for ~1 minute (20 polls × 3 seconds)
+    const maxPolls = 30 // Poll for ~1 minute (30 polls × 2 seconds)
     let timeInterval: NodeJS.Timeout
     let pollInterval: NodeJS.Timeout
-    let useFallback = false
 
     // Update elapsed time every second
     timeInterval = setInterval(() => {
       setElapsedTime(prev => prev + 1)
     }, 1000)
 
-    // Check subscription status using token or fallback to database polling
+    // Check subscription status via optimized endpoint
     const checkSubscriptionStatus = async () => {
       try {
-        // If we have a customer session token and haven't fallen back yet, use it
-        if (customerSessionToken && !useFallback) {
-          const response = await fetch('/api/verify-payment', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ customerSessionToken }),
-          })
+        const response = await fetch('/api/verify-payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
 
-          const data = await response.json()
+        const data = await response.json()
 
-          // If token verification suggests fallback, switch to database polling
-          if (data.fallbackToPolling) {
-            console.log('Token expired, falling back to database polling')
-            useFallback = true
-            return
-          }
+        // Check if subscription has been activated
+        if (data.paymentConfirmed) {
+          setPaymentStatus('completed')
+          clearInterval(pollInterval)
+          clearInterval(timeInterval)
 
-          if (data.paymentConfirmed) {
-            setPaymentStatus('completed')
-            clearInterval(pollInterval)
-            clearInterval(timeInterval)
-
-            // Auto-hide success message after 8 seconds
-            setTimeout(() => {
-              setShowMessage(false)
-              // Clean up URL
-              router.replace('/dashboard')
-            }, 8000)
-            return
-          }
-        } else {
-          // Fallback: Poll database
-          const response = await fetch('/api/user/tier')
-          const data = await response.json()
-
-          // Check if subscription has been activated
-          if (data.hasActiveSubscription && data.subscriptionStatus === 'active') {
-            setPaymentStatus('completed')
-            clearInterval(pollInterval)
-            clearInterval(timeInterval)
-
-            // Auto-hide success message after 8 seconds
-            setTimeout(() => {
-              setShowMessage(false)
-              // Clean up URL
-              router.replace('/dashboard')
-            }, 8000)
-            return
-          }
+          // Auto-hide success message after 8 seconds
+          setTimeout(() => {
+            setShowMessage(false)
+            // Clean up URL
+            router.replace('/dashboard')
+          }, 8000)
+          return
         }
       } catch (error) {
         console.error('Failed to check subscription status:', error)
@@ -111,7 +79,7 @@ export default function SuccessMessage() {
     // Initial check immediately
     checkSubscriptionStatus()
 
-    // Poll every 2 seconds (faster with token-based check)
+    // Poll every 2 seconds for faster confirmation
     pollInterval = setInterval(checkSubscriptionStatus, 2000)
 
     return () => {

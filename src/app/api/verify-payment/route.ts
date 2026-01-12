@@ -1,73 +1,53 @@
-import { NextRequest, NextResponse } from "next/server"
-import { configurePolar } from "@/lib/polar"
+import { NextResponse } from "next/server"
 import { auth } from "@clerk/nextjs/server"
+import { prisma } from "@/lib/prisma"
 
-export async function POST(req: NextRequest) {
+export async function POST() {
   try {
     const { userId } = await auth()
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const body = await req.json()
-    const { customerSessionToken } = body
+    // Check database for subscription activation
+    // This is faster than the general tier endpoint as it's optimized for this check
+    const user = await prisma.user.findUnique({
+      where: { clerkId: userId },
+      select: {
+        polarSubscriptionId: true,
+        subscriptionStatus: true,
+      },
+    })
 
-    if (!customerSessionToken) {
-      return NextResponse.json(
-        { error: "Missing customer_session_token" },
-        { status: 400 }
-      )
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 })
     }
 
-    const polar = configurePolar()
+    // Check if subscription is now active
+    const isActive = !!(
+      user.polarSubscriptionId &&
+      user.subscriptionStatus &&
+      (user.subscriptionStatus === 'active' ||
+       user.subscriptionStatus === 'trialing' ||
+       user.subscriptionStatus === 'incomplete')
+    )
 
-    // Get customer session to check payment status
-    try {
-      const session = await polar.customerSessions.get({
-        customerSessionToken,
-      })
-
-      console.log("Customer session:", session)
-
-      // Check if customer has an active subscription
-      if (session.customer?.id) {
-        // Get customer's subscriptions
-        const subscriptions = await polar.subscriptions.list({
-          customerId: session.customer.id,
-        })
-
-        // Find active subscription
-        const activeSubscription = subscriptions.result?.items?.find(
-          (sub: any) => sub.status === 'active' || sub.status === 'incomplete' || sub.status === 'trialing'
-        )
-
-        if (activeSubscription) {
-          return NextResponse.json({
-            success: true,
-            paymentConfirmed: true,
-            subscription: {
-              id: activeSubscription.id,
-              status: activeSubscription.status,
-            },
-          })
-        }
-      }
-
-      // Payment not yet confirmed
+    if (isActive) {
       return NextResponse.json({
         success: true,
-        paymentConfirmed: false,
-      })
-    } catch (error: any) {
-      console.error("Polar API error:", error)
-
-      // If session is invalid/expired, check database instead
-      return NextResponse.json({
-        success: true,
-        paymentConfirmed: false,
-        fallbackToPolling: true,
+        paymentConfirmed: true,
+        subscription: {
+          id: user.polarSubscriptionId,
+          status: user.subscriptionStatus,
+        },
       })
     }
+
+    // Payment not yet confirmed
+    return NextResponse.json({
+      success: true,
+      paymentConfirmed: false,
+    })
   } catch (error) {
     console.error("Payment verification error:", error)
     return NextResponse.json(
