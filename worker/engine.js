@@ -117,14 +117,25 @@ class ImageGenerationEngine {
    */
   buildPrompt(template, inputValues) {
     let finalPrompt = template;
+    const unmatched = [];
 
     Object.entries(inputValues || {}).forEach(([key, value]) => {
       // Skip internal keys
-      if (!key.startsWith('__')) {
-        const placeholder = new RegExp(`{{${key}}}`, 'g');
+      if (key.startsWith('__') || !value) return;
+
+      const placeholder = new RegExp(`{{${key}}}`, 'g');
+      if (placeholder.test(template)) {
         finalPrompt = finalPrompt.replace(placeholder, value);
+      } else {
+        // No matching {{placeholder}} in the template (e.g. free-text
+        // "Other Ideas" input) - append it instead of silently dropping it.
+        unmatched.push(value);
       }
     });
+
+    if (unmatched.length > 0) {
+      finalPrompt += ` Additional instructions: ${unmatched.join(' ')}`;
+    }
 
     return finalPrompt;
   }

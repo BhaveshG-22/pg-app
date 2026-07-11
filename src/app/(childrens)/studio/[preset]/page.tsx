@@ -1112,6 +1112,10 @@ export default function StudioPage() {
         });
       }
 
+      if (otherIdeas.trim() !== '') {
+        finalInputValues['additional_ideas'] = otherIdeas.trim();
+      }
+
       // First, confirm the upload and start processing
       const confirmResult = await confirmUpload({
         s3Key: selectedImageS3Key, // Use the stored S3 key
@@ -1160,16 +1164,99 @@ Upgrade your plan or purchase more credits to continue creating amazing images.`
           }
         });
       } else if (error.code === 'too_many_in_flight') {
-        setErrorModal({
-          isOpen: true,
-          title: 'Too Many Active Generations',
-          message: `⏳ You have too many generations in progress.
+        // Check for stuck jobs
+        const checkStuckJobs = async () => {
+          try {
+            const response = await fetch('/api/generations/stuck');
+            const data = await response.json();
+
+            if (data.count > 0 && data.stuck) {
+              // Format stuck jobs for display
+              const formatTimeAgo = (date: string) => {
+                const minutes = Math.floor((Date.now() - new Date(date).getTime()) / 60000);
+                if (minutes < 60) return `${minutes} min ago`;
+                const hours = Math.floor(minutes / 60);
+                return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+              };
+
+              const stuckJobsList = data.stuck.map((job: any) =>
+                `• ${job.preset.title} (${job.status}) - Started ${formatTimeAgo(job.createdAt)}`
+              ).join('\n');
+
+              // Has stuck jobs - show detailed list with option to cancel them
+              setErrorModal({
+                isOpen: true,
+                title: 'Too Many Active Generations',
+                message: `⏳ You have ${data.count} generation(s) that may be stuck.
+
+📋 Stuck Jobs:
+${stuckJobsList}
+
+These jobs have been pending for more than 10 minutes and are likely failed. You can cancel them to free up your generation slots.`,
+                type: 'warning',
+                actionButton: {
+                  text: 'Cancel Stuck Jobs',
+                  onClick: async () => {
+                    try {
+                      const deleteResponse = await fetch('/api/generations/stuck', {
+                        method: 'DELETE',
+                      });
+                      const result = await deleteResponse.json();
+
+                      if (result.success) {
+                        setErrorModal({
+                          isOpen: true,
+                          title: 'Jobs Cancelled',
+                          message: `✅ Successfully cancelled ${result.count} stuck job(s).
+
+You can now create new generations!`,
+                          type: 'info'
+                        });
+                      } else {
+                        throw new Error(result.error || 'Failed to cancel jobs');
+                      }
+                    } catch (error) {
+                      console.error('Failed to cancel stuck jobs:', error);
+                      setErrorModal({
+                        isOpen: true,
+                        title: 'Error',
+                        message: 'Failed to cancel stuck jobs. Please try again or contact support.',
+                        type: 'error'
+                      });
+                    }
+                  }
+                }
+              });
+            } else {
+              // No stuck jobs - show normal message
+              setErrorModal({
+                isOpen: true,
+                title: 'Too Many Active Generations',
+                message: `⏳ You have too many generations in progress.
 
 Please wait for them to complete before starting a new one.
 
 This helps ensure optimal performance and quality for all users.`,
-          type: 'warning'
-        });
+                type: 'warning'
+              });
+            }
+          } catch (error) {
+            console.error('Failed to check stuck jobs:', error);
+            // Fallback to normal message
+            setErrorModal({
+              isOpen: true,
+              title: 'Too Many Active Generations',
+              message: `⏳ You have too many generations in progress.
+
+Please wait for them to complete before starting a new one.
+
+This helps ensure optimal performance and quality for all users.`,
+              type: 'warning'
+            });
+          }
+        };
+
+        checkStuckJobs();
       } else if (error.code === 'preset_not_found') {
         setErrorModal({
           isOpen: true,

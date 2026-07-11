@@ -44,11 +44,22 @@ export async function callEngineAndUploadToS3(params: EngineParams): Promise<Eng
 
   // Build prompt by replacing placeholders (excluding internal keys)
   let finalPrompt = preset.prompt;
+  const unmatchedValues: string[] = [];
   Object.entries(inputValues).forEach(([key, value]) => {
-    if (!key.startsWith('__')) { // Skip internal keys like __uploadedImageKey
-      finalPrompt = finalPrompt.replace(new RegExp(`{{${key}}}`, 'g'), value);
+    if (key.startsWith('__') || !value) return; // Skip internal keys like __uploadedImageKey
+
+    const placeholder = new RegExp(`{{${key}}}`, 'g');
+    if (placeholder.test(finalPrompt)) {
+      finalPrompt = finalPrompt.replace(placeholder, value);
+    } else {
+      // No matching {{placeholder}} in the template (e.g. free-text
+      // "Other Ideas" input) - append it instead of silently dropping it.
+      unmatchedValues.push(value);
     }
   });
+  if (unmatchedValues.length > 0) {
+    finalPrompt += ` Additional instructions: ${unmatchedValues.join(' ')}`;
+  }
 
   // Get the appropriate provider and generate image
   const provider = getProvider(preset.provider);

@@ -1,6 +1,6 @@
 'use client'
 
-import { X, AlertCircle, CreditCard, Sparkles } from 'lucide-react'
+import { X, AlertCircle, AlertTriangle, Info, CheckCircle } from 'lucide-react'
 
 interface ErrorModalProps {
   isOpen: boolean
@@ -27,98 +27,118 @@ export default function ErrorModal({
   const getIcon = () => {
     switch (type) {
       case 'warning':
-        return <AlertCircle className="h-5 w-5 text-orange-400" />
+        return <AlertTriangle className="h-5 w-5" />
       case 'info':
-        return <CreditCard className="h-5 w-5 text-blue-400" />
+        return <Info className="h-5 w-5" />
       default:
-        return <AlertCircle className="h-5 w-5 text-red-400" />
+        return <AlertCircle className="h-5 w-5" />
     }
   }
 
-  const getAccentColor = () => {
+  const getIconColor = () => {
     switch (type) {
       case 'warning':
-        return 'bg-orange-500/10 border-orange-500/20'
+        return 'text-amber-500'
       case 'info':
-        return 'bg-blue-500/10 border-blue-500/20'
+        return 'text-blue-500'
       default:
-        return 'bg-red-500/10 border-red-500/20'
-    }
-  }
-
-  const getIconBg = () => {
-    switch (type) {
-      case 'warning':
-        return 'bg-orange-500/20'
-      case 'info':
-        return 'bg-blue-500/20'
-      default:
-        return 'bg-red-500/20'
+        return 'text-red-500'
     }
   }
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-[#1e1e1e] rounded-2xl border border-[#3a3a3a] w-full max-w-md overflow-hidden shadow-2xl">
+    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+      <div
+        className="bg-card border border-border w-full max-w-lg rounded-lg shadow-lg animate-in fade-in-0 zoom-in-95 duration-200"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-[#3a3a3a]">
-          <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-xl ${getIconBg()}`}>
-              {getIcon()}
-            </div>
-            <h2 className="text-lg font-semibold text-white">{title}</h2>
+        <div className="flex items-start gap-4 p-6 pb-4">
+          <div className={`${getIconColor()} mt-0.5`}>
+            {getIcon()}
+          </div>
+          <div className="flex-1 space-y-1">
+            <h2 className="text-lg font-semibold text-foreground leading-none">{title}</h2>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-[#3a3a3a] rounded-xl transition-colors"
+            className="text-muted-foreground hover:text-foreground transition-colors rounded-sm opacity-70 hover:opacity-100"
           >
-            <X className="h-5 w-5 text-gray-400" />
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-4">
-          <div className={`rounded-xl p-4 border ${getAccentColor()}`}>
-            <div className="text-sm whitespace-pre-line leading-relaxed space-y-3">
-              {message.split('\n\n').map((paragraph, index) => (
-                <div key={index} className="text-gray-300">
-                  {paragraph.split('\n').map((line, lineIndex) => (
-                    <div key={lineIndex}>
-                      {line.includes('💳') ? (
-                        <div className="font-semibold text-white mb-2">{line}</div>
-                      ) : line.startsWith('•') ? (
-                        <div className="flex items-start gap-2 ml-2">
-                          <span className="text-gray-500 mt-0.5">•</span>
-                          <span className="text-gray-300">{line.substring(1).trim()}</span>
-                        </div>
-                      ) : (
-                        <div className={line.trim() ? '' : 'h-2'}>{line}</div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <div className="px-6 pb-6 space-y-4">
+          <div className="text-sm text-muted-foreground space-y-3">
+            {message.split('\n\n').map((paragraph, index) => (
+              <div key={index} className="space-y-2">
+                {paragraph.split('\n').map((line, lineIndex) => {
+                  // Check if it's a section header with emoji
+                  const isSectionHeader = /^[📋💳⏳✅🚫]/.test(line) && line.includes(':');
 
-        {/* Actions */}
-        <div className="flex gap-3 p-6 pt-0">
-          {actionButton && (
+                  if (line.includes('💳') && !isSectionHeader) {
+                    return (
+                      <div key={lineIndex} className="font-medium text-foreground">
+                        {line}
+                      </div>
+                    );
+                  }
+
+                  if (isSectionHeader) {
+                    return (
+                      <div key={lineIndex} className="font-medium text-foreground pt-2 pb-1 text-sm">
+                        {line}
+                      </div>
+                    );
+                  }
+
+                  if (line.startsWith('•')) {
+                    return (
+                      <div
+                        key={lineIndex}
+                        className="flex items-start gap-2 py-1 px-2 rounded-md hover:bg-accent/50 transition-colors"
+                      >
+                        <span className="text-muted-foreground/60 text-[10px] mt-1">●</span>
+                        <span className="text-sm text-foreground font-mono flex-1 leading-relaxed">
+                          {line.substring(1).trim()}
+                        </span>
+                      </div>
+                    );
+                  }
+
+                  if (!line.trim()) {
+                    return <div key={lineIndex} className="h-1" />;
+                  }
+
+                  return (
+                    <p key={lineIndex} className="leading-relaxed">
+                      {line}
+                    </p>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+
+          {/* Actions */}
+          <div className="flex gap-2 pt-2">
+            {actionButton && (
+              <button
+                onClick={actionButton.onClick}
+                className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 rounded-md text-sm font-medium transition-colors inline-flex items-center justify-center gap-2"
+              >
+                {actionButton.text}
+              </button>
+            )}
             <button
-              onClick={actionButton.onClick}
-              className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground py-3 px-4 rounded-xl transition-colors font-medium flex items-center justify-center gap-2"
+              onClick={onClose}
+              className={`${actionButton ? 'flex-1' : 'w-full'} border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 rounded-md text-sm font-medium transition-colors`}
             >
-              <Sparkles className="h-4 w-4" />
-              {actionButton.text}
+              Close
             </button>
-          )}
-          <button
-            onClick={onClose}
-            className="flex-1 bg-[#3a3a3a] hover:bg-[#4a4a4a] text-gray-300 py-3 px-4 rounded-xl transition-colors font-medium"
-          >
-            Close
-          </button>
+          </div>
         </div>
       </div>
     </div>

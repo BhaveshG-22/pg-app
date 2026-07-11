@@ -7,13 +7,13 @@ import {
   FileText,
   Package,
   RefreshCw,
-  Settings,
   Zap,
 } from "lucide-react";
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { CustomerPortalButton } from "@/components/CustomerPortalButton";
 
 const PLAN_PRICES: Record<string, string> = {
   FREE: "$0",
@@ -67,10 +67,7 @@ export default async function UserBilling() {
               Manage your subscription and billing details
             </p>
           </div>
-          <Button variant="outline">
-            <Settings className="mr-2 size-4" />
-            Billing Settings
-          </Button>
+          {!isFree && <CustomerPortalButton />}
         </div>
 
         {/* Current Plan */}
@@ -152,16 +149,11 @@ export default async function UserBilling() {
                       Managed by Polar
                     </span>
                   </div>
+                  <p className="text-muted-foreground text-xs mt-2">
+                    View invoices, update payment method, and manage your subscription
+                  </p>
                 </div>
-                <Button variant="outline" asChild>
-                  <a
-                    href="https://polar.sh/customer-portal"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Manage Subscription
-                  </a>
-                </Button>
+                <CustomerPortalButton />
               </div>
             </CardContent>
           </Card>
@@ -171,19 +163,23 @@ export default async function UserBilling() {
         {!isFree && (
           <Card className="p-0">
             <CardContent className="p-6">
-              <div className="mb-6 flex flex-col items-start justify-between gap-3 sm:flex-row">
+              <div className="mb-6 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
                 <div>
                   <h2 className="text-lg font-semibold">Billing History</h2>
                   <p className="text-muted-foreground text-sm mt-1">
-                    View your invoices and payment history
+                    View your invoices and payment history in the customer portal
                   </p>
                 </div>
+                <CustomerPortalButton />
               </div>
 
               <div className="text-center py-8 text-muted-foreground">
                 <FileText className="mx-auto size-12 mb-2 opacity-50" />
                 <p className="text-sm">
-                  Billing and invoices will be available once payment integration is completed.
+                  All invoices and billing details are managed through the Polar customer portal.
+                </p>
+                <p className="text-xs mt-2">
+                  Click &quot;Manage Subscription&quot; above to access your complete billing history.
                 </p>
               </div>
             </CardContent>

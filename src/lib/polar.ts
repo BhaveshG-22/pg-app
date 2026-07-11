@@ -21,6 +21,11 @@ export const POLAR_PRICE_IDS = {
   creator: isSandbox ? process.env.POLAR_PRICE_ID_CREATOR_SANDBOX || "" : process.env.POLAR_PRICE_ID_CREATOR || "",
 }
 
+export const POLAR_PRODUCT_IDS = {
+  pro: isSandbox ? process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_PRO_SANDBOX || "" : process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_PRO || "",
+  creator: isSandbox ? process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_CREATOR_SANDBOX || "" : process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_CREATOR || "",
+}
+
 // Other Polar config
 export const POLAR_WEBHOOK_SECRET = isSandbox ? process.env.POLAR_WEBHOOK_SECRET_SANDBOX : process.env.POLAR_WEBHOOK_SECRET
 export const POLAR_ORGANIZATION_ID = isSandbox ? process.env.POLAR_ORGANIZATION_ID_SANDBOX : process.env.POLAR_ORGANIZATION_ID

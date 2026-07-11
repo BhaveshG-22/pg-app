@@ -42,6 +42,3 @@ export interface ImageGenerationJobResult {
   imageUrl?: string;
   error?: string;
 }
-
-// Backward compatibility export
-export const imageQueue = getImageQueue();
