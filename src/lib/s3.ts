@@ -64,12 +64,11 @@ export function generateResultKey(userId: string, generationId: string): string 
   return `results/${userId}/${generationId}-${timestamp}.webp`;
 }
 
+// Flat upload size limit for everyone (in bytes) - no more tier-based tiers.
+const MAX_UPLOAD_SIZE_BYTES = 20 * 1024 * 1024; // 20MB
+
 // Validate file type and size
-export function validateUpload(
-  mimeType: string,
-  fileSize: number,
-  userTier: 'FREE' | 'PRO' | 'CREATOR' = 'FREE'
-) {
+export function validateUpload(mimeType: string, fileSize: number) {
   const allowedTypes = [
     'image/jpeg',
     'image/jpg',
@@ -84,18 +83,10 @@ export function validateUpload(
     };
   }
 
-  // Size limits based on tier (in bytes)
-  const sizeLimits = {
-    FREE: 5 * 1024 * 1024,      // 5MB
-    PRO: 20 * 1024 * 1024,      // 20MB
-    CREATOR: 50 * 1024 * 1024 // 50MB
-  };
-
-  const maxSize = sizeLimits[userTier];
-  if (fileSize > maxSize) {
+  if (fileSize > MAX_UPLOAD_SIZE_BYTES) {
     return {
       valid: false,
-      error: `File too large. Maximum size for ${userTier} tier is ${maxSize / (1024 * 1024)}MB.`
+      error: `File too large. Maximum size is ${MAX_UPLOAD_SIZE_BYTES / (1024 * 1024)}MB.`
     };
   }
 

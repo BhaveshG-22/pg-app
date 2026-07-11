@@ -122,7 +122,7 @@ export default function SuccessMessage() {
           <div className="flex-1">
             <h3 className="font-semibold text-lg mb-1">Payment Confirmed!</h3>
             <p className="text-sm text-green-50">
-              Your subscription has been activated. You now have access to all premium features!
+              Your credits have been added to your account.
             </p>
           </div>
           <button
@@ -143,7 +143,7 @@ export default function SuccessMessage() {
           <div className="flex-1">
             <h3 className="font-semibold text-lg mb-1">Payment Processing</h3>
             <p className="text-sm text-yellow-50 mb-2">
-              Your payment is being processed. Your subscription will be activated shortly. Please refresh the page in a moment.
+              Your payment is being processed. Your credits will be added shortly. Please refresh the page in a moment.
             </p>
             <p className="text-xs text-yellow-100">
               Need help?{' '}

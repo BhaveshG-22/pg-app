@@ -891,7 +891,7 @@ export default function StudioPage() {
     }
 
     // Validate file before upload
-    const validation = validateFile(file, dbUser.tier);
+    const validation = validateFile(file);
     if (!validation.valid) {
       setErrorModal({
         isOpen: true,

@@ -1,7 +1,7 @@
 "use client"
 
 import { NavbarUser } from "./navbar-user"
-import { CreditsBattery } from "./credits-battery"
+import { CreditSplitChip } from "./credit-split-chip"
 import { NavbarSearch } from "./NavbarSearch"
 import Image from "next/image"
 import Link from "next/link"
@@ -11,13 +11,11 @@ interface NavbarClientProps {
     name: string
     email: string
     avatar: string
-    tier: string
   }
   credits: number
-  maxCredits: number
 }
 
-export function NavbarClient({ user, credits, maxCredits }: NavbarClientProps) {
+export function NavbarClient({ user, credits }: NavbarClientProps) {
   return (
     <div className="fixed top-0 left-0 right-0 z-50 bg-sidebar backdrop-blur-xl supports-[backdrop-filter]:bg-sidebar/95 select-none">
       <div className="flex h-14 items-center justify-between pl-3 pr-3 sm:pl-5 sm:pr-6">
@@ -54,7 +52,7 @@ export function NavbarClient({ user, credits, maxCredits }: NavbarClientProps) {
             <NavbarSearch isMobile={true} />
           </div>
           <div className="flex items-center space-x-1 sm:space-x-2">
-            <CreditsBattery credits={credits} maxCredits={maxCredits} />
+            <CreditSplitChip initialCredits={credits} />
             <NavbarUser user={user} />
           </div>
         </div>

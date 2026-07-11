@@ -1,82 +1,44 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowUpRight, Coins, Sparkles, Droplet, Layers, Briefcase, Mail, Headphones, Zap, Code, Star, Gauge } from 'lucide-react';
+import { ArrowUpRight, Zap } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import type { LucideIcon } from 'lucide-react';
 
-// Icon mapping
-const iconMap: Record<string, LucideIcon> = {
-  Coins,
-  Sparkles,
-  Droplet,
-  Layers,
-  Briefcase,
-  Mail,
-  Headphones,
-  Zap,
-  Code,
-  Star,
-  Gauge,
-};
-
-type Plan = {
+type CreditPack = {
+  key: string;
   name: string;
-  price: string;
-  interval: string;
-  description: string;
-  priceId: string | null;
-  productId: string;
-  features: Array<{ icon: string; text: string }>;
+  credits: number;
+  priceLabel: string;
   badge: string | null;
-  buttonStyle: string;
+  productId: string;
 };
 
 type PricingClientProps = {
-  plans: Plan[];
-  currentTier: string | null;
-  hasActiveSubscription: boolean;
+  packs: CreditPack[];
   isAuthenticated: boolean;
   userId: string | null;
   userEmail: string | null;
 };
 
 export default function PricingClient({
-  plans,
-  currentTier,
-  hasActiveSubscription,
+  packs,
   isAuthenticated,
   userId,
   userEmail,
 }: PricingClientProps) {
   const router = useRouter();
-  const [isUpgrading, setIsUpgrading] = useState(false);
+  const [purchasingKey, setPurchasingKey] = useState<string | null>(null);
 
-  // Define tier hierarchy
-  const TIER_HIERARCHY: Record<string, number> = {
-    FREE: 0,
-    PRO: 1,
-    CREATOR: 2,
-  };
-
-  const handleSubscribe = async (priceId: string | null, productId: string, planName: string) => {
-    // Free plan - just redirect to dashboard
-    if (!priceId) {
-      router.push('/dashboard');
-      return;
-    }
-
-    // Check if user is signed in
+  const handleBuy = async (pack: CreditPack) => {
     if (!isAuthenticated || !userId || !userEmail) {
       router.push('/sign-in?redirect_url=/pricing');
       return;
     }
 
-    // Disable button if already upgrading
-    if (isUpgrading) return;
+    if (purchasingKey) return;
 
     try {
-      setIsUpgrading(true);
+      setPurchasingKey(pack.key);
 
       const response = await fetch('/api/checkout', {
         method: 'POST',
@@ -84,8 +46,7 @@ export default function PricingClient({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          priceId,
-          productId,
+          productId: pack.productId,
           userId,
           userEmail,
         }),
@@ -93,36 +54,16 @@ export default function PricingClient({
 
       const data = await response.json();
 
-      // Handle upgrade response (no redirect, just success message)
-      if (data.upgraded) {
-        alert(`Successfully upgraded to ${planName} plan!`);
-        // Refresh the page to update UI
-        window.location.reload();
-      } else if (data.checkoutUrl) {
-        // New subscription - redirect to checkout
+      if (data.checkoutUrl) {
         window.location.href = data.checkoutUrl;
       } else {
-        throw new Error(data.error || 'Failed to process subscription');
+        throw new Error(data.error || 'Failed to start checkout');
       }
     } catch (error) {
       console.error('Checkout error:', error);
-      alert('Failed to process subscription. Please try again.');
-      setIsUpgrading(false);
+      alert('Failed to start checkout. Please try again.');
+      setPurchasingKey(null);
     }
-  };
-
-  const isCurrentPlan = (planName: string) => {
-    return currentTier?.toUpperCase() === planName.toUpperCase();
-  };
-
-  const isLowerTier = (planName: string) => {
-    if (!currentTier) return false;
-    return TIER_HIERARCHY[planName.toUpperCase()] < TIER_HIERARCHY[currentTier.toUpperCase()];
-  };
-
-  const isHigherTier = (planName: string) => {
-    if (!currentTier) return false;
-    return TIER_HIERARCHY[planName.toUpperCase()] > TIER_HIERARCHY[currentTier.toUpperCase()];
   };
 
   return (
@@ -131,88 +72,73 @@ export default function PricingClient({
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Pricing
+            Buy Credits
           </h1>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            Choose the perfect plan for your AI image generation needs.
+            Pay as you go — buy a pack whenever you need more, credits never expire.
           </p>
         </div>
 
-        {/* Pricing Cards */}
+        {/* Pack Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {plans.map((plan) => (
-            <div
-              key={plan.name}
-              className={`bg-gray-900 rounded-2xl border ${
-                plan.badge && !isCurrentPlan(plan.name) && !isLowerTier(plan.name) ? 'border-white ring-2 ring-white/20' : 'border-gray-700'
-              } p-8 relative`}
-            >
-              {/* Badge */}
-              {plan.badge && !isCurrentPlan(plan.name) && !isLowerTier(plan.name) && (
-                <div className="absolute -top-3 right-6">
-                  <span className={`px-4 py-1 rounded-full text-xs font-bold ${
-                    plan.badge === 'Most Popular'
-                      ? 'bg-white text-gray-900'
-                      : 'bg-gradient-to-r from-green-500 to-emerald-600 text-white'
-                  }`}>
-                    {plan.badge}
-                  </span>
-                </div>
-              )}
+          {packs.map((pack) => {
+            const isPurchasing = purchasingKey === pack.key;
+            const isDisabled = purchasingKey !== null;
 
-              {/* Plan Header */}
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
-                <div className="flex items-baseline mb-2">
-                  <span className="text-5xl font-bold text-white">{plan.price}</span>
-                  <span className="text-gray-400 ml-2">/{plan.interval}</span>
-                </div>
-                <p className="text-gray-400 text-sm">{plan.description}</p>
-              </div>
+            return (
+              <div
+                key={pack.key}
+                className={`bg-gray-900 rounded-2xl border ${
+                  pack.badge ? 'border-white ring-2 ring-white/20' : 'border-gray-700'
+                } p-8 relative`}
+              >
+                {/* Badge */}
+                {pack.badge && (
+                  <div className="absolute -top-3 right-6">
+                    <span className={`px-4 py-1 rounded-full text-xs font-bold ${
+                      pack.badge === 'Most Popular'
+                        ? 'bg-white text-gray-900'
+                        : 'bg-gradient-to-r from-green-500 to-emerald-600 text-white'
+                    }`}>
+                      {pack.badge}
+                    </span>
+                  </div>
+                )}
 
-              {/* CTA Button */}
-              <button
-                onClick={() => handleSubscribe(plan.priceId, plan.productId, plan.name)}
-                disabled={isCurrentPlan(plan.name) || isLowerTier(plan.name) || isUpgrading}
-                className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 mb-6 flex items-center justify-center gap-2 ${
-                  isCurrentPlan(plan.name)
-                    ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
-                    : isLowerTier(plan.name)
-                      ? 'bg-gray-800 text-gray-600 cursor-not-allowed opacity-50'
-                      : isUpgrading
-                        ? 'bg-gray-700 text-gray-400 cursor-not-allowed opacity-70'
-                        : plan.buttonStyle === 'primary'
+                {/* Pack Header */}
+                <div className="mb-6">
+                  <h3 className="text-2xl font-bold text-white mb-2">{pack.name}</h3>
+                  <div className="flex items-baseline mb-2">
+                    <span className="text-5xl font-bold text-white">{pack.priceLabel}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-400 text-sm">
+                    <Zap className="w-4 h-4 text-yellow-400" />
+                    <span>{pack.credits.toLocaleString()} credits</span>
+                  </div>
+                </div>
+
+                {/* CTA Button */}
+                <button
+                  onClick={() => handleBuy(pack)}
+                  disabled={isDisabled}
+                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 flex items-center justify-center gap-2 ${
+                    isPurchasing
+                      ? 'bg-gray-700 text-gray-400 cursor-not-allowed opacity-70'
+                      : isDisabled
+                        ? 'bg-gray-800 text-gray-600 cursor-not-allowed opacity-50'
+                        : pack.badge === 'Most Popular'
                           ? 'bg-white text-gray-900 hover:bg-gray-100'
-                          : plan.buttonStyle === 'gradient'
+                          : pack.badge === 'Best Value'
                             ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700'
                             : 'bg-gray-800 text-white hover:bg-gray-700 border border-gray-700'
-                } disabled:opacity-50 disabled:cursor-not-allowed`}
-              >
-                {isCurrentPlan(plan.name)
-                  ? 'Your current plan'
-                  : isUpgrading
-                    ? 'Processing...'
-                    : hasActiveSubscription && isHigherTier(plan.name)
-                      ? `Upgrade to ${plan.name}`
-                      : `Get ${plan.name}`
-                }
-                {!isCurrentPlan(plan.name) && !isLowerTier(plan.name) && !isUpgrading && plan.priceId && <ArrowUpRight className="w-5 h-5" />}
-              </button>
-
-              {/* Features */}
-              <ul className="space-y-4">
-                {plan.features.map((feature, idx) => {
-                  const FeatureIcon = iconMap[feature.icon];
-                  return (
-                    <li key={idx} className="flex items-center gap-3">
-                      <FeatureIcon className="w-5 h-5 text-gray-300 flex-shrink-0" strokeWidth={1.5} />
-                      <span className="text-white text-sm leading-relaxed">{feature.text}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ))}
+                  }`}
+                >
+                  {isPurchasing ? 'Processing...' : `Buy ${pack.name}`}
+                  {!isDisabled && <ArrowUpRight className="w-5 h-5" />}
+                </button>
+              </div>
+            );
+          })}
         </div>
 
         {/* Contact Section */}

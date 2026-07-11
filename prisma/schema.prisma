@@ -22,11 +22,27 @@ model User {
   subscriptionEndsAt  DateTime?
   subscriptionStatus  String?
   polarCustomerId     String?
-  polarSubscriptionId String?      @unique
+  polarSubscriptionId String?          @unique
   generations         Generation[]
   images              UserImage[]
+  creditPurchases     CreditPurchase[]
 
   @@map("users")
+}
+
+model CreditPurchase {
+  id             String   @id @default(cuid())
+  userId         String
+  polarOrderId   String   @unique
+  productId      String
+  packName       String
+  creditsGranted Int
+  amountCents    Int
+  createdAt      DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("credit_purchases")
 }
 
 model Preset {

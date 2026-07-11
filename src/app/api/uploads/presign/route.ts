@@ -28,19 +28,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 3. Get user info for tier-based limits
+    // 3. Get user info for credit checks
     const { prisma } = await import('@/lib/prisma');
     const user = await prisma.user.findUnique({
       where: { clerkId: userId },
-      select: { id: true, tier: true, credits: true }
+      select: { id: true, credits: true }
     });
 
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    // 4. Validate file type and size based on user tier
-    const validation = validateUpload(mimeType, fileSize, user.tier);
+    // 4. Validate file type and size
+    const validation = validateUpload(mimeType, fileSize);
     if (!validation.valid) {
       return NextResponse.json({ error: validation.error }, { status: 400 });
     }

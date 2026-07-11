@@ -4,6 +4,10 @@ import { getImageQueue } from '@/lib/queue';
 
 export const runtime = 'nodejs';
 
+// Flat per-user cap on concurrent (QUEUED/RUNNING) generations, independent
+// of credit balance - just a resource-abuse guard, not a monetization lever.
+const MAX_CONCURRENT_GENERATIONS = 3;
+
 export async function GET(req: NextRequest) {
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ error: 'unauthenticated' }, { status: 401 });
@@ -65,7 +69,7 @@ export async function POST(req: NextRequest) {
       if (existing) return NextResponse.json({ jobId: existing.id });
     }
 
-    // 2) Get user tier for in-flight limits
+    // 2) Get user for in-flight limits / credit checks
     const user = await prisma.user.findUnique({ where: { clerkId: userId } });
     if (!user) return NextResponse.json({ error: 'user_not_found' }, { status: 404 });
 
@@ -88,23 +92,7 @@ export async function POST(req: NextRequest) {
       where: { userId: user.id, status: { in: ['QUEUED', 'RUNNING'] } }
     });
 
-    // Set caps based on user tier: FREE=1, PRO=2, CREATOR=100
-    let cap: number;
-    switch (user.tier) {
-      case 'CREATOR':
-        // cap = 10;
-        cap = 100; //for Testing
-        break;
-      case 'PRO':
-        cap = 2;
-        break;
-      case 'FREE':
-      default:
-        cap = 1;
-        break;
-    }
-
-    if (inflight >= cap) {
+    if (inflight >= MAX_CONCURRENT_GENERATIONS) {
       return NextResponse.json({ error: 'too_many_in_flight' }, { status: 409 });
     }
 

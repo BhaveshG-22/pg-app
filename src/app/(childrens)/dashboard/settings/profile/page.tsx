@@ -1,9 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import {
-  CreditCard,
   FileText,
   Package,
   RefreshCw,
@@ -13,19 +10,6 @@ import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { CustomerPortalButton } from "@/components/CustomerPortalButton";
-
-const PLAN_PRICES: Record<string, string> = {
-  FREE: "$0",
-  PRO: "$4.99",
-  CREATOR: "$14.99",
-};
-
-const PLAN_NAMES: Record<string, string> = {
-  FREE: "Free",
-  PRO: "Pro",
-  CREATOR: "Creator",
-};
 
 export default async function UserBilling() {
   const { userId } = await auth();
@@ -38,12 +22,13 @@ export default async function UserBilling() {
   const user = await prisma.user.findUnique({
     where: { clerkId: userId },
     select: {
-      tier: true,
       credits: true,
       totalCreditsUsed: true,
-      subscriptionStatus: true,
-      subscriptionEndsAt: true,
       createdAt: true,
+      creditPurchases: {
+        orderBy: { createdAt: "desc" },
+        take: 20,
+      },
     },
   });
 
@@ -51,67 +36,41 @@ export default async function UserBilling() {
     redirect("/sign-in");
   }
 
-  const planName = PLAN_NAMES[user.tier] || user.tier;
-  const planPrice = PLAN_PRICES[user.tier] || "$0";
-  const isActive = user.subscriptionStatus === "active";
-  const isCancelled = user.subscriptionStatus === "cancelled";
-  const isFree = user.tier === "FREE";
   return (
     <div className="container mx-auto px-4 py-6 md:px-6 2xl:max-w-[1400px]">
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row">
           <div>
-            <h1 className="text-2xl font-semibold">Billing & Subscription</h1>
+            <h1 className="text-2xl font-semibold">Billing</h1>
             <p className="text-muted-foreground text-sm">
-              Manage your subscription and billing details
+              Your credit balance and purchase history
             </p>
           </div>
-          {!isFree && <CustomerPortalButton />}
+          <Button asChild>
+            <Link href="/pricing">Buy More Credits</Link>
+          </Button>
         </div>
 
-        {/* Current Plan */}
+        {/* Credit Balance */}
         <Card className="mb-8 p-0">
           <CardContent className="p-6">
-            <div className="flex flex-col items-start justify-between gap-6 sm:flex-row">
-              <div>
-                <div className="flex items-center gap-2">
-                  <Package className="text-primary size-5" />
-                  <h2 className="text-lg font-semibold">{planName} Plan</h2>
-                  <Badge>{isFree ? "Free" : "Current Plan"}</Badge>
-                  {isCancelled && <Badge variant="destructive">Cancelled</Badge>}
-                </div>
-                <p className="text-muted-foreground mt-1 text-sm">
-                  {isFree ? (
-                    "Free plan with 20 credits per month"
-                  ) : (
-                    <>
-                      {planPrice}/month
-                      {isActive && user.subscriptionEndsAt && (
-                        <> • Renews on {new Date(user.subscriptionEndsAt).toLocaleDateString()}</>
-                      )}
-                      {isCancelled && user.subscriptionEndsAt && (
-                        <> • Expires on {new Date(user.subscriptionEndsAt).toLocaleDateString()}</>
-                      )}
-                    </>
-                  )}
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <Button variant="outline" asChild>
-                  <Link href="/pricing">
-                    {isFree ? "Upgrade Plan" : "Change Plan"}
-                  </Link>
-                </Button>
-                {!isFree && isActive && (
-                  <Button variant="destructive" disabled>
-                    Cancel Plan
-                  </Button>
-                )}
-              </div>
+            <div className="flex items-center gap-2 mb-6">
+              <Package className="text-primary size-5" />
+              <h2 className="text-lg font-semibold">Credit Balance</h2>
             </div>
 
-            <div className="mt-6 space-y-4">
+            <div className="space-y-4">
+              <div>
+                <div className="mb-2 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <RefreshCw className="text-primary size-4" />
+                    <span className="text-sm font-medium">Credits Remaining</span>
+                  </div>
+                  <span className="text-sm font-semibold">{user.credits}</span>
+                </div>
+              </div>
+
               <div>
                 <div className="mb-2 flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -121,70 +80,50 @@ export default async function UserBilling() {
                   <span className="text-sm">{user.totalCreditsUsed} total</span>
                 </div>
               </div>
-
-              <div>
-                <div className="mb-2 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <RefreshCw className="text-primary size-4" />
-                    <span className="text-sm font-medium">Credits Remaining</span>
-                  </div>
-                  <span className="text-sm">{user.credits} credits</span>
-                </div>
-                <Progress value={(user.credits / 100) * 100} className="h-2" />
-              </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Payment Method - Only show for paid plans */}
-        {!isFree && (
-          <Card className="mb-8 p-0">
-            <CardContent className="p-6">
-              <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
-                <div className="space-y-1">
-                  <h2 className="text-lg font-semibold">Payment Method</h2>
-                  <div className="flex items-center gap-2">
-                    <CreditCard className="text-muted-foreground size-4" />
-                    <span className="text-muted-foreground text-sm">
-                      Managed by Polar
-                    </span>
-                  </div>
-                  <p className="text-muted-foreground text-xs mt-2">
-                    View invoices, update payment method, and manage your subscription
-                  </p>
-                </div>
-                <CustomerPortalButton />
-              </div>
-            </CardContent>
-          </Card>
-        )}
+        {/* Purchase History */}
+        <Card className="p-0">
+          <CardContent className="p-6">
+            <div className="mb-6">
+              <h2 className="text-lg font-semibold">Purchase History</h2>
+              <p className="text-muted-foreground text-sm mt-1">
+                Your one-time credit pack purchases
+              </p>
+            </div>
 
-        {/* Billing History */}
-        {!isFree && (
-          <Card className="p-0">
-            <CardContent className="p-6">
-              <div className="mb-6 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-                <div>
-                  <h2 className="text-lg font-semibold">Billing History</h2>
-                  <p className="text-muted-foreground text-sm mt-1">
-                    View your invoices and payment history in the customer portal
-                  </p>
-                </div>
-                <CustomerPortalButton />
-              </div>
-
+            {user.creditPurchases.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">
                 <FileText className="mx-auto size-12 mb-2 opacity-50" />
-                <p className="text-sm">
-                  All invoices and billing details are managed through the Polar customer portal.
-                </p>
-                <p className="text-xs mt-2">
-                  Click &quot;Manage Subscription&quot; above to access your complete billing history.
-                </p>
+                <p className="text-sm">No purchases yet.</p>
               </div>
-            </CardContent>
-          </Card>
-        )}
+            ) : (
+              <div className="space-y-3">
+                {user.creditPurchases.map((purchase) => (
+                  <div
+                    key={purchase.id}
+                    className="flex items-center justify-between border-b border-border pb-3 last:border-0 last:pb-0"
+                  >
+                    <div>
+                      <p className="text-sm font-medium">{purchase.packName} Pack</p>
+                      <p className="text-muted-foreground text-xs">
+                        {new Date(purchase.createdAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-medium">+{purchase.creditsGranted} credits</p>
+                      <p className="text-muted-foreground text-xs">
+                        ${(purchase.amountCents / 100).toFixed(2)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

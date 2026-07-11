@@ -20,8 +20,6 @@ import {
   Images,
   CreditCard,
   ShoppingCart,
-  BarChart3,
-  Crown,
   Bell,
   Upload,
 } from "lucide-react"
@@ -88,18 +86,8 @@ const getNavigationData = (studioItems: any[]) => ({
       items: [
         {
           title: "Buy Credits",
-          url: "/dashboard/credits/buy",
-          icon: ShoppingCart,
-        },
-        {
-          title: "Usage",
-          url: "/dashboard/credits/usage",
-          icon: BarChart3,
-        },
-        {
-          title: "Pricing",
           url: "/pricing",
-          icon: Crown,
+          icon: ShoppingCart,
         },
       ],
     },

@@ -7,8 +7,7 @@ import {
   ChevronsUpDown,
   CreditCard,
   LogOut,
-  Sparkles,
-  Crown,
+  Zap,
 } from "lucide-react"
 
 import {
@@ -46,7 +45,6 @@ export function NavbarUser({
     name: string
     email: string
     avatar: string
-    tier: string
   }
 }) {
   const [showSignOutDialog, setShowSignOutDialog] = useState(false)
@@ -100,21 +98,15 @@ export function NavbarUser({
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {user.tier !== 'CREATOR' && (
-          <>
-            <DropdownMenuGroup>
-              <DropdownMenuItem asChild>
-                <Link href="/pricing">
-                  {user.tier === 'FREE' && <Sparkles />}
-                  {user.tier === 'PRO' && <Crown />}
-                  {user.tier === 'FREE' && 'Upgrade to Pro'}
-                  {user.tier === 'PRO' && 'Upgrade to Creator'}
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-          </>
-        )}
+        <DropdownMenuGroup>
+          <DropdownMenuItem asChild>
+            <Link href="/pricing">
+              <Zap />
+              Buy Credits
+            </Link>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>

@@ -186,16 +186,14 @@ export async function uploadAndProcess(options: UploadOptions & Omit<ConfirmUplo
   }
 }
 
+// Flat upload size limit for everyone (in bytes) - no more tier-based tiers.
+const MAX_UPLOAD_SIZE_BYTES = 20 * 1024 * 1024; // 20MB
+
 /**
  * Validate file before upload
  */
-export function validateFile(file: File, userTier: 'FREE' | 'PRO' | 'CREATOR' = 'FREE') {
+export function validateFile(file: File) {
   const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-  const sizeLimits = {
-    FREE: 5 * 1024 * 1024,      // 5MB
-    PRO: 20 * 1024 * 1024,      // 20MB
-    CREATOR: 50 * 1024 * 1024 // 50MB
-  };
 
   if (!allowedTypes.includes(file.type)) {
     return {
@@ -204,11 +202,10 @@ export function validateFile(file: File, userTier: 'FREE' | 'PRO' | 'CREATOR' = 
     };
   }
 
-  const maxSize = sizeLimits[userTier];
-  if (file.size > maxSize) {
+  if (file.size > MAX_UPLOAD_SIZE_BYTES) {
     return {
       valid: false,
-      error: `File too large. Maximum size for ${userTier} tier is ${maxSize / (1024 * 1024)}MB.`,
+      error: `File too large. Maximum size is ${MAX_UPLOAD_SIZE_BYTES / (1024 * 1024)}MB.`,
     };
   }
 
