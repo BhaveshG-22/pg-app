@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowUpRight, Zap } from 'lucide-react';
+import { ArrowUpRight, Check, Star, Zap } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 type CreditPack = {
@@ -10,6 +10,7 @@ type CreditPack = {
   credits: number;
   priceLabel: string;
   badge: string | null;
+  features: string[];
   productId: string;
 };
 
@@ -95,11 +96,14 @@ export default function PricingClient({
                 {/* Badge */}
                 {pack.badge && (
                   <div className="absolute -top-3 right-6">
-                    <span className={`px-4 py-1 rounded-full text-xs font-bold ${
+                    <span className={`inline-flex items-center gap-1 px-4 py-1 rounded-full text-xs font-bold ${
                       pack.badge === 'Most Popular'
                         ? 'bg-white text-gray-900'
                         : 'bg-gradient-to-r from-green-500 to-emerald-600 text-white'
                     }`}>
+                      {pack.badge === 'Most Popular' && (
+                        <Star className="w-3 h-3 fill-current" />
+                      )}
                       {pack.badge}
                     </span>
                   </div>
@@ -117,6 +121,16 @@ export default function PricingClient({
                   </div>
                 </div>
 
+                {/* Features */}
+                <ul className="mb-6 space-y-2">
+                  {pack.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2 text-sm text-gray-300">
+                      <Check className="w-4 h-4 text-green-400 mt-0.5 shrink-0" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
                 {/* CTA Button */}
                 <button
                   onClick={() => handleBuy(pack)}
@@ -128,7 +142,7 @@ export default function PricingClient({
                         ? 'bg-gray-800 text-gray-600 cursor-not-allowed opacity-50'
                         : pack.badge === 'Most Popular'
                           ? 'bg-white text-gray-900 hover:bg-gray-100'
-                          : pack.badge === 'Best Value'
+                          : pack.key === 'bulk'
                             ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700'
                             : 'bg-gray-800 text-white hover:bg-gray-700 border border-gray-700'
                   }`}
@@ -140,6 +154,11 @@ export default function PricingClient({
             );
           })}
         </div>
+
+        {/* Footnote */}
+        <p className="text-center text-xs text-gray-500 mt-6">
+          *See our <a href="/terms" className="underline hover:text-gray-400">Terms</a> for details on credit validity.
+        </p>
 
         {/* Contact Section */}
         <div className="text-center mt-12">
