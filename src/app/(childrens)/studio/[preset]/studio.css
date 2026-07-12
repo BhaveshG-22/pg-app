@@ -1,12 +1,14 @@
 .studio-redesign {
-  --ink: #0c0c11;
-  --graphite: #15151c;
-  --graphite-2: #1b1b24;
-  --line: #26262f;
-  --paper: #f4f4f7;
-  --fog: #9ca0ae;
-  --red: #e5453c;
-  --red-deep: #c6382f;
+  /* Mirrors the app's own dark theme tokens (src/app/globals.css .dark)
+     instead of a bespoke palette, so this page doesn't stand out. */
+  --ink: #010101; /* --content-bg */
+  --graphite: #434343; /* --card / --popover */
+  --graphite-2: #434343; /* --input */
+  --line: #434343; /* --border */
+  --paper: #d8d8d8; /* --foreground */
+  --fog: #939393; /* --muted-foreground */
+  --red: #2563eb; /* --primary */
+  --red-deep: #1d4ed8; /* darker primary for hover */
   --radius: 16px;
 
   background: var(--ink);
