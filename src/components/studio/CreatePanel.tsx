@@ -123,7 +123,7 @@ export function CreatePanel({
                 <p className="text-xs text-[var(--fog)]">{formatSize(selectedFileSize)}</p>
               ) : null}
             </div>
-            <label className="text-sm font-medium text-[var(--red)] cursor-pointer flex-shrink-0">
+            <label className="text-sm font-medium text-[var(--red)] cursor-pointer flex-shrink-0 rounded-md border border-[var(--red)] px-3 py-1.5 hover:bg-[var(--red)] hover:text-white transition-colors">
               Change
               <input type="file" accept="image/*" className="hidden" onChange={handleFileInput} />
             </label>
