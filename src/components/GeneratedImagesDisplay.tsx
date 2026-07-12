@@ -77,7 +77,7 @@ export default function GeneratedImagesDisplay({
           {images.map((image, index) => (
             <div
               key={image.id || index}
-              className="studio-gallery-card group relative aspect-square bg-gray-700 rounded-lg overflow-hidden cursor-pointer transition-all hover:ring-2 hover:ring-blue-500"
+              className="studio-gallery-card group relative aspect-square bg-gray-700 rounded-lg overflow-hidden cursor-pointer transition-all hover:ring-2 hover:ring-[var(--red)]"
               onClick={() => setSelectedIndex(index)}
             >
               <Image
@@ -183,7 +183,7 @@ export default function GeneratedImagesDisplay({
               <Button
                 size="sm"
                 onClick={() => onDownload(images[selectedIndex].url, selectedIndex)}
-                className="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2"
+                className="bg-[var(--red)] hover:bg-[var(--red-deep)] text-white text-xs sm:text-sm px-2 sm:px-3 py-1 sm:py-2"
               >
                 <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                 <span className="hidden sm:inline">Download</span>
