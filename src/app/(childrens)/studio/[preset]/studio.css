@@ -1,8 +1,8 @@
 .studio-redesign {
   /* Mirrors the app's own dark theme tokens (src/app/globals.css .dark)
      instead of a bespoke palette, so this page doesn't stand out. */
-  --ink: #010101; /* --content-bg */
-  --graphite: #434343; /* --card / --popover */
+  --ink: #0c0c10;
+  --graphite: #15151c;
   --graphite-2: #434343; /* --input */
   --line: #434343; /* --border */
   --paper: #d8d8d8; /* --foreground */
