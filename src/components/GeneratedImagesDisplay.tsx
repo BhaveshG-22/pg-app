@@ -16,12 +16,14 @@ interface GeneratedImagesDisplayProps {
   images: GeneratedImage[];
   onDownload: (imageUrl: string, index: number) => void;
   className?: string;
+  gridClassName?: string;
 }
 
 export default function GeneratedImagesDisplay({
   images,
   onDownload,
-  className
+  className,
+  gridClassName
 }: GeneratedImagesDisplayProps) {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null);
 
@@ -53,8 +55,9 @@ export default function GeneratedImagesDisplay({
           </div>
           <div>
             <h3 className="text-base sm:text-lg font-medium text-white mb-2">Your Generated Images</h3>
-            <p className="text-gray-400 text-xs sm:text-sm">Images saved for 7 days. Upgrade to keep forever!</p>
-            <p className="text-gray-500 text-xs mt-2">Generate your first masterpiece!</p>
+            <p className="text-gray-400 text-xs sm:text-sm">
+              Nothing here yet — generate your first image and it lands right here.
+            </p>
           </div>
         </div>
       </div>
@@ -70,11 +73,11 @@ export default function GeneratedImagesDisplay({
         </div>
 
         {/* Grid Layout */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-2 sm:gap-3">
+        <div className={cn("grid gap-2 sm:gap-3", gridClassName || "grid-cols-2 sm:grid-cols-3 md:grid-cols-3")}>
           {images.map((image, index) => (
             <div
               key={image.id || index}
-              className="group relative aspect-square bg-gray-700 rounded-lg overflow-hidden cursor-pointer transition-all hover:ring-2 hover:ring-blue-500"
+              className="studio-gallery-card group relative aspect-square bg-gray-700 rounded-lg overflow-hidden cursor-pointer transition-all hover:ring-2 hover:ring-blue-500"
               onClick={() => setSelectedIndex(index)}
             >
               <Image

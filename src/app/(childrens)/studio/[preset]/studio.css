@@ -1,0 +1,250 @@
+.studio-redesign {
+  --ink: #0c0c11;
+  --graphite: #15151c;
+  --graphite-2: #1b1b24;
+  --line: #26262f;
+  --paper: #f4f4f7;
+  --fog: #9ca0ae;
+  --red: #e5453c;
+  --red-deep: #c6382f;
+  --radius: 16px;
+
+  background: var(--ink);
+  color: var(--paper);
+  min-height: 100%;
+}
+
+.studio-redesign *:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+/* ---- layout ---- */
+
+.studio-grid {
+  display: grid;
+  grid-template-columns: 1fr 372px;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (max-width: 1020px) {
+  .studio-grid {
+    grid-template-columns: 1fr;
+  }
+  .studio-panel {
+    position: static !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .studio-container {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+}
+
+.studio-panel {
+  background: var(--graphite);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* ---- chips ---- */
+
+.studio-chip {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--fog);
+  white-space: nowrap;
+}
+
+.studio-chip.studio-chip-accent {
+  border-color: var(--red);
+  background: var(--red);
+  color: #fff;
+}
+
+/* ---- before/after comparison slider ---- */
+
+.compare {
+  --pos: 50%;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--graphite);
+  box-shadow: 0 22px 60px -28px rgba(0, 0, 0, 0.85);
+  touch-action: none;
+  user-select: none;
+}
+
+.compare .layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.compare .layer.before {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+.compare .divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  background: rgba(255, 255, 255, 0.92);
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), 0 0 18px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.compare .grip {
+  position: absolute;
+  top: 50%;
+  left: var(--pos);
+  transform: translate(-50%, -50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  cursor: ew-resize;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  border: none;
+}
+
+.compare .grip svg {
+  width: 18px;
+  height: 18px;
+}
+
+.compare .grip.hint::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  animation: studio-pulse 1.6s ease-out infinite;
+}
+
+@keyframes studio-pulse {
+  from {
+    transform: scale(0.8);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.compare .tag {
+  position: absolute;
+  top: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.compare .before-tag {
+  left: 14px;
+  background: rgba(10, 10, 14, 0.62);
+  color: #d6d8df;
+  backdrop-filter: blur(4px);
+}
+
+.compare .after-tag {
+  right: 14px;
+  background: var(--red);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .compare .grip.hint::after {
+    animation: none;
+  }
+}
+
+/* ---- example switcher ---- */
+
+.studio-example-thumb {
+  width: 104px;
+  height: 70px;
+  border-radius: 12px;
+  border: 2px solid var(--line);
+  overflow: hidden;
+  flex-shrink: 0;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+}
+
+.studio-example-thumb.active {
+  border-color: var(--red);
+}
+
+.studio-example-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- dropzone ---- */
+
+.studio-dropzone {
+  border: 2px dashed #34343f;
+  border-radius: 12px;
+  padding: 28px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.studio-dropzone.drag-over {
+  border-color: var(--red);
+  background: rgba(229, 69, 60, 0.05);
+}
+
+/* ---- results gallery ---- */
+
+.studio-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(236px, 1fr));
+  gap: 16px;
+}
+
+.studio-gallery-card {
+  animation: studio-pop-in 0.35s ease-out both;
+}
+
+@keyframes studio-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .studio-gallery-card {
+    animation: none;
+  }
+}
