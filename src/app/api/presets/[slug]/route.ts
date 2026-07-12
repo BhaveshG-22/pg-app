@@ -42,22 +42,27 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       )
     }
 
-    // Get transformations only for the current preset
+    // Get transformations only for the current preset.
+    // slider_img entries can be stored as either a [before, after] tuple or a
+    // { before, after } object - accept both. Skip pairs where before/after are
+    // identical (placeholder data with no real transformation to show).
     const transformations = []
     if (preset.slider_img && Array.isArray(preset.slider_img)) {
-      transformations.push(...preset.slider_img
-        .filter((example): example is [string, string] =>
-          Array.isArray(example) &&
-          example.length === 2 &&
-          typeof example[0] === 'string' &&
-          typeof example[1] === 'string'
-        )
-        .map((example) => ({
-          before: example[0],
-          after: example[1],
-          title: preset.title
-        }))
-      )
+      for (const example of preset.slider_img) {
+        let before: unknown
+        let after: unknown
+
+        if (Array.isArray(example) && example.length === 2) {
+          [before, after] = example
+        } else if (example && typeof example === 'object') {
+          before = (example as Record<string, unknown>).before
+          after = (example as Record<string, unknown>).after
+        }
+
+        if (typeof before === 'string' && typeof after === 'string' && before !== after) {
+          transformations.push({ before, after, title: preset.title })
+        }
+      }
     }
 
     return NextResponse.json({
